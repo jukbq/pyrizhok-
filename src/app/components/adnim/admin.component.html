@@ -1,0 +1,19 @@
+<section>
+
+    <div class="text-center">
+        <h1>Кабінет адміністратора</h1>
+    </div>
+    <ul class="admin_menu">
+        <li [routerLink]="[ item.link ]" routerLinkActive="active" *ngFor="let item of list"
+            (click)="onSelectItem(item)" [class.active]="item == activeItem">
+            <p class="nav-link">{{item.name}}</p>
+        </li>
+        <li>
+            <p (click)="logout()">ВИЙТИ</p>
+        </li>
+    </ul>
+    <div class="aadmin_category">
+        <router-outlet></router-outlet>
+    </div>
+
+</section>

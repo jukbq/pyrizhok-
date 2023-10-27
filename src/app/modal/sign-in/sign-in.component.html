@@ -1,0 +1,25 @@
+<form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="modal-content">
+    <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
+
+    <div class="title">Вхід</div>
+
+    <div class="modal-body">
+        <input formControlName="email" name="email" type="text" [class.input-error]="shouldShowError('email')"
+            class="form-control" id="email" placeholder="*Ввкдіть свій еmail:">
+        <br>
+        <input formControlName="password" name="password" type="password"
+            [class.input-error]="shouldShowError('password')" class="form-control" id="password"
+            placeholder="*Введіть пароль:">
+    </div>
+
+    <div class="login_button">
+        <button [disabled]="loginForm.invalid" type="submit" class="btn">
+            <span>Увійти</span>
+            <i></i>
+        </button>
+        <div class="popup-links-wrapper">
+            <a class="open-popup" data-rel="2">Забули пароль?</a>
+            <div>Ще не зареєстровані? <a class="open-popup" (click)="sighUpMaoal()">Зареєструватися</a></div>
+        </div>
+    </div>
+</form>

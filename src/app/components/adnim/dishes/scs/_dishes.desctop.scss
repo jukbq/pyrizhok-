@@ -1,0 +1,170 @@
+section {
+    width: 80vw;
+    padding: 20px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background: var(--clr-green);
+
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+
+        thead {
+            width: 100%;
+
+            tr {
+                border-bottom: var(--clr-grey);
+            }
+
+        }
+
+        &.active {
+            display: none;
+        }
+
+        tbody {
+            tr {
+                .image {
+                    width: 80px;
+                    height: 70px;
+                    overflow: hidden;
+
+                    img {
+                        height: 100%;
+                    }
+                }
+
+                .btn_tr {
+                    width: 45px;
+                    display: flex;
+                    flex-direction: column;
+                    border-bottom: none;
+
+                    a {
+                        padding: 5px;
+                        overflow: hidden;
+
+                        img {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .form_conteiner {
+        &.active {
+            display: none;
+        }
+
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+
+
+        .form_category {
+            width: 50%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 20px;
+
+            .input_section {
+                width: 100%;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 30px;
+
+                input {
+                    width: 90%;
+                    margin-top: 20px;
+                    height: auto;
+                }
+            }
+
+            .form-floating,
+            .load_file {
+                margin-top: 20px;
+            }
+
+            .progress_line {
+                margin-top: 36px;
+                width: 100%;
+
+                .progress {
+                    width: 100%;
+                }
+            }
+
+            .image_block {
+                width: 48%;
+                height: auto;
+                position: relative;
+                margin-top: 19px;
+
+                .image {
+                    max-width: 750px;
+                    height: 100%;
+                    overflow: hidden;
+
+                    img {
+                        height: 400px;
+                    }
+
+                    margin-bottom: 30px;
+                }
+
+                .btn {
+                    width: 175px;
+                    height: 52px;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                }
+            }
+
+            .batton_section {
+                width: 90%;
+                margin-top: 20px;
+                height: auto;
+                display: flex;
+                justify-content: space-between;
+
+                .btn {
+                    width: 40%;
+                }
+            }
+        }
+
+
+    }
+
+
+
+
+
+}

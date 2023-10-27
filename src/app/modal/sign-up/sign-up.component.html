@@ -1,0 +1,45 @@
+<form [formGroup]="sighUoForn" (ngSubmit)="userRegister()" class="modal-content">
+    <div type="button" class="btn-close" (click)="close()" aria-label="Закрити"></div>
+    <h3 class="modal-title">Вхід в кабінет</h3>
+    <div class="modal-body">
+        <div class="user_name">
+            <input formControlName="firstname" name="firstname" type="text" class="form-control"
+                placeholder="*Ваше ім`я">
+            <input formControlName="lastname" name="lastname" type="text" class="form-control"
+                placeholder="*Ваше прізвище">
+        </div>
+        <br>
+        <div class="user_contact">
+            <input formControlName="birthdate" name="birthdate" type="date" class="form-control birthdate"
+                placeholder="Дата народження">
+            <p>Якщо це поле не буде заповнено, то ви не зможете отримувати додаткові бонуси до Дня Вашого народження</p>
+
+            <input formControlName="phone" name="phone" type="number" class="form-control" placeholder="Ваше телефон:">
+            <br>
+            <input formControlName="email" name="email" type="text" class="form-control" placeholder="Ваш email:">
+        </div>
+        <br>
+        <div class="user_pass">
+            <input formControlName="password" name="password" type="password" class="form-control"
+                placeholder="Пароль:">
+            <input formControlName="password2" name="password2" type="password" class="form-control"
+                placeholder="Повторыть пароль:">
+
+            <span *ngIf="errorPass">Введені паролі не співпадають</span>
+        </div>
+    </div>
+    <label class="checkbox-entry">
+        <input type="checkbox" name="agree">
+        <span>
+            Я погоджуюсь з
+            <a href="#">Правилами користування</a>
+        </span>
+    </label>
+    <button [disabled]="sighUoForn.invalid" class="btn " type="submit">
+        <span>Зареєструватись</span>
+        <i></i>
+    </button>
+    <div class="popup-links-wrapper justify-content-center">
+        <div>Вже зареєстровані? <a class="open-popup" (click)="sighInMaoal()">Увійти</a></div>
+    </div>
+</form>
