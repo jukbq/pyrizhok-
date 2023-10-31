@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { doc, setDoc } from '@angular/fire/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { Auth, createUserWithEmailAndPassword } from "@angular/fire/auth";
+import { Firestore, doc, setDoc } from "@angular/fire/firestore";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { SignInComponent } from "../sign-in/sign-in.component";
 
-import { Firestore } from 'firebase/firestore';
-import { SignInComponent } from '../sign-in/sign-in.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -51,7 +50,7 @@ export class SignUpComponent {
       console.log('Введені паролі не співпадають');
     } else {
       const { email, password } = this.sighUoForn.value;
-      this.enailSighUp(email, password)
+      this.emailSighUp(email, password)
         .then(() => {
           console.log('Користувача успішно зареэстровано');
           this.active();
@@ -62,7 +61,7 @@ export class SignUpComponent {
     }
   }
 
-  async enailSighUp(email: string, password: string): Promise<any> {
+  async emailSighUp(email: string, password: string): Promise<any> {
     const userReg = await createUserWithEmailAndPassword(
       this.auth,
       email,
@@ -74,20 +73,21 @@ export class SignUpComponent {
       password: password,
       firstName: this.sighUoForn.value.firstname,
       lastName: this.sighUoForn.value.lastname,
-      phone: this.sighUoForn.value.phone,
       birthdate: this.sighUoForn.value.birthdate,
       role: 'USER',
-      userBonus: 0,
     };
     await setDoc(doc(this.afs, 'users', userReg.user.uid), user);
     localStorage.setItem('curentUser', JSON.stringify(user));
-
-
   }
+
 
   active(): void {
     this.close();
     window.location.href = '/user';
+  }
+
+  close(): void {
+    this.dialogRef.close();
   }
 
   sighInMaoal(): void {
@@ -97,7 +97,5 @@ export class SignUpComponent {
     });
   }
 
-  close(): void {
-    this.dialogRef.close();
-  }
+
 }

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="header-top ">
             <ul class="nav header-links">
-                <li *ngFor="let item of list">
+                <li *ngFor="let item of topMenu">
                     <a class="nav-link">{{item.name}}</a>
                 </li>
 
@@ -20,12 +20,11 @@
 
             <div class="menu-list">
                 <ul>
-                    <li class="menu-item" *ngFor="let menu of menuArr; 
-                                 let isFirst = first" [routerLink]="[menu.menuLink]" [fragment]="menu.menuLink"
-                        [class.active]="menuLink === menu.menuLink">
+                    <li class="menu-item" *ngFor="let menu of bpttomMenu; 
+                                 let isFirst = first" [routerLink]="[menu.link]" [fragment]="menu.link"
+                        [class.active]="menuLink === menu.link">
                         <a>
-                            {{ menu.menuName }}
-                            <img src="{{ menu.menuImages }}">
+                            {{ menu.name }}
                         </a>
                     </li>
                 </ul>

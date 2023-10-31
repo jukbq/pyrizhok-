@@ -4,29 +4,40 @@ import { MatDialog } from '@angular/material/dialog';
 import { Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SignInComponent } from 'src/app/modal/sign-in/sign-in.component';
-import { SignUpComponent } from 'src/app/modal/sign-up/sign-up.component';
 import { ROLE } from 'src/app/shared/guard/role.constant';
 import { DishesResponse } from 'src/app/shared/interfaces/dishes';
 import { DishesService } from 'src/app/shared/service/dishes/dishes.service';
 import { FavoritesService } from 'src/app/shared/service/favorites/favorites.service';
 import { HeaderService } from 'src/app/shared/service/header/header.service';
-const LIST: any[] = [
+
+
+const TopMenuLIST: any[] = [
   { name: 'Про нас', link: 'about-us' },
   { name: 'Доставка та оплата', link: 'delivery-and-payment' },
   { name: 'Акції', link: 'actions' },
   { name: 'Контакти', link: 'contacts' },
   { name: 'Вакансії', link: 'vacancies' },
+];
+
+const bpttomMenuLIST: any[] = [
+  { name: 'Головна', link: 'main' },
+  { name: 'Рецепти', link: 'recipes' },
+  { name: 'Про продукти', link: 'about-products' },
+  { name: 'Про кухню', link: 'about-kitchen' },
 
 ];
+
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  public list: any[] = LIST;
+  public topMenu: any[] = TopMenuLIST;
+  public bpttomMenu: any[] = bpttomMenuLIST;
   public menuArr: any[] = [];
-  public menuLink = 'pizza';
+  public menuLink = 'main';
   public favoritGoods = 0;
   public isLogin = false;
   public loginUrl = '';
@@ -133,7 +144,7 @@ export class HeaderComponent {
   }
 
   sighInModal(): void {
-    let sighIn = this.dialog.open(SignUpComponent, {
+    let sighIn = this.dialog.open(SignInComponent, {
       panelClass: 'sigh_maoa_dialog',
     });
     console.log(sighIn);

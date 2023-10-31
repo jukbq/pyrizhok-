@@ -36,7 +36,6 @@ import { SignInComponent } from './modal/sign-in/sign-in.component';
 import { HeaderService } from './shared/service/header/header.service';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +43,8 @@ import { HeaderService } from './shared/service/header/header.service';
     AdminComponent,
     HomeComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+
   ],
   imports: [
     BrowserModule,

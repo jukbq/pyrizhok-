@@ -8,105 +8,102 @@ import {
   Storage,
   uploadBytesResumable,
 } from '@angular/fire/storage';
-
-import { DishesResponse } from 'src/app/shared/interfaces/dishes';
-import { DishesService } from 'src/app/shared/service/dishes/dishes.service';
+import { СuisineResponse } from 'src/app/shared/interfaces/cuisine';
+import { CuisineService } from 'src/app/shared/service/cuisine/cuisine.service';
 import { ViewportScroller } from '@angular/common';
 
 @Component({
-  selector: 'app-dishes',
-  templateUrl: './dishes.component.html',
-  styleUrls: ['./dishes.component.scss']
+  selector: 'app-cuisine',
+  templateUrl: './cuisine.component.html',
+  styleUrls: ['./cuisine.component.scss']
 })
-export class DishesComponent {
+export class CuisineComponent {
   public active_form = false;
-  public dishes: Array<DishesResponse> = [];
-  public dishes_edit_status = false;
-  public dishesForm!: FormGroup;
-  private dishesID!: number | string;
+  public cuisine: Array<СuisineResponse> = [];
+  public cuisineForm!: FormGroup;
+  public cuisine_edit_status = false;
+  public cuisineID!: number | string;
   public uploadPercent!: number;
-
 
   constructor(
     private formBuild: FormBuilder,
     private storsgeIcon: Storage,
-    private dishesService: DishesService,
+    private cuisineService: CuisineService,
     private viewportScroller: ViewportScroller
   ) { }
 
   ngOnInit(): void {
-    this.initDishesForm();
-    this.getDishes();
+    this.initCuisineForm();
+    this.getCuisine();
   }
 
 
   // Ініціалізація форми для страв
-  initDishesForm(): void {
-    this.dishesForm = this.formBuild.group({
-      dishesindex: [null, Validators.required],
-      dishesName: [null, Validators.required],
-      dishesLink: [null, Validators.required],
-      dishesImages: [null, Validators.required],
+  initCuisineForm(): void {
+    this.cuisineForm = this.formBuild.group({
+      cuisineName: [null, Validators.required],
+      cuisineLink: [null, Validators.required],
+      cuisineImages: [null],
     });
   }
 
   // Отримання даних з сервера
-  getDishes(): void {
-    this.dishesService.getAll().subscribe((data) => {
-      this.dishes = data as DishesResponse[];
+  getCuisine(): void {
+    this.cuisineService.getAll().subscribe((data) => {
+      this.cuisine = data as СuisineResponse[];
     });
   }
 
 
   // Додавання або редагування меню
-  creatDishes() {
-    if (this.dishes_edit_status) {
-      this.dishesService
-        .editdishes(this.dishesForm.value, this.dishesID as string)
+  creatCuisine() {
+    if (this.cuisine_edit_status) {
+      this.cuisineService
+        .editCuisine(this.cuisineForm.value, this.cuisineID as string)
         .then(() => {
-          this.getDishes();
+          this.getCuisine();
         });
     } else {
-      this.dishesService.addDishes(this.dishesForm.value).then(() => {
-        this.getDishes();
+      this.cuisineService.addCuisine(this.cuisineForm.value).then(() => {
+        this.getCuisine();
       });
     }
-    this.dishes_edit_status = false;
+    this.cuisine_edit_status = false;
     this.active_form = false;
-    this.dishesForm.reset();
+    this.cuisineForm.reset();
     this.viewportScroller.scrollToPosition([0, 0]);
   }
 
   // Редагування меню
-  editDishes(dishes: DishesResponse) {
-    this.dishesForm.patchValue({
-      dishesindex: dishes.dishesindex,
-      dishesName: dishes.dishesName,
-      dishesLink: dishes.dishesLink,
-      dishesImages: dishes.dishesImages,
+  editDishes(cuisine: СuisineResponse) {
+    this.cuisineForm.patchValue({
+      cuisineName: cuisine.cuisineName,
+      cuisineLink: cuisine.cuisineLink,
+      cuisineImages: cuisine.cuisineImages,
     });
     this.active_form = true;
-    this.dishes_edit_status = true;
-    this.dishesID = dishes.id;
+    this.cuisine_edit_status = true;
+    this.cuisineID = cuisine.id;
   }
 
+
   // Видалення пункту меню
-  delDishes(index: DishesResponse) {
-    const task = ref(this.storsgeIcon, index.dishesImages);
+  delDishes(index: СuisineResponse) {
+    const task = ref(this.storsgeIcon, index.cuisineImages);
     deleteObject(task);
-    this.dishesService.delDishes(index.id as string).then(() => {
-      this.getDishes();
+    this.cuisineService.delCuisine(index.id as string).then(() => {
+      this.getCuisine();
     });
   }
 
-  // Завантаження зображення для меню
+  // Завантаження зображення
   uploadDishesImage(actionImage: any): void {
     const file = actionImage.target.files[0];
-    this.loadFIle('dishes-icon', file.name, file)
+    this.loadFIle('cuisine-icon', file.name, file)
       .then((data) => {
         if (this.uploadPercent == 100) {
-          this.dishesForm.patchValue({
-            dishesImages: data,
+          this.cuisineForm.patchValue({
+            cuisineImages: data,
           });
         }
       })
@@ -143,11 +140,11 @@ export class DishesComponent {
 
   // Видалення зображення
   deleteImage(): void {
-    const task = ref(this.storsgeIcon, this.valueByControlDishes('dishesImages'));
+    const task = ref(this.storsgeIcon, this.valueByControlDishes('cuisineImages'));
     deleteObject(task).then(() => {
       console.log('File deleted');
       this.uploadPercent = 0;
-      this.dishesForm.patchValue({
+      this.cuisineForm.patchValue({
         dishesImages: '',
       });
     });
@@ -155,15 +152,16 @@ export class DishesComponent {
 
   // Отримання значення за назвою поля у формі меню
   valueByControlDishes(control: string): string {
-    return this.dishesForm.get(control)?.value;
+    return this.cuisineForm.get(control)?.value;
   }
 
 
-  onDishesNameInput(event: Event): void {
+
+  onCuisineNameInput(event: Event): void {
     const inputValue = (event.target as HTMLInputElement).value;
     const transcribedValue = this.transcribeToTranslit(inputValue);
-    this.dishesForm.patchValue({
-      dishesLink: transcribedValue
+    this.cuisineForm.patchValue({
+      cuisineLink: transcribedValue
     });
   }
 
@@ -172,5 +170,9 @@ export class DishesComponent {
     let transliteratedValue = transliteration.transliterate(input);
     transliteratedValue = transliteratedValue.replace(/\s+/g, '_');
     return transliteratedValue;
+
   }
+
 }
+
+
