@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./recipes.component.scss']
 })
 export class RecipesComponent {
+  public recipes_form = false
 
 }

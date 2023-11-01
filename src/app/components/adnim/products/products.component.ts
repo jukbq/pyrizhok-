@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   deleteObject,
   getDownloadURL,
@@ -14,6 +14,7 @@ import { ViewportScroller } from '@angular/common';
 
 
 const LIST: any[] = [
+
   { name: 'Овочі', link: 'vegetables' },
   { name: 'Фрукти', link: 'fruits' },
   { name: `М'ясо`, link: 'meat' },
@@ -33,14 +34,15 @@ const LIST: any[] = [
 export class ProductsComponent {
   public productsCategories: any[] = LIST;
   public active_form = false;
+  public toppings = new FormControl('');
+  public filteredProducts: any[] = [];
   public products: any[] = [];
   public productsForm!: FormGroup;
   public uploadPercent!: number;
   public productses_edit_status = false;
   private productsID!: number | string;
-  public filteredProducts: any[] = [];
   public currentSortOrder: string = 'asc';
-  selectedCategory: string = '';
+
 
 
   constructor(
@@ -53,7 +55,7 @@ export class ProductsComponent {
   ngOnInit(): void {
     this.initpPoductsForm();
     this.getProducts();
-    this.applyFilters();
+
   }
 
   // Ініціалізація форми категорій
@@ -71,7 +73,20 @@ export class ProductsComponent {
   getProducts(): void {
     this.productsService.getAll().subscribe((data) => {
       this.products = data as ProductsResponse[];
+      this.onCategorySelectionChange()
     });
+  }
+
+  onCategorySelectionChange() {
+    const selectedCategories = this.toppings.value
+    if (selectedCategories) {
+      this.filteredProducts = this.products.filter(product =>
+        selectedCategories.includes(product.productsCategory.link)
+      );
+    } else {
+      this.filteredProducts = this.products
+    }
+
   }
 
 
@@ -194,50 +209,12 @@ export class ProductsComponent {
     return transliteratedValue;
   }
 
-  filterByCategory(category: string): void {
-
-    if (category) {
-      this.filteredProducts = this.products.filter(product => product.productsCategory.name === category);
-    } else {
-      this.filteredProducts = [...this.products];
-    }
-    this.applyFilters();
 
 
-  }
 
-  sortByProductName(): void {
-    this.currentSortOrder = (this.currentSortOrder === 'asc') ? 'desc' : 'asc';
-
-    this.filteredProducts.sort((a, b) => {
-      const nameA = a.productsName.toUpperCase();
-      const nameB = b.productsName.toUpperCase();
-
-      let comparison = 0;
-      if (this.currentSortOrder === 'asc') {
-        if (nameA > nameB) {
-          comparison = 1;
-        } else if (nameA < nameB) {
-          comparison = -1;
-        }
-      } else {
-        if (nameA < nameB) {
-          comparison = 1;
-        } else if (nameA > nameB) {
-          comparison = -1;
-        }
-      }
-      return comparison;
-    });
-  }
-  applyFilters(): void {
-    this.filteredProducts = [...this.products]; // Початкове копіювання всіх продуктів
-    this.sortByProductName(); // Сортування за назвою при виклику методу
-  }
-  onCategoryChange(selectedValue: string): void {
-    this.selectedCategory = selectedValue;
-    // Тут ви можете викликати метод або виконати потрібні дії з вибраним значенням
-    this.filterByCategory(selectedValue);
-  }
 
 }
+
+
+
+

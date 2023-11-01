@@ -6,47 +6,55 @@
         {{ !active_form? "ДОДАТИ МЕНЮ" : "ВІДМІНИТИ" }}
     </button>
 
-    <div>
-        <label for="categoryFilter">Фільтр за категорією:</label>
-        <select id="categoryFilter" [ngModel]="selectedCategory" (ngModelChange)="onCategoryChange($event)">
-            <option *ngFor="let menu of productsCategories" [value]="menu.name">{{ menu.name }}</option>
-        </select>
+    <div class="table" [ngClass]="{ active: active_form }">
+
+        <div class="filter">
+            <mat-form-field class="category_filter">
+                <mat-label>Оберіть категорії</mat-label>
+                <mat-select [formControl]="toppings" multiple (selectionChange)="onCategorySelectionChange()">
+                    <mat-option *ngFor="let topping of productsCategories" [value]="topping.link">
+                        {{topping.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Категорыя</th>
+                    <th scope="col">Назва</th>
+                    <th scope="col">Калорії</th>
+                    <th scope="col">Зображення</th>
+                    <th scope="col">Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let products of filteredProducts; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ products.productsCategory.name}}</td>
+                    <td>{{products.productsName}}</td>
+                    <td>{{products.productsCalories }}</td>
+                    <td class="image">
+                        <img [src]="products.productsImages" />
+                    </td>
+                    <td class="btn_tr">
+                        <a (click)="editProducts(products)" type="button" title="Редагувати">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
+                                alt="">
+                        </a>
+                        <a (click)="delProducts(products)" type="button" title="Видалити">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fdel.svg?alt=media&token=5765a105-be2a-4537-b99e-b5f0447c88a4&_gl=1*12xf5iz*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwNDI2LjYwLjAuMA.."
+                                alt="">
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
-    <table [ngClass]="{ active: active_form }" class="table">
-        <thead>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">Категорыя</th>
-                <th scope="col">Назва</th>
-                <th scope="col">Калорії</th>
-                <th scope="col">Зображення</th>
-                <th scope="col">Дії</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let products of products; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ products.productsCategory.name}}</td>
-                <td>{{products.productsName}}</td>
-                <td>{{products.productsCalories }}</td>
-                <td class="image">
-                    <img [src]="products.productsImages" />
-                </td>
-                <td class="btn_tr">
-                    <a (click)="editProducts(products)" type="button" title="Редагувати">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
-                            alt="">
-                    </a>
-                    <a (click)="delProducts(products)" type="button" title="Видалити">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fdel.svg?alt=media&token=5765a105-be2a-4537-b99e-b5f0447c88a4&_gl=1*12xf5iz*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwNDI2LjYwLjAuMA.."
-                            alt="">
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
     <div class="form_conteiner" [ngClass]="{ active: !active_form }">
         <form [formGroup]="productsForm" (ngSubmit)="creatProducts()" class="form_category">
             <div class="input_section">

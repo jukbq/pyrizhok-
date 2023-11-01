@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterModule } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
 
 const MATERIAL = [
   MatSliderModule,
@@ -21,6 +22,7 @@ const MATERIAL = [
   MatNativeDateModule,
   MatButtonModule,
   MatExpansionModule,
+  MatSelectModule,
 ];
 
 @NgModule({
@@ -35,6 +37,8 @@ const MATERIAL = [
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   exports: [
     CommonModule,
@@ -46,6 +50,7 @@ const MATERIAL = [
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
   ],
   providers: [{ provide: MatDialogRef, useValue: {} }],
 })

@@ -19,55 +19,62 @@ section {
 
     }
 
-    table {
-        width: 100%;
-        margin-top: 20px;
-
-        thead {
+    .table {
+        .filter {
             width: 100%;
-
-            tr {
-                border-bottom: var(--clr-grey);
-            }
+            display: flex;
 
         }
 
-        &.active {
-            display: none;
-        }
+        table {
+            width: 100%;
+            margin-top: 20px;
 
-        tbody {
-            tr {
-                .image {
-                    width: 80px;
-                    height: 70px;
-                    overflow: hidden;
+            thead {
+                width: 100%;
 
-                    img {
-                        height: 100%;
-                    }
+                tr {
+                    border-bottom: var(--clr-grey);
                 }
 
-                .btn_tr {
-                    width: 45px;
-                    display: flex;
-                    flex-direction: column;
-                    border-bottom: none;
+            }
 
-                    a {
-                        padding: 5px;
+            tbody {
+                tr {
+                    .image {
+                        width: 80px;
+                        height: 70px;
                         overflow: hidden;
 
                         img {
-                            width: 20px;
-                            height: 20px;
+                            height: 100%;
+                        }
+                    }
+
+                    .btn_tr {
+                        width: 45px;
+                        display: flex;
+                        flex-direction: column;
+                        border-bottom: none;
+
+                        a {
+                            padding: 5px;
+                            overflow: hidden;
+
+                            img {
+                                width: 20px;
+                                height: 20px;
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
+        &.active {
+            display: none;
+        }
+    }
 
     .form_conteiner {
         &.active {

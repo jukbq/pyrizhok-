@@ -1,1 +1,151 @@
-<p>recipes works!</p>
+<section>
+
+    <div class=" add_recipes ">
+
+        <button (click)="recipes_form = !recipes_form; resetForm()" class="btn" data-rel="address" type="button">
+            {{ !recipes_form ? "ДОДАТИ ТОВАР" : "ВІДМІНИТИ" }}
+        </button>
+
+
+        <h4>Вибрати потрбне меню</h4>
+        <ul class="filter">
+            <li (click)="selectMenu(null)" [ngClass]="{ 'active': !selectedMenu.length }">Усі</li>
+            <li *ngFor="let menu of menu" (click)="selectMenu(menu)"
+                [ngClass]="{ 'active': selectedMenu.includes(menu) }">
+                {{ menu.menuName }}
+            </li>
+        </ul>
+
+        <h4>Вибрати потрібну категорію</h4>
+        <ul class="filter">
+            <li (click)="selectCategory(null)" [ngClass]="{ 'active': !selectedCategories.length }">Усі</li>
+            <li *ngFor="let category of category" (click)="selectCategory(category)"
+                [ngClass]="{ 'active': selectedCategories.includes(category) }">
+                {{ category.titel }}
+            </li>
+        </ul>
+        <div class="table_block">
+            <table [ngClass]="{ active: recipes_form }" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Меню</th>
+                        <th scope="col">Категорія</th>
+                        <th scope="col">Назва</th>
+                        <th scope="col">Інгридієгти</th>
+                        <th scope="col">Вага</th>
+                        <th scope="col">Ціна</th>
+                        <th scope="col">Картинка</th>
+                        <th scope="col">Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let recipes of recipes; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ recipes.menu.menuName}}</td>
+                        <td>{{ recipes.category ? recipes.category.titel : 'Немає категорії' }}</td>
+                        <td>{{ recipes.name }}</td>
+                        <td>{{ recipes.compound }}</td>
+                        <td>{{ recipes.weight }}</td>
+                        <td>{{ recipes.price }} за {{recipes.count}}</td>
+                        <td class="image">
+                            <img [src]="recipes.images" />
+                        </td>
+
+                        <td class="btn_tr">
+                            <a (click)="editGood(recipes)" type="button" title="Редагувати">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
+                                    alt="">
+                            </a>
+                            <a (click)="delGood(recipes)" type="button" title="Видалити">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fdel.svg?alt=media&token=5765a105-be2a-4537-b99e-b5f0447c88a4&_gl=1*12xf5iz*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwNDI2LjYwLjAuMA.."
+                                    alt="">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form_conteiner" [ngClass]="{ active: !recipes_form }">
+            <form [formGroup]="recipesForm" (ngSubmit)="creatGoods()" class="form_recipes">
+
+
+                <div class="input_section">
+                    <h5>Оберіть меню та категорію</h5>
+
+                    <div class="category-selection">
+
+                        <select formControlName="menu" name="menu" class="form-select">
+                            <option [ngValue]="menu" *ngFor="let menu of menu">
+                                {{ menu.menuName }}
+                            </option>
+                        </select>
+
+                        <select formControlName="category" name="category" class="form-select">
+                            <option [ngValue]="category" *ngFor="let category of category">
+                                {{ category.titel }}
+                            </option>
+                        </select>
+                    </div>
+                    <input formControlName="name" type="text" name="name" class="form-control" placeholder="*Назва"
+                        aria-label="Заголовок" />
+
+                    <textarea formControlName="compound" class="form-control" name="compound" placeholder="*Інгридієгти"
+                        id="floatingTextarea2" style="height: 100px"></textarea>
+
+                    <input formControlName="weight" type="number" name="weight" class="form-control" placeholder="*Вага"
+                        aria-label="Вага" />
+
+                    <input formControlName="price" type="number" name="price" class="form-control" placeholder="*Ціна"
+                        aria-label="Ціна" />
+                </div>
+                <div class="select-addProd">
+
+                </div>
+
+                <div class="form-group" *ngIf="recipesForm.get('menu')?.value?.menuLink === 'pizza'">
+
+                    <label for="selectedOptions">Оберіть додаткові товари</label>
+                    <select formControlName="selectAddProduct" id="selectedOptions" class="form-control" multiple
+                        (change)="logSelection($event)">
+                        <option *ngFor="let option of additionalProducts" [value]="option.id">{{ option.apName }}
+                        </option>
+                    </select>
+                </div>
+
+
+
+
+
+                <div class="load_file">
+                    <input class="form-control form-control-lg" type="file" (change)="upload($event)" />
+                </div>
+
+                <div class="progress_line">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar"
+                            aria-label="Default striped example" [style.width.%]="uploadPercent" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+
+
+                <div class="image_block">
+                    <td class="image">
+                        <img [src]="valueByControl('images')" />
+                    </td>
+                </div>
+
+                <div class="batton_section">
+                    <button [disabled]="recipesForm.invalid" type="submit" class="btn">
+                        {{ edit_status ? "Зберегти" : "Додати" }}
+                    </button>
+                    <button (click)="deleteImage()" type="submit" class="btn">
+                        Видалити
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

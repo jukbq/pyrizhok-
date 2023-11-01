@@ -19,6 +19,7 @@ const routes: Routes = [
       { path: 'products', component: ProductsComponent },
       { path: 'recipes', component: RecipesComponent },
 
+
       { path: '', pathMatch: 'full', redirectTo: 'action' },
     ],
 

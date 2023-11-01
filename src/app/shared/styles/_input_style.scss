@@ -190,21 +190,19 @@
  select {
      width: 100%;
      padding: 14px 40px 14px 20px;
-     position: relative;
-     margin-bottom: 16px;
-     font-size: 16px;
-     height: 54px;
-     line-height: 54px;
-     background: var(--clr-white);
-     border: 1px solid var(--clr-grey);
-     border-radius: 12px;
-     text-overflow: ellipsis;
-     transition: var(--transition);
-     font-size: 16px;
-     line-height: 1;
-     color: var(--clr-black);
-
-
+  position: relative;
+  margin-bottom: 16px;
+  font-size: 16px;
+  height: 54px;
+  line-height: 54px;
+  background: var(--clr-white);
+  border: 1px solid var(--clr-grey);
+  border-radius: 12px;
+  text-overflow: ellipsis;
+  transition: var(--transition);
+  font-size: 16px;
+  line-height: 1;
+  color: var(--clr-black);
 
  }
 
