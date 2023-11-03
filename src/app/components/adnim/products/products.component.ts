@@ -156,7 +156,7 @@ export class ProductsComponent {
       productsName: products.productsName,
       productsLink: products.productsLink,
       productsCalories: products.productsCalories,
-      productsImages: products.productsImages,
+      image: products.image,
     });
     this.active_form = true;
     this.productses_edit_status = true;
@@ -165,7 +165,7 @@ export class ProductsComponent {
 
   // Видалення категорію
   delProducts(index: ProductsResponse) {
-    const task = ref(this.storsgeIcon, index.productsImages);
+    const task = ref(this.storsgeIcon, index.image);
     deleteObject(task);
     this.productsService.delProducts(index.id as string).then(() => {
       this.getProducts();

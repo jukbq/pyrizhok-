@@ -24,7 +24,7 @@
                 <td>{{categori.dishes.dishesName}}</td>
                 <td>{{categori.categoryName }}</td>
                 <td class="image">
-                    <img [src]="categori.categoryImage" />
+                    <img [src]="categori.image" />
                 </td>
                 <td class="btn_tr">
                     <a (click)="editDishes(categori)" type="button" title="Редагувати">
@@ -71,7 +71,7 @@
 
             <div class="image_block">
                 <td class="image">
-                    <img [src]="valueByControlDishes('categoryImage')">
+                    <img [src]="valueByControlDishes('image')">
                 </td>
             </div>
 

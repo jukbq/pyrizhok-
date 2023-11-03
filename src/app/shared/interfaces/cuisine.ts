@@ -1,7 +1,7 @@
 export interface СuisineRequest {
     cuisineName: string;
     cuisineLink: string;
-    cuisineImages: string;
+    image: string;
 }
 export interface СuisineResponse extends СuisineRequest {
     id: number | string;

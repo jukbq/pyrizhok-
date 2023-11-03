@@ -1,0 +1,209 @@
+<div *ngIf="component === 'dishes'" class="form_conteiner">
+    <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
+
+    <div class="title">Додати страву</div>
+
+    <form [formGroup]="dishesForm" (ngSubmit)="creatDishes()" class="form_category">
+        <div class="input_section">
+            <input formControlName="dishesindex" type="number" name="dishesindex" class="form-control"
+                placeholder="*Порядок меню" aria-label="Порядок меню" />
+            <input formControlName="dishesName" type="text" name="dishesName" class="form-control" placeholder="*Назва"
+                aria-label="Назва">
+            <input formControlName="dishesLink" type="text" name="dishesLink" class="form-control" placeholder="*Щлях"
+                aria-label="шлях" />
+        </div>
+
+        <div class="load_file">
+            <input class="form-control form-control-lg" type="file" (change)="uploadDishesImage($event)" />
+        </div>
+
+        <div class="progress_line">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example"
+                    [style.width.%]="uploadPercent" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <div class="image_block">
+            <td class="image">
+                <img [src]="valueByControlDishes('dishesImages')" />
+            </td>
+        </div>
+
+        <div class="batton_section">
+            <button [disabled]="dishesForm.invalid" type="submit" class="btn">
+                Зберегти"
+            </button>
+            <button (click)="deleteImage()" type="submit" class="btn">
+                Видалити
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<div *ngIf="component === 'categoriesDishes'" c class="form_conteiner">
+    <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
+
+    <div class="title">Додати категорію</div>
+    <form [formGroup]="categoriesDishesForm" (ngSubmit)="creatCategories()" class="form_category">
+        <div class="input_section">
+            <select formControlName="dishes" name="dishes" class="form-select">
+                <option [ngValue]="menu" *ngFor="let menu of dishes">
+                    {{ menu.dishesName }}
+                </option>
+            </select>
+
+            <input formControlName="categoryIndex" type="number" name="categoryIndex" class="form-control"
+                placeholder="*Порядок категорії" aria-label="Порядок категорії" />
+            <input formControlName="categoryName" type="text" name="categoryName" class="form-control"
+                placeholder="*Назва" aria-label="Назва">
+            <input formControlName="categoryLink" type="text" name="categoryLink" class="form-control"
+                placeholder="*Щлях" aria-label="шлях" />
+        </div>
+
+        <div class="load_file">
+            <input class="form-control form-control-lg" type="file" (change)="uploadDishesImage($event)" />
+        </div>
+
+        <div class="progress_line">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example"
+                    [style.width.%]="uploadPercent" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <div class="image_block">
+            <td class="image">
+                <img [src]="valueByControlDishes('image')">
+            </td>
+        </div>
+
+        <div class="batton_section">
+            <button [disabled]="categoriesDishesForm.invalid" type="submit" class="btn">
+                Зберегти
+            </button>
+            <button (click)="deleteImage()" type="submit" class="btn">
+                Видалити
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<div *ngIf="component === 'cuisine'" class="form_conteiner">
+    <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
+    <div class="title">Додати кухню</div>
+
+    <form [formGroup]="cuisineForm" (ngSubmit)="creatCuisine()" class="form_category">
+        <div class="input_section">
+            <input formControlName="cuisineName" type="text" name="cuisineName" class="form-control"
+                placeholder="*Назва" aria-label="Назва">
+            <input formControlName="cuisineLink" type="text" name="cuisineLink" class="form-control" placeholder="*Щлях"
+                aria-label="шлях" />
+        </div>
+
+        <div class="load_file">
+            <input class="form-control form-control-lg" type="file" (change)="uploadDishesImage($event)" />
+        </div>
+
+        <div class="progress_line">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example"
+                    [style.width.%]="uploadPercent" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <div class="image_block">
+            <td class="image">
+                <img [src]="valueByControlDishes('image')">
+            </td>
+        </div>
+
+        <div class="batton_section">
+            <button [disabled]="cuisineForm.invalid" type="submit" class="btn">
+                Зберегти
+            </button>
+            <button (click)="deleteImage()" type="submit" class="btn">
+                Видалити
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<div *ngIf="component === 'methodCooking'" class="form_conteiner">
+    <form [formGroup]="methodCookingForm" (ngSubmit)="creatCuisine()" class="form_category">
+        <div class="input_section">
+            <input formControlName="methodCookinName" type="text" name="methodCookinName" class="form-control"
+                placeholder="*Назва" aria-label="Назва">
+            <input formControlName="methodCookinLink" type="text" name="methodCookinLink" class="form-control"
+                placeholder="*Щлях" aria-label="шлях" />
+        </div>
+
+        <div class="load_file">
+            <input class="form-control form-control-lg" type="file" (change)="uploadDishesImage($event)" />
+        </div>
+
+        <div class="progress_line">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example"
+                    [style.width.%]="uploadPercent" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <div class="image_block">
+            <td class="image">
+                <img [src]="valueByControlDishes('image')">
+            </td>
+        </div>
+
+        <div class="batton_section">
+            <button [disabled]="cuisineForm.invalid" type="submit" class="btn">
+                Зберегти
+            </button>
+            <button (click)="deleteImage()" type="submit" class="btn">
+                Видалити
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<div *ngIf="component === 'tools'" class="form_conteiner">
+    <form [formGroup]="toolsForm" (ngSubmit)="creatCuisine()" class="form_category">
+        <div class="input_section">
+            <input formControlName="toolsName" type="text" name="toolsName" class="form-control" placeholder="*Назва"
+                aria-label="Назва">
+            <input formControlName="toolsLink" type="text" name="toolsLink" class="form-control" placeholder="*Щлях"
+                aria-label="шлях" />
+        </div>
+
+        <div class="load_file">
+            <input class="form-control form-control-lg" type="file" (change)="uploadDishesImage($event)" />
+        </div>
+
+        <div class="progress_line">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example"
+                    [style.width.%]="uploadPercent" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <div class="image_block">
+            <td class="image">
+                <img [src]="valueByControlDishes('image')">
+            </td>
+        </div>
+
+        <div class="batton_section">
+            <button [disabled]="cuisineForm.invalid" type="submit" class="btn">
+                Зберегти
+            </button>
+            <button (click)="deleteImage()" type="submit" class="btn">
+                Видалити
+            </button>
+        </div>
+
+    </form>
+</div>

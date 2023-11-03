@@ -21,18 +21,8 @@
                 <td>{{cuisine.cuisineName}}</td>
                 <td>{{cuisine.cuisineLink }}</td>
                 <td class="image">
-                    <img [src]="cuisine.cuisineImages" />
+                    <img [src]="cuisine.image" />
                 </td>
-                <!--         <td class="btn_tr">
-                    <a (click)="editDishes(dishes)" type="button" title="Редагувати">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
-                            alt="">
-                    </a>
-                    <a (click)="delDishes(dishes)" type="button" title="Видалити">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fdel.svg?alt=media&token=5765a105-be2a-4537-b99e-b5f0447c88a4&_gl=1*12xf5iz*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwNDI2LjYwLjAuMA.."
-                            alt="">
-                    </a>
-                </td> -->
             </tr>
         </tbody>
     </table>
@@ -60,7 +50,7 @@
 
             <div class="image_block">
                 <td class="image">
-                    <img [src]="valueByControlDishes('cuisineImages')">
+                    <img [src]="valueByControlDishes('image')">
                 </td>
             </div>
 

@@ -7,7 +7,7 @@ export interface CategoriesDishesRequest {
     categoryIndex: number,
     categoryName: string,
     categoryLink: string,
-    categoryImage: string,
+    image: string,
 }
 
 export interface CategoriesDishesResponse extends CategoriesDishesRequest {

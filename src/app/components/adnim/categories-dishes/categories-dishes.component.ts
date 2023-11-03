@@ -50,7 +50,7 @@ export class CategoriesDishesComponent {
       categoryIndex: [null, Validators.required],
       categoryName: [null, Validators.required],
       categoryLink: [null, Validators.required],
-      categoryImage: [null, Validators.required],
+      image: [null, Validators.required],
     });
   }
 
@@ -75,7 +75,7 @@ export class CategoriesDishesComponent {
       .then((data) => {
         if (this.uploadPercent == 100) {
           this.categoriesDishesForm.patchValue({
-            categoryImage: data,
+            image: data,
           });
         }
       })
@@ -112,12 +112,12 @@ export class CategoriesDishesComponent {
 
   // Видалення зображення
   deleteImage(): void {
-    const task = ref(this.storsgeIcon, this.valueByControlDishes('dishesImages'));
+    const task = ref(this.storsgeIcon, this.valueByControlDishes('image'));
     deleteObject(task).then(() => {
       console.log('File deleted');
       this.uploadPercent = 0;
       this.categoriesDishesForm.patchValue({
-        dishesImages: '',
+        image: '',
       });
     });
   }
@@ -134,7 +134,7 @@ export class CategoriesDishesComponent {
       categoryIndex: categori.categoryIndex,
       categoryName: categori.categoryName,
       categoryLink: categori.categoryLink,
-      categoryImage: categori.categoryImage,
+      image: categori.image,
     });
     this.active_form = true;
     this.categories_edit_status = true;
@@ -143,7 +143,7 @@ export class CategoriesDishesComponent {
 
   // Видалення категорію
   delCategori(index: CategoriesDishesResponse) {
-    const task = ref(this.storsgeIcon, index.categoryImage);
+    const task = ref(this.storsgeIcon, index.image);
     deleteObject(task);
     this.categoriesDishesService.delCategories(index.id as string).then(() => {
       this.getDishes();

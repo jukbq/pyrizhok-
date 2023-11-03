@@ -1,0 +1,119 @@
+.form_conteiner {
+    width: 560px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+    background: var(--clr-white);
+    border-radius: 12px;
+    padding: 40px;
+
+
+    .btn-close {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .title {
+
+        position: relative;
+        margin: 0 auto;
+        font-size: 25px;
+        line-height: 1.33em;
+        font-weight: 600;
+        color: var(--clr-black);
+
+    }
+
+    .form_category {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 20px;
+
+        .input_section {
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+
+            input {
+                width: 90%;
+                margin-top: 20px;
+                height: auto;
+            }
+        }
+
+        .form-floating,
+        .load_file {
+            margin-top: 20px;
+        }
+
+        .progress_line {
+            margin-top: 36px;
+            width: 100%;
+
+            .progress {
+                width: 100%;
+            }
+        }
+
+        .image_block {
+            width: 100%;
+            height: auto;
+            position: relative;
+            margin-top: 19px;
+
+            .image {
+                max-width: 750px;
+                height: 100%;
+                overflow: hidden;
+
+                img {
+                    height: 400px;
+                }
+
+                margin-bottom: 30px;
+            }
+
+            .btn {
+                width: 175px;
+                height: 52px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+        }
+
+        .batton_section {
+            width: 90%;
+            margin-top: 20px;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+
+            .btn {
+                width: 40%;
+            }
+        }
+    }
+}
+
+@media (max-width: 524px) {
+    .modal-content {
+        width: 100%;
+        padding: 16px;
+    }
+}

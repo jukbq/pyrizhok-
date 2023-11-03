@@ -1,13 +1,13 @@
-import { CategoriesDishesRequest } from "./categories -dishes";
-import { СuisineRequest } from "./cuisine";
-import { DishesRequest } from "./dishes";
+import { CategoriesDishesResponse } from "./categories -dishes";
+import { СuisineResponse } from "./cuisine";
+import { DishesResponse } from "./dishes";
 import { ProductsRequest } from "./products";
 
 export interface RecipeStep {
     setepNumber: number;
     stepName: string;
     stepDescription: string;
-    stepImage: string;
+    image: string;
     stepVideo: string;
     stepNotes: string;
 }
@@ -19,10 +19,10 @@ export interface MethodCooking {
 
 export interface RecipesRequest {
     //Сторінка 1
-    dishes: DishesRequest;
-    categoriesDishes: CategoriesDishesRequest;
-    recipeKeys: CategoriesDishesRequest;
-    cuisine: СuisineRequest;
+    dishes: DishesResponse;
+    categoriesDishes: CategoriesDishesResponse;
+    recipeKeys: CategoriesDishesResponse;
+    cuisine: СuisineResponse;
     autor: string;
     methodCooking: MethodCooking[];
     tools: string[];
@@ -33,6 +33,7 @@ export interface RecipesRequest {
     recipeTitle: string;
     recipeSubtitles: string;
     descriptionRecipe: string;
+    mainImage: string;
     focusKeyword: string;
     keywords: string;
 

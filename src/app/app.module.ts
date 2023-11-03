@@ -35,6 +35,8 @@ import { SignUpComponent } from './modal/sign-up/sign-up.component';
 import { SignInComponent } from './modal/sign-in/sign-in.component';
 import { HeaderService } from './shared/service/header/header.service';
 
+import { RecipeElementsComponent } from './modal/recipe-elements/recipe-elements.component';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { HeaderService } from './shared/service/header/header.service';
     HomeComponent,
     SignUpComponent,
     SignInComponent,
+    RecipeElementsComponent,
 
   ],
   imports: [

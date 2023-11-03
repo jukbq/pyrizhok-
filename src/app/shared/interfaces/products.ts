@@ -3,7 +3,7 @@ export interface ProductsRequest {
     productsName: string;
     productsLink: string;
     productsCalories: number;
-    productsImages: string;
+    image: string;
 }
 export interface ProductsResponse extends ProductsRequest {
     id: number | string;

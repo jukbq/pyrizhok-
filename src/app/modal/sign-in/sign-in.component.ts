@@ -69,7 +69,6 @@ export class SignInComponent {
       email,
       password
     );
-
     this.loginSubscription = docData(
       doc(this.afs, 'users', userCredential.user.uid)
     ).subscribe((user) => {
@@ -85,7 +84,6 @@ export class SignInComponent {
       this.close();
       this.router.navigate(['/user']);
     } else if (this.user && this.user.role === ROLE.ADMIN) {
-      localStorage.removeItem('basket');
       this.close();
       this.router.navigate(['/admin/']);
     }

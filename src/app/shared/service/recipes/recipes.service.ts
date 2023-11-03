@@ -30,7 +30,7 @@ export class RecipesService {
   }
 
 
-  addProducts(recipes: RecipesResponse) {
+  addRecipess(recipes: RecipesResponse) {
     return addDoc(this.recipesCollection, recipes);
   }
 
@@ -40,7 +40,7 @@ export class RecipesService {
     return updateDoc(recipesDocumentReference, { ...recipes });
   }
 
-  delProducts(id: any) {
+  delRecipess(id: any) {
     const recipesDocumentReference = doc(this.afs, `recipes/${id}`);
     return deleteDoc(recipesDocumentReference);
   }

@@ -43,7 +43,7 @@ export class CuisineComponent {
     this.cuisineForm = this.formBuild.group({
       cuisineName: [null, Validators.required],
       cuisineLink: [null, Validators.required],
-      cuisineImages: [null],
+      image: [null],
     });
   }
 
@@ -79,7 +79,7 @@ export class CuisineComponent {
     this.cuisineForm.patchValue({
       cuisineName: cuisine.cuisineName,
       cuisineLink: cuisine.cuisineLink,
-      cuisineImages: cuisine.cuisineImages,
+      cuisineImages: cuisine.image,
     });
     this.active_form = true;
     this.cuisine_edit_status = true;
@@ -89,7 +89,7 @@ export class CuisineComponent {
 
   // Видалення пункту меню
   delDishes(index: СuisineResponse) {
-    const task = ref(this.storsgeIcon, index.cuisineImages);
+    const task = ref(this.storsgeIcon, index.image);
     deleteObject(task);
     this.cuisineService.delCuisine(index.id as string).then(() => {
       this.getCuisine();
@@ -103,7 +103,7 @@ export class CuisineComponent {
       .then((data) => {
         if (this.uploadPercent == 100) {
           this.cuisineForm.patchValue({
-            cuisineImages: data,
+            image: data,
           });
         }
       })
@@ -140,12 +140,12 @@ export class CuisineComponent {
 
   // Видалення зображення
   deleteImage(): void {
-    const task = ref(this.storsgeIcon, this.valueByControlDishes('cuisineImages'));
+    const task = ref(this.storsgeIcon, this.valueByControlDishes('image'));
     deleteObject(task).then(() => {
       console.log('File deleted');
       this.uploadPercent = 0;
       this.cuisineForm.patchValue({
-        dishesImages: '',
+        image: '',
       });
     });
   }

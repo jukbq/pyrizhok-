@@ -46,7 +46,7 @@ export class DishesComponent {
       dishesindex: [null, Validators.required],
       dishesName: [null, Validators.required],
       dishesLink: [null, Validators.required],
-      dishesImages: [null, Validators.required],
+      image: [null, Validators.required],
     });
   }
 
@@ -83,7 +83,7 @@ export class DishesComponent {
       dishesindex: dishes.dishesindex,
       dishesName: dishes.dishesName,
       dishesLink: dishes.dishesLink,
-      dishesImages: dishes.dishesImages,
+      image: dishes.image,
     });
     this.active_form = true;
     this.dishes_edit_status = true;
@@ -92,7 +92,7 @@ export class DishesComponent {
 
   // Видалення пункту меню
   delDishes(index: DishesResponse) {
-    const task = ref(this.storsgeIcon, index.dishesImages);
+    const task = ref(this.storsgeIcon, index.image);
     deleteObject(task);
     this.dishesService.delDishes(index.id as string).then(() => {
       this.getDishes();
@@ -106,7 +106,7 @@ export class DishesComponent {
       .then((data) => {
         if (this.uploadPercent == 100) {
           this.dishesForm.patchValue({
-            dishesImages: data,
+            image: data,
           });
         }
       })
@@ -143,12 +143,12 @@ export class DishesComponent {
 
   // Видалення зображення
   deleteImage(): void {
-    const task = ref(this.storsgeIcon, this.valueByControlDishes('dishesImages'));
+    const task = ref(this.storsgeIcon, this.valueByControlDishes('image'));
     deleteObject(task).then(() => {
       console.log('File deleted');
       this.uploadPercent = 0;
       this.dishesForm.patchValue({
-        dishesImages: '',
+        image: '',
       });
     });
   }
