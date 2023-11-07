@@ -190,19 +190,19 @@
  select {
      width: 100%;
      padding: 14px 40px 14px 20px;
-  position: relative;
-  margin-bottom: 16px;
-  font-size: 16px;
-  height: 54px;
-  line-height: 54px;
-  background: var(--clr-white);
-  border: 1px solid var(--clr-grey);
-  border-radius: 12px;
-  text-overflow: ellipsis;
-  transition: var(--transition);
-  font-size: 16px;
-  line-height: 1;
-  color: var(--clr-black);
+     position: relative;
+     margin-bottom: 16px;
+     font-size: 16px;
+     height: 54px;
+     line-height: 54px;
+     background: var(--clr-white);
+     border: 1px solid var(--clr-grey);
+     border-radius: 12px;
+     text-overflow: ellipsis;
+     transition: var(--transition);
+     font-size: 16px;
+     line-height: 1;
+     color: var(--clr-black);
 
  }
 
@@ -213,5 +213,48 @@
 
      &.active {
          color: var(--clr-red);
+     }
+ }
+
+ .select {
+     .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+         background-color: transparent;
+         padding: 0;
+
+         .mat-mdc-form-field-focus-overlay {
+             background-color: transparent;
+         }
+
+         .mat-mdc-form-field-infix {
+             width: 100%;
+             padding-top: 8px;
+             padding-left: 8px;
+         }
+
+         .mdc-line-ripple::before {
+             border-bottom-color: #63666259;
+         }
+     }
+
+     .mat_label {
+         margin-left: 16px;
+     }
+
+     .form-select {
+         --bs-form-select-bg-img: none;
+
+         .mat-mdc-select-trigger {
+             .mat-mdc-select-arrow {
+                 top: 10px;
+             }
+         }
+
+         &:focus {
+             border-color: #8eecb6;
+             outline: 0;
+             box-shadow: none;
+         }
+
+
      }
  }

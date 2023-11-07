@@ -3,11 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { RecipeElementsComponent } from 'src/app/modal/recipe-elements/recipe-elements.component';
 import { CategoriesDishesResponse } from 'src/app/shared/interfaces/categories -dishes';
+import { СuisineResponse } from 'src/app/shared/interfaces/cuisine';
 import { DishesResponse } from 'src/app/shared/interfaces/dishes';
 import { MethodCookinResponse } from 'src/app/shared/interfaces/method-cooking';
 import { RecipesResponse } from 'src/app/shared/interfaces/recipes';
 import { ToolsResponse } from 'src/app/shared/interfaces/tools';
 import { CategoriesDishesService } from 'src/app/shared/service/categories-dishes/categories-dishes.service';
+import { CuisineService } from 'src/app/shared/service/cuisine/cuisine.service';
 import { DishesService } from 'src/app/shared/service/dishes/dishes.service';
 import { MethodCookinService } from 'src/app/shared/service/method-cookin/method-cookin.service';
 import { RecipesService } from 'src/app/shared/service/recipes/recipes.service';
@@ -39,6 +41,7 @@ export class RecipesComponent {
   public recipes: Array<RecipesResponse> = [];
   public dishes: Array<DishesResponse> = [];
   public categoriesDishes: Array<CategoriesDishesResponse> = [];
+  public ccuisine: Array<СuisineResponse> = [];
   public filteredCategories: any[] = [];
   public cuisine = [];
   public methodCooking: Array<MethodCookinResponse> = [];
@@ -60,6 +63,7 @@ export class RecipesComponent {
     private recipesService: RecipesService,
     private dishessService: DishesService,
     private categoriesDishesService: CategoriesDishesService,
+    private cuisineDishesService: CuisineService,
     private methodCookin: MethodCookinService,
     private toolsService: ToolsService,
     public dialog: MatDialog,
@@ -71,6 +75,7 @@ export class RecipesComponent {
     this.getDishes()
     this.getCategoriesDishes()
     this.getRecipes();
+    this.getСuisine();
   }
 
   //Ініціалізація форми
@@ -119,6 +124,13 @@ export class RecipesComponent {
   getCategoriesDishes(): void {
     this.categoriesDishesService.getAll().subscribe((data) => {
       this.categoriesDishes = data as CategoriesDishesResponse[];
+    });
+  }
+
+  //Отримання списку кухонь
+  getСuisine(): void {
+    this.cuisineDishesService.getAll().subscribe((data) => {
+      this.ccuisine = data as СuisineResponse[];
     });
   }
 

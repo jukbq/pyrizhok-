@@ -69,12 +69,15 @@ export class RecipeElementsComponent {
       this.initDishesForm();
       this.initCategoriesDishesForm();
       this.getDishes();
-      this.getCategories();
-      console.log(this.component);
     }
     if (this.component === 'cuisine') {
       this.initCuisineForm();
-      console.log(this.component);
+    }
+    if (this.component === 'methodCooking') {
+      this.initMethodCooking();
+    }
+    if (this.component === 'tools') {
+      this.initToolsForm();
     }
 
 
@@ -109,12 +112,6 @@ export class RecipeElementsComponent {
 
 
   //КАТЕГОРІЇ СТРАВ
-  // Отримання категорій  з сервера
-  getCategories(): void {
-    this.categoriesDishesService.getAll().subscribe((data) => {
-      this.categoriesDishes = data as CategoriesDishesResponse[];
-    });
-  }
 
   //Ініціалізація форми категорій
   initCategoriesDishesForm(): void {
@@ -161,7 +158,6 @@ export class RecipeElementsComponent {
     this.methodCookingForm = this.formBuild.group({
       methodCookinName: [null, Validators.required],
       methodCookinLink: [null, Validators.required],
-      image: [null],
     });
   }
   creatMethodCooking() {
@@ -207,12 +203,32 @@ export class RecipeElementsComponent {
   uploadDishesImage(actionImage: any): void {
     let component = this.component
     const file = actionImage.target.files[0];
-    this.loadFIle(`${component}-icon`, file.name, file)
+    this.loadFIle(`
+    ,icon`, file.name, file)
       .then((data) => {
         if (this.uploadPercent == 100) {
-          this.dishesForm.patchValue({
-            image: data,
-          });
+          if (this.component = 'dishes') {
+            this.dishesForm.patchValue({
+              image: data,
+            });
+          };
+          if (this.component = 'categoriesDishes') {
+            this.categoriesDishesForm.patchValue({
+              image: data,
+            });
+          };
+
+          if (this.component = 'cuisine') {
+            this.cuisineForm.patchValue({
+              image: data,
+            });
+          };
+          if (this.component = 'tools') {
+            this.toolsForm.patchValue({
+              image: data,
+            });
+          };
+
 
         }
       })
@@ -270,6 +286,24 @@ export class RecipeElementsComponent {
     if (this.component === 'cuisine') {
       return this.cuisineForm.get(control)?.value;
     }
+    if (this.component === 'tools') {
+      return this.toolsForm.get(control)?.value;
+    }
+  }
+
+  onCategoriesNameInput(event: Event): void {
+    const inputValue = (event.target as HTMLInputElement).value;
+    const transcribedValue = this.transcribeToTranslit(inputValue);
+    this.categoriesDishesForm.patchValue({
+      categoryLink: transcribedValue
+    });
+  }
+
+  transcribeToTranslit(input: string): string {
+    const transliteration = require('transliteration.cyr');
+    let transliteratedValue = transliteration.transliterate(input);
+    transliteratedValue = transliteratedValue.replace(/\s+/g, '_');
+    return transliteratedValue;
   }
 
   close(): void {

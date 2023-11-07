@@ -1,35 +1,33 @@
 <section>
 
-    <div class=" add_recipes ">
-
-        <button (click)="recipes_form = !recipes_form; resetForm()" class="btn" data-rel="address" type="button">
-            {{ !recipes_form ? "ДОДАТИ ТОВАР" : "ВІДМІНИТИ" }}
-        </button>
+    <button (click)="recipes_form = !recipes_form; resetForm()" class="btn" data-rel="address" type="button">
+        {{ !recipes_form ? "ДОДАТИ ТОВАР" : "ВІДМІНИТИ" }}
+    </button>
 
 
-        <div class="table_block">
-            <table [ngClass]="{ active: recipes_form }" class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">Страви</th>
-                        <th scope="col">Категорія</th>
-                        <th scope="col">Назва</th>
-                        <th scope="col">Картинка</th>
-                        <th scope="col">Дії</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let recipes of recipes; let i = index">
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ recipes.dishes.dishesName}}</td>
-                        <td>{{ recipes.categoriesDishes.categoryName}}</td>
-                        <td>{{ recipes.recipeTitle }}</td>
-                        <td class="image">
-                            <img [src]="recipes.mainImage" />
-                        </td>
+    <div class="table_block" [ngClass]="{ active: recipes_form }">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Страви</th>
+                    <th scope="col">Категорія</th>
+                    <th scope="col">Назва</th>
+                    <th scope="col">Картинка</th>
+                    <th scope="col">Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let recipes of recipes; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ recipes.dishes.dishesName}}</td>
+                    <td>{{ recipes.categoriesDishes.categoryName}}</td>
+                    <td>{{ recipes.recipeTitle }}</td>
+                    <td class="image">
+                        <img [src]="recipes.mainImage" />
+                    </td>
 
-                        <!--        <td class="btn_tr">
+                    <!--        <td class="btn_tr">
                             <a (click)="editGood(recipes)" type="button" title="Редагувати">
                                 <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
                                     alt="">
@@ -39,139 +37,138 @@
                                     alt="">
                             </a>
                         </td> -->
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 
-        <div class="form_conteiner" [ngClass]="{ active: !recipes_form }">
-            <form [formGroup]="recipesForm" (ngSubmit)="creatRecipe()" class="form_recipes">
+    <div class="form_conteiner" [ngClass]="{ active: !recipes_form }">
+        <form [formGroup]="recipesForm" (ngSubmit)="creatRecipe()" class="form_recipes">
 
-                <div *ngIf="formStep === 1" class="input_section">
-                    <h5>Оберіть меню та категорію</h5>
+            <div *ngIf="formStep === 1" class="input_section">
+                <h5>Оберіть меню та категорію</h5>
 
-                    <h4>Страви</h4>
-                    <div class="input dishes">
-                        <mat-form-field>
-                            <mat-label>Оберіть вид страви</mat-label>
-                            <mat-select formControlName="dishes" name="dishes" class="form-select"
-                                (selectionChange)="onDishesSelection()">
-                                <mat-option *ngFor="let dishes of dishes" [value]="dishes">
-                                    {{dishes.dishesName}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('dishes')">
-                            <i class="bi bi-plus"></i> Додати
-                        </button>
-                    </div>
+                <h4>Страви</h4>
+                <div class="input dishes">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть вид страви</mat-label>
+                        <mat-select formControlName="dishes" name="dishes" class="form-select"
+                            (selectionChange)="onDishesSelection()">
+                            <mat-option *ngFor="let dishes of dishes" [value]="dishes">
+                                {{dishes.dishesName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addressModal('dishes')">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+                </div>
 
-                    <h4>Категорії</h4>
-                    <div class="input categoriesDishes">
-                        <mat-form-field>
-                            <mat-label>Оберіть категорії</mat-label>
-                            <mat-select formControlName="categoriesDishes" name="categoriesDishes" class="form-select">
-                                <mat-option *ngFor="let category of filteredCategories" [value]="category">
-                                    {{category.categoryName}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('categoriesDishes')">
-                            <i class="bi bi-plus"></i> Додати
-                        </button>
-
-                    </div>
-
-                    <h4>Ключі рецептів</h4>
-                    <div class="input recipeKeys">
-                        <mat-form-field>
-                            <mat-label>Оберіть категорії ключів</mat-label>
-                            <mat-select formControlName="recipeKeys" name="recipeKeys" class="form-select" multiple>
-                                <mat-option *ngFor="let recipeKeys of filteredCategories"
-                                    [value]="recipeKeys.categoryName ">
-                                    {{recipeKeys.categoryName}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <h4>Кухні</h4>
-                    <div class="input cuisine">
-                        <mat-form-field>
-                            <mat-label>Оберіть кухню</mat-label>
-                            <mat-select formControlName="cuisine" name="cuisine" class="form-select">
-                                <mat-option *ngFor="let cuisine of cuisine" [value]="cuisine">
-                                    {{cuisine}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('cuisine')">
-                            <i class="bi bi-plus"></i> Додати
-                        </button>
-
-                    </div>
-
-                    <h4>Методм приготування</h4>
-                    <div class="input methodCooking">
-                        <mat-form-field>
-                            <mat-label>Оберіть методи</mat-label>
-                            <mat-select formControlName="methodCooking" name="methodCooking" class="form-select"
-                                multiple>
-                                <mat-option *ngFor="let methodCooking of methodCooking" [value]="methodCooking">
-                                    {{methodCooking}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('methodCooking')">
-                            <i class="bi bi-plus"></i> Додати
-                        </button>
-
-                    </div>
-
-                    <h4>Інструменти</h4>
-                    <div class="input tools">
-                        <mat-form-field>
-                            <mat-label>Оберіть інструменти</mat-label>
-                            <mat-select formControlName="tools" name="tools" class="form-select" multiple>
-                                <mat-option *ngFor="let tools of tools" [value]="tools">
-                                    {{tools}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('tools')">
-                            <i class="bi bi-plus"></i> Додати
-                        </button>
-
-                    </div>
-
-                    <h4>Рівень важкості</h4>
-                    <div class="input difficultyPreparation">
-                        <mat-form-field>
-                            <mat-label>Оберіть важкість приготування</mat-label>
-                            <mat-select formControlName="difficultyPreparation" name="difficultyPreparation"
-                                class="form-select">
-                                <mat-option *ngFor="let difficultyPreparation of difficultyPreparation"
-                                    [value]="difficultyPreparation">
-                                    {{difficultyPreparation}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <h4>Сезон</h4>
-                    <div class="input bestSeason">
-                        <mat-form-field>
-                            <mat-label>Оберіть сезон</mat-label>
-                            <mat-select formControlName="bestSeason" name="bestSeason" class="form-select" multiple>
-                                <mat-option *ngFor="let bestSeason of bestSeason" [value]="bestSeason">
-                                    {{bestSeason}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
+                <h4>Категорії</h4>
+                <div class="input categoriesDishes">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть категорії</mat-label>
+                        <mat-select formControlName="categoriesDishes" name="categoriesDishes" class="form-select">
+                            <mat-option *ngFor="let category of filteredCategories" [value]="category">
+                                {{category.categoryName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addressModal('categoriesDishes')">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
 
                 </div>
 
-            </form>
-        </div>
+                <h4>Ключі рецептів</h4>
+                <div class="input recipeKeys">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть категорії ключів</mat-label>
+                        <mat-select formControlName="recipeKeys" name="recipeKeys" class="form-select" multiple>
+                            <mat-option *ngFor="let recipeKeys of filteredCategories"
+                                [value]="recipeKeys.categoryName ">
+                                {{recipeKeys.categoryName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <h4>Кухні</h4>
+                <div class="input cuisine">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть кухню</mat-label>
+                        <mat-select formControlName="cuisine" name="cuisine" class="form-select">
+                            <mat-option *ngFor="let cuisine of ccuisine" [value]="cuisine">
+                                {{cuisine.cuisineName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addressModal('cuisine')">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+
+                </div>
+
+                <h4>Методм приготування</h4>
+                <div class="input methodCooking">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть методи</mat-label>
+                        <mat-select formControlName="methodCooking" name="methodCooking" class="form-select" multiple>
+                            <mat-option *ngFor="let methodCooking of methodCooking" [value]="methodCooking">
+                                {{methodCooking}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addressModal('methodCooking')">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+
+                </div>
+
+                <h4>Інструменти</h4>
+                <div class="input tools">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть інструменти</mat-label>
+                        <mat-select formControlName="tools" name="tools" class="form-select" multiple>
+                            <mat-option *ngFor="let tools of tools" [value]="tools">
+                                {{tools}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addressModal('tools')">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+
+                </div>
+
+                <h4>Рівень важкості</h4>
+                <div class="input difficultyPreparation">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть важкість приготування</mat-label>
+                        <mat-select formControlName="difficultyPreparation" name="difficultyPreparation"
+                            class="form-select">
+                            <mat-option *ngFor="let difficultyPreparation of difficultyPreparation"
+                                [value]="difficultyPreparation">
+                                {{difficultyPreparation}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <h4>Сезон</h4>
+                <div class="input bestSeason">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть сезон</mat-label>
+                        <mat-select formControlName="bestSeason" name="bestSeason" class="form-select" multiple>
+                            <mat-option *ngFor="let bestSeason of bestSeason" [value]="bestSeason">
+                                {{bestSeason}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+        </form>
     </div>
+
 </section>
