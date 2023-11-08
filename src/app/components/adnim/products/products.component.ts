@@ -9,22 +9,10 @@ import {
   uploadBytesResumable,
 } from '@angular/fire/storage';
 import { ProductsService } from 'src/app/shared/service/products/products.service';
+import { ProductCategoryService } from 'src/app/shared/service/productCategory/product-category.service';
 import { ProductsResponse } from 'src/app/shared/interfaces/products';
 import { ViewportScroller } from '@angular/common';
-
-
-const LIST: any[] = [
-
-  { name: 'Овочі', link: 'vegetables' },
-  { name: 'Фрукти', link: 'fruits' },
-  { name: `М'ясо`, link: 'meat' },
-  { name: 'Риба і морепродукти', link: 'fish-and-seafood' },
-  { name: 'Злаки і бобові', link: 'cereals-and-legumes' },
-  { name: 'Молочні продукти', link: 'dairy-products' },
-  { name: 'Бакалія', link: 'groceries' },
-  { name: 'Спеції і приправи', link: 'spices-and-seasonings' },
-];
-
+import { ProductCategoryResponse } from 'src/app/shared/interfaces/productCategory';
 
 @Component({
   selector: 'app-products',
@@ -32,33 +20,46 @@ const LIST: any[] = [
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent {
-  public productsCategories: any[] = LIST;
+  public productsCategories: any[] = [];
   public active_form = false;
   public toppings = new FormControl('');
   public filteredProducts: any[] = [];
   public products: any[] = [];
   public productsForm!: FormGroup;
+  public productsCategoryForm!: FormGroup;
   public uploadPercent!: number;
   public productses_edit_status = false;
   private productsID!: number | string;
   public currentSortOrder: string = 'asc';
-
+  public active_block = false
+  public activeSection = 'category';
 
 
   constructor(
     private formBuild: FormBuilder,
     private storsgeIcon: Storage,
     private productsService: ProductsService,
+    private productCategoruService: ProductCategoryService,
     private viewportScroller: ViewportScroller
   ) { }
 
   ngOnInit(): void {
+    this.initpCategoryForm();
     this.initpPoductsForm();
+    this.getProductCategories();
     this.getProducts();
 
   }
 
   // Ініціалізація форми категорій
+  initpCategoryForm(): void {
+    this.productsCategoryForm = this.formBuild.group({
+      productCategoryName: [null, Validators.required],
+      productCategoryLink: [null, Validators.required],
+    });
+  }
+
+  // Ініціалізація форми продуктів
   initpPoductsForm(): void {
     this.productsForm = this.formBuild.group({
       productsCategory: [null, Validators.required],
@@ -66,6 +67,14 @@ export class ProductsComponent {
       productsLink: [null, Validators.required],
       productsCalories: [0],
       productsImages: [null],
+    });
+  }
+
+  // Отримання категорії з сервера
+  getProductCategories(): void {
+    this.productCategoruService.getAll().subscribe((data) => {
+      this.productsCategories = data as ProductCategoryResponse[];
+
     });
   }
 
@@ -87,6 +96,11 @@ export class ProductsComponent {
       this.filteredProducts = this.products
     }
 
+  }
+
+  // Обробник вибору пункту меню
+  onSelectItem(item: string): void {
+    this.activeSection = item;
   }
 
 
@@ -163,12 +177,31 @@ export class ProductsComponent {
     this.productsID = products.id;
   }
 
+  // Редагування категорію
+  editCategory(category: ProductCategoryResponse) {
+    this.productsCategoryForm.patchValue({
+      productCategoryName: category.productCategoryName,
+      productCategoryLink: category.productCategoryLink,
+
+    });
+    this.active_form = true;
+    this.productses_edit_status = true;
+    this.productsID = category.id;
+  }
+
   // Видалення категорію
   delProducts(index: ProductsResponse) {
     const task = ref(this.storsgeIcon, index.image);
     deleteObject(task);
     this.productsService.delProducts(index.id as string).then(() => {
       this.getProducts();
+    });
+  }
+
+  // Видалення категорію
+  delCategory(index: ProductCategoryResponse) {
+    this.productCategoruService.delProductCategory(index.id as string).then(() => {
+      this.getProductCategories();
     });
   }
 
@@ -185,6 +218,26 @@ export class ProductsComponent {
 
       this.productsService.addProducts(this.productsForm.value).then(() => {
         this.getProducts();
+      });
+    }
+    this.productses_edit_status = false;
+    this.active_form = false;
+    this.productsForm.reset();
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
+
+  // Додавання або редагування продукта
+  creatProductCategory() {
+    if (this.productses_edit_status) {
+      this.productCategoruService
+        .editProductCategory(this.productsCategoryForm.value, this.productsID as string)
+        .then(() => {
+          this.getProductCategories();
+        });
+    } else {
+
+      this.productCategoruService.addProductCategory(this.productsCategoryForm.value).then(() => {
+        this.getProductCategories();
       });
     }
     this.productses_edit_status = false;

@@ -14,6 +14,17 @@ import { DishesService } from 'src/app/shared/service/dishes/dishes.service';
 import { MethodCookinService } from 'src/app/shared/service/method-cookin/method-cookin.service';
 import { RecipesService } from 'src/app/shared/service/recipes/recipes.service';
 import { ToolsService } from 'src/app/shared/service/tools/tools.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
+import {
+  deleteObject,
+  getDownloadURL,
+  percentage,
+  ref,
+  Storage,
+  uploadBytesResumable,
+} from '@angular/fire/storage';
+import { IngredientComponent } from 'src/app/modal/ingredient/ingredient.component';
 
 const dpList: any[] = [
   { name: 'Базовий рецепт', list: 'light' },
@@ -26,6 +37,7 @@ const season: any[] = [
   { name: 'Весна', list: 'spring' },
   { name: 'Літо', list: 'summer' },
   { name: 'Осінь', list: 'Autumn' },
+
 
 ]
 
@@ -46,9 +58,7 @@ export class RecipesComponent {
   public cuisine = [];
   public methodCooking: Array<MethodCookinResponse> = [];
   public tools: Array<ToolsResponse> = [];
-
   public selectDishes = new FormControl('');
-
   public difficultyPreparation: any[] = dpList;
   public bestSeason: any[] = season;
   public edit_status = false;
@@ -56,7 +66,8 @@ export class RecipesComponent {
   public selecteddishes: DishesResponse[] = [];
   public seleCategoriesDishes: CategoriesDishesResponse[] = [];
   public uploadPercent!: number;
-  public formStep = 1;
+  public formStep = 2;
+  public ingredients = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,6 +78,7 @@ export class RecipesComponent {
     private methodCookin: MethodCookinService,
     private toolsService: ToolsService,
     public dialog: MatDialog,
+    private storsge: Storage
 
   ) { };
 
@@ -103,6 +115,7 @@ export class RecipesComponent {
       //Сторінка 3
       numberServings: [1],
       quantityIngredients: [null, Validators.required],
+      amountProdukt: [null, Validators.required],
       unitsMeasure: [null, Validators.required],
       ingredients: [null, Validators.required],
       notes: [null],
@@ -111,7 +124,60 @@ export class RecipesComponent {
       //Сторінка 4
       steps: [null, Validators.required],
     })
+
+
+
+
   }
+
+  //перевірка валідності
+
+
+  //Нова сторынка рецепта
+  nextStep(step: string) {
+    if (step === 'two') {
+      if (this.recipesForm.get('dishes')?.value &&
+        this.recipesForm.get('categoriesDishes')?.value &&
+        this.recipesForm.get('recipeKeys')?.value &&
+        this.recipesForm.get('cuisine')?.value &&
+        this.recipesForm.get('difficultyPreparation')?.value &&
+        this.recipesForm.get('bestSeason')?.value) {
+        this.formStep += 1;
+      } else {
+        this.validError();
+      }
+    } else if (step === 'three') {
+      if (this.recipesForm.get('recipeTitle')?.value &&
+        this.recipesForm.get('descriptionRecipe')?.value) {
+        this.formStep += 1;
+      } else {
+        this.validError();
+      }
+    }
+  }
+  //Помилка валыдації
+  validError() {
+    Swal.fire({
+      icon: "error",
+      title: "Ой...",
+      text: "Виникла помилка! Заповніть всі обов`язкові поля!",
+    });
+  }
+
+
+  back() {
+    this.formStep -= 1;
+  }
+
+  addIng(action: 'add' | 'edit'): void {
+    const dialogRef = this.dialog.open(IngredientComponent, {
+      panelClass: 'ingModsl',
+      data: { action }
+    })
+  }
+
+
+
 
   //Отримання списку страв
   getDishes(): void {
@@ -181,23 +247,24 @@ export class RecipesComponent {
 
   //Створення або редагування рецепта
   creatRecipe() {
-    if (this.edit_status) {
-      this.recipesService
-        .editrecipes(this.recipesForm.value, this.recipeID as string)
-        .then(() => {
-          this.getRecipes();
-          this.uploadPercent = 0;
-        });
-    } else {
-      this.recipesService.addRecipess(this.recipesForm.value).then(() => {
-        this.getRecipes();
-        this.uploadPercent = 0;
-      });
-    }
 
-    this.recipesForm.reset();
-    this.edit_status = false;
-    this.recipes_form = false;
+    /*    if (this.edit_status) {
+         this.recipesService
+           .editrecipes(this.recipesForm.value, this.recipeID as string)
+           .then(() => {
+             this.getRecipes();
+             this.uploadPercent = 0;
+           });
+       } else {
+         this.recipesService.addRecipess(this.recipesForm.value).then(() => {
+           this.getRecipes();
+           this.uploadPercent = 0;
+         });
+       }
+   
+       this.recipesForm.reset();
+       this.edit_status = false;
+       this.recipes_form = false; */
   }
 
   resetForm() {
@@ -216,6 +283,64 @@ export class RecipesComponent {
       this.getDishes()
       this.getCategoriesDishes()
     });
+  }
+
+
+  //ЗАВАНТАЖЕННЯ ЗОБРАЖЕНЬ
+  upload(event: any): void {
+    const file = event.target.files[0];
+    this.loadFIle('recipe-main-images', file.name, file)
+      .then((data) => {
+        if (this.uploadPercent == 100) {
+          this.recipesForm.patchValue({
+            mainImage: data,
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  async loadFIle(
+    folder: string,
+    name: string,
+    file: File | null
+  ): Promise<string> {
+    const path = `${folder}/${name}`;
+    let url = '';
+    if (file) {
+      try {
+        const storageRef = ref(this.storsge, path);
+        const task = uploadBytesResumable(storageRef, file);
+        percentage(task).subscribe((data) => {
+          this.uploadPercent = data.progress;
+        });
+        await task;
+        url = await getDownloadURL(storageRef);
+      } catch (e: any) {
+        console.error(e);
+      }
+    } else {
+      console.log('Wtong file');
+    }
+    return Promise.resolve(url);
+  }
+
+  deleteImage(): void {
+    const task = ref(this.storsge, this.valueByControl('mainImage'));
+    console.log(task);
+    deleteObject(task).then(() => {
+      this.uploadPercent = 0;
+      this.recipesForm.patchValue({
+        mainImage: null,
+      });
+    });
+  }
+
+
+  valueByControl(control: string): string {
+    return this.recipesForm.get(control)?.value;
   }
 
 

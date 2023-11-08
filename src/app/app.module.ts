@@ -25,7 +25,6 @@ import {
   getRemoteConfig,
 } from '@angular/fire/remote-config';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { ToastrModule } from 'ngx-toastr';
 import { MatSliderModule } from '@angular/material/slider';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HeaderComponent } from './components/header/header.component';
@@ -34,8 +33,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { SignUpComponent } from './modal/sign-up/sign-up.component';
 import { SignInComponent } from './modal/sign-in/sign-in.component';
 import { HeaderService } from './shared/service/header/header.service';
-
 import { RecipeElementsComponent } from './modal/recipe-elements/recipe-elements.component';
+import { IngredientComponent } from './modal/ingredient/ingredient.component';
 
 
 @NgModule({
@@ -47,6 +46,7 @@ import { RecipeElementsComponent } from './modal/recipe-elements/recipe-elements
     SignUpComponent,
     SignInComponent,
     RecipeElementsComponent,
+    IngredientComponent,
 
   ],
   imports: [
@@ -65,7 +65,6 @@ import { RecipeElementsComponent } from './modal/recipe-elements/recipe-elements
     provideRemoteConfig(() => getRemoteConfig()),
     provideAuth(() => getAuth()),
     BsDatepickerModule.forRoot(),
-    ToastrModule.forRoot(),
     MatSliderModule,
     SlickCarouselModule,
     SharedModule,
