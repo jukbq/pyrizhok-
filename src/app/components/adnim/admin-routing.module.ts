@@ -6,6 +6,7 @@ import { DishesComponent } from './dishes/dishes.component';
 import { CategoriesDishesComponent } from './categories-dishes/categories-dishes.component';
 import { CuisineComponent } from './cuisine/cuisine.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductCategoryComponent } from './product-category/product-category.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'cuisine', component: CuisineComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'recipes', component: RecipesComponent },
+      { path: 'productCategory', component: ProductCategoryComponent },
 
 
       { path: '', pathMatch: 'full', redirectTo: 'action' },

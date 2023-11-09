@@ -1,5 +1,7 @@
+import { ProductCategoryResponse } from "./productCategory";
+
 export interface ProductsRequest {
-    productsCategory: string;
+    productsCategory: ProductCategoryResponse;
     productsName: string;
     productsLink: string;
     productsCalories: number;

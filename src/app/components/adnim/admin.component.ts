@@ -5,6 +5,7 @@ const LIST: any[] = [
   { name: 'Страви', link: 'dishes' },
   { name: 'Категорії', link: 'categories' },
   { name: 'Кухні', link: 'cuisine' },
+  { name: 'Категорії продуктів', link: 'productCategory' },
   { name: 'Продукти', link: 'products' },
   { name: 'Рецепти', link: 'recipes' },
 

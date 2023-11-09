@@ -1,0 +1,4 @@
+{
+    "cosine.AIProvider": "OpenAI",
+    "cosine.AIModel": "Faster"
+}

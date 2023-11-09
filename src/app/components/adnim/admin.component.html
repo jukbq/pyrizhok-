@@ -6,10 +6,15 @@
     <ul class="admin_menu">
         <li [routerLink]="[ item.link ]" routerLinkActive="active" *ngFor="let item of list"
             (click)="onSelectItem(item)" [class.active]="item == activeItem">
-            <p class="nav-link">{{item.name}}</p>
+            <div class="text">
+                <p class="nav-link">{{item.name}}</p>
+            </div>
+
         </li>
         <li>
-            <p (click)="logout()">ВИЙТИ</p>
+            <div class="text">
+                <p (click)="logout()">ВИЙТИ</p>
+            </div>
         </li>
     </ul>
     <div class="aadmin_category">

@@ -1,172 +1,111 @@
 <section>
 
-    <ul class="category_menu">
-        <li (click)="onSelectItem('category')" [class.active]="activeSection === 'category'">
-            <p class="nav-link">Категорії/p>
-        </li>
-        <li (click)="onSelectItem('products')" [class.active]="activeSection === 'products'">
-            <p class="nav-link">Продуктиp>
-        </li>
-    </ul>
 
-    <div *ngIf="!active_block" class="categories">
-        <h2>Категорії продуктів</h2>
+    <h2>Продукти</h2>
 
-        <button (click)="active_form = !active_form" class="btn" data-rel="address" type="button">
-            {{ !active_form? "ДОДАТИ КАТЕГОРІЮ" : "ВІДМІНИТИ" }}
-        </button>
+    <button (click)="active_form = !active_form" class="btn" data-rel="address" type="button">
+        {{ !active_form? "ДОДАТИ МЕНЮ" : "ВІДМІНИТИ" }}
+    </button>
 
-        <div class="table" [ngClass]="{ active: active_form }">
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">Назва</th>
-                        <th scope="col">Дії</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let category of productsCategories; let i = index">
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ category.productCategoryName}}</td>
-                        <td>{{category.productCategoryLink}}</td>
-                        <td class="btn_tr">
-                            <a (click)="editCategory(category)" type="button" title="Редагувати">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
-                                    alt="">
-                            </a>
-                            <a (click)="delCategory(category)" type="button" title="Видалити">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fdel.svg?alt=media&token=5765a105-be2a-4537-b99e-b5f0447c88a4&_gl=1*12xf5iz*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwNDI2LjYwLjAuMA.."
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="table" [ngClass]="{ active: active_form }">
+
+        <div class="filter">
+            <mat-form-field class="select">
+                <mat-label class="mat_label">Оберіть категорії</mat-label>
+                <mat-select [formControl]="toppings" multiple (selectionChange)="onCategorySelectionChange()"
+                    class="form-select">
+                    <mat-option *ngFor="let topping of productsCategories" [value]="topping.productCategoryLink">
+                        {{topping.productCategoryName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <div class="form_conteiner" [ngClass]="{ active: !active_form }">
-            <form [formGroup]="productsCategoryForm" (ngSubmit)="creatProductCategory()" class="form_category">
-                <div class="input_section">
-                    <input formControlName="productCategoryName" type="text" name="productCategoryName"
-                        class="form-control" placeholder="*Назва" aria-label="Назва">
-                    <input formControlName="productCategoryLink" type="text" name="productCategoryLink"
-                        class="form-control" placeholder="*Щлях" aria-label="Щлях" />
-                </div>
 
-                <div class="batton_section">
-                    <button [disabled]="productsCategoryForm.invalid" type="submit" class="btn">
-                        {{ productses_edit_status ? "Зберегти" : "Додати" }}
-                    </button>
-                </div>
 
-            </form>
-        </div>
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Категорыя</th>
+                    <th scope="col">Назва</th>
+                    <th scope="col">Калорії</th>
+                    <th scope="col">Зображення</th>
+                    <th scope="col">Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let products of filteredProducts; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ products.productsCategory.productCategoryName}}</td>
+                    <td>{{products.productsName}}</td>
+                    <td>{{products.productsCalories }}</td>
+                    <td class="image">
+                        <img [src]="products.productsImages" />
+                    </td>
+                    <td class="btn_tr">
+                        <a (click)="editProducts(products)" type="button" title="Редагувати">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
+                                alt="">
+                        </a>
+                        <a (click)="delProducts(products)" type="button" title="Видалити">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fdel.svg?alt=media&token=5765a105-be2a-4537-b99e-b5f0447c88a4&_gl=1*12xf5iz*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwNDI2LjYwLjAuMA.."
+                                alt="">
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="form_conteiner" [ngClass]="{ active: !active_form }">
+        <form [formGroup]="productsForm" (ngSubmit)="creatProducts()" class="form_category">
+            <div class="input_section">
 
-
-    <div *ngIf="active_block" class="products">
-        <h2>Продукти</h2>
-
-        <button (click)="active_form = !active_form" class="btn" data-rel="address" type="button">
-            {{ !active_form? "ДОДАТИ МЕНЮ" : "ВІДМІНИТИ" }}
-        </button>
-
-        <div class="table" [ngClass]="{ active: active_form }">
-
-            <div class="filter">
                 <mat-form-field class="select">
                     <mat-label class="mat_label">Оберіть категорії</mat-label>
-                    <mat-select [formControl]="toppings" multiple (selectionChange)="onCategorySelectionChange()"
-                        class="form-select">
-                        <mat-option *ngFor="let topping of productsCategories" [value]="topping.link">
-                            {{topping.name}}</mat-option>
+                    <mat-select formControlName="productsCategory" name="productsCategory" class="form-select">
+                        <mat-option *ngFor="let menu of productsCategories" [value]="menu">
+                            {{menu.productCategoryName}}</mat-option>
                     </mat-select>
                 </mat-form-field>
+
+                <input formControlName="productsName" type="text" name="productsName" class="form-control"
+                    placeholder="*Назва" aria-label="Назва" (input)="onProductNameInput($event)" />
+                <input formControlName="productsLink" type="text" name="productsLink" class="form-control"
+                    placeholder="*Щлях" aria-label="Щлях" />
+                <input formControlName="productsCalories" type="number" name="productsCalories" class="form-control"
+                    placeholder="*Калорії" aria-label="Калорії" />
             </div>
 
+            <div class="load_file">
+                <input class="form-control form-control-lg" type="file" (change)="uploadProductsImage($event)" />
+            </div>
 
-
-
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">Категорыя</th>
-                        <th scope="col">Назва</th>
-                        <th scope="col">Калорії</th>
-                        <th scope="col">Зображення</th>
-                        <th scope="col">Дії</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let products of filteredProducts; let i = index">
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ products.productsCategory.name}}</td>
-                        <td>{{products.productsName}}</td>
-                        <td>{{products.productsCalories }}</td>
-                        <td class="image">
-                            <img [src]="products.image" />
-                        </td>
-                        <td class="btn_tr">
-                            <a (click)="editProducts(products)" type="button" title="Редагувати">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
-                                    alt="">
-                            </a>
-                            <a (click)="delProducts(products)" type="button" title="Видалити">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fdel.svg?alt=media&token=5765a105-be2a-4537-b99e-b5f0447c88a4&_gl=1*12xf5iz*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwNDI2LjYwLjAuMA.."
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="form_conteiner" [ngClass]="{ active: !active_form }">
-            <form [formGroup]="productsForm" (ngSubmit)="creatProducts()" class="form_category">
-                <div class="input_section">
-                    <select formControlName="productsCategory" name="productsCategory" class="form-select">
-                        <option [ngValue]="menu" *ngFor="let menu of productsCategories">
-                            {{ menu.name }}
-                        </option>
-                    </select>
-
-                    <input formControlName="productsName" type="text" name="productsName" class="form-control"
-                        placeholder="*Назва" aria-label="Назва" (input)="onProductNameInput($event)" />
-                    <input formControlName="productsLink" type="text" name="productsLink" class="form-control"
-                        placeholder="*Щлях" aria-label="Щлях" />
-                    <input formControlName="productsCalories" type="number" name="productsCalories" class="form-control"
-                        placeholder="*Калорії" aria-label="Калорії" />
+            <div class="progress_line">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped" role="progressbar"
+                        aria-label="Default striped example" [style.width.%]="uploadPercent" aria-valuemin="0"
+                        aria-valuemax="100"></div>
                 </div>
+            </div>
 
-                <div class="load_file">
-                    <input class="form-control form-control-lg" type="file" (change)="uploadProductsImage($event)" />
-                </div>
+            <div class="image_block">
+                <td class="image">
+                    <img [src]="valueByControlProducts('productsImages')">
+                </td>
+            </div>
 
-                <div class="progress_line">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped" role="progressbar"
-                            aria-label="Default striped example" [style.width.%]="uploadPercent" aria-valuemin="0"
-                            aria-valuemax="100"></div>
-                    </div>
-                </div>
+            <div class="batton_section">
+                <button [disabled]="productsForm.invalid" type="submit" class="btn">
+                    {{ productses_edit_status ? "Зберегти" : "Додати" }}
+                </button>
+                <button (click)="deleteImage()" type="submit" class="btn">
+                    Видалити
+                </button>
+            </div>
 
-                <div class="image_block">
-                    <td class="image">
-                        <img [src]="valueByControlProducts('image')">
-                    </td>
-                </div>
-
-                <div class="batton_section">
-                    <button [disabled]="productsForm.invalid" type="submit" class="btn">
-                        {{ productses_edit_status ? "Зберегти" : "Додати" }}
-                    </button>
-                    <button (click)="deleteImage()" type="submit" class="btn">
-                        Видалити
-                    </button>
-                </div>
-
-            </form>
-        </div>
+        </form>
     </div>
+
 
 </section>

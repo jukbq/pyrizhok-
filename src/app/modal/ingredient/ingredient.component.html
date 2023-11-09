@@ -1,25 +1,42 @@
-<div class="ingridient_block" *ngFor="let ingredient of ingredients; let i = index">
-    <label for="name_ing_group">Назва групи </label>
-    <input type="text" name="name_ing_group" id="name_ing_group" placeholder="Назва групи інгредієнтів"
-        [(ngModel)]="ingredient.name">
+<div class="add_ingridients">
+    <div class="ingridient_block" *ngFor="let ingredient of ingredients; let i = index">
 
-    <ul *ngFor="let group of ingredient.group; let j = index">
-        <li>
-            <!--        <select formControlName="productsCategory" name="productsCategory" class="form-select"
-                [(ngModel)]="group.productsCategory">
-                <option [ngValue]="menu" *ngFor="let menu of productsCategories">
-                    {{ menu.name }}
-                </option>
-            </select> -->
-            <input type="number" name="amountProdukt" placeholder="Введіть кліькість" [(ngModel)]="group.amountProdukt">
-            <input type="text" name="unitsMeasure" placeholder="Введіть одиницю виміру"
-                [(ngModel)]="group.unitsMeasure">
-            <input type="text" name="ingredients" placeholder="Введіть назву" [(ngModel)]="group.ingredients">
-            <input type="text" name="notes" placeholder="Коментар" [(ngModel)]="group.notes">
-        </li>
-    </ul>
+        <form [formGroup]="ingredient.ingForm" (ngSubmit)="addIngredient(i)" class="form_category">
+            <label for="nameIngGroup">Назва групи </label>
+            <input type="text" formControlName="nameIngGroup" name="nameIngGroup" id="nameIngGroup"
+                placeholder="Назва групи інгредієнтів">
+            <ul class="ingidient" *ngFor="let group of ingredient.group; let j = index">
+                <li>
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Оберіть категорії</mat-label>
+                        <mat-select [formControl]="toppings" (selectionChange)="onCategorySelectionChange()">
+                            <mat-option *ngFor="let menu of productsCategories" [value]="menu"
+                                formControlName="productsCategory">
+                                {{ menu.productCategoryName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-    <button (click)="addIngredient(i)">Додати інгредієнт</button>
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">Назва продукту</mat-label>
+                        <mat-select formControlName="ingredients" name="ingredients" class="form-select">
+                            <mat-option *ngFor="let menu of filteredProducts" [value]="menu">
+                                {{menu.productsName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <input formControlName="amountProdukt" type="number" name="amountProdukt"
+                        placeholder="Введіть кліькість">
+                    <input formControlName="unitsMeasure" type="text" name="unitsMeasure"
+                        placeholder="Введіть одиницю виміру">
+                    <input formArrayName="notes" type="text" name="notes" placeholder="Коментар">
+                </li>
+
+            </ul>
+            <button [disabled]="ingForm.invalid" class="btn" type="submit">Додати інгредієнт</button>
+        </form>
+    </div>
+
+
 </div>
-
-<button (click)="addGroup()">Додати групу інгредієнтів</button>
+<button (click)="addGroup()" class="btn">Додати групу інгредієнтів</button>

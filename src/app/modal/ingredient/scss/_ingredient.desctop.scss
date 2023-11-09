@@ -1,0 +1,46 @@
+.add_ingredients {
+    width: 70vw;
+    min-height: 600px;
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+
+    .ingredient_block {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+
+        .form_category {
+            width: 100%;
+
+            input {
+                width: 100%;
+                height: 26px;
+            }
+
+            .ingredient {
+                width: 100%;
+                height: 50px;
+                list-style: none;
+                display: flex;
+
+                li {
+
+
+                    .select,
+                    input {
+                        width: 20%;
+                    }
+
+                    .btn {
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

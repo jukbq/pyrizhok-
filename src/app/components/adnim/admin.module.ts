@@ -7,6 +7,7 @@ import { DishesComponent } from './dishes/dishes.component';
 import { CategoriesDishesComponent } from './categories-dishes/categories-dishes.component';
 import { CuisineComponent } from './cuisine/cuisine.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductCategoryComponent } from './product-category/product-category.component';
 
 
 
@@ -16,7 +17,8 @@ import { ProductsComponent } from './products/products.component';
     DishesComponent,
     CategoriesDishesComponent,
     CuisineComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductCategoryComponent
   ],
   imports: [
     CommonModule, AdminRoutingModule, SharedModule

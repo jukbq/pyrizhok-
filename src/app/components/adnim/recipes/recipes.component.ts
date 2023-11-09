@@ -66,7 +66,7 @@ export class RecipesComponent {
   public selecteddishes: DishesResponse[] = [];
   public seleCategoriesDishes: CategoriesDishesResponse[] = [];
   public uploadPercent!: number;
-  public formStep = 2;
+  public formStep = 3;
   public ingredients = [];
 
   constructor(
