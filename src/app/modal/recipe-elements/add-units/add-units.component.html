@@ -1,0 +1,24 @@
+<div class="form_conteiner">
+    <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
+    <h2>Додати одиницю</h2>
+    <form [formGroup]="unitsForm" (ngSubmit)="creatUnits()" class="form_category">
+        <div class="input_section">
+
+            <input formControlName="unitName" type="text" name="unitName" class="form-control" placeholder="*Назва"
+                aria-label="Назва" (input)="onProductNameInput($event)" />
+            <input formControlName="unitLink" type="text" name="unitLink" class="form-control" placeholder="*Щлях"
+                aria-label="Щлях" />
+
+        </div>
+
+
+        <div class="batton_section">
+            <button [disabled]="unitsForm.invalid" type="submit" class="btn">
+                Зберегти
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

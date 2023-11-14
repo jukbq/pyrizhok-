@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { RecipeElementsComponent } from 'src/app/modal/recipe-elements/recipe-elements.component';
 import { CategoriesDishesResponse } from 'src/app/shared/interfaces/categories -dishes';
 import { СuisineResponse } from 'src/app/shared/interfaces/cuisine';
 import { DishesResponse } from 'src/app/shared/interfaces/dishes';
@@ -25,6 +24,10 @@ import {
   uploadBytesResumable,
 } from '@angular/fire/storage';
 import { IngredientComponent } from 'src/app/modal/ingredient/ingredient.component';
+import { AddDishesComponent } from 'src/app/modal/recipe-elements/add-dishes/add-dishes.component';
+import { AddCategoriesDishesComponent } from 'src/app/modal/recipe-elements/add-categories-dishes/add-categories-dishes.component';
+import { AddCuisineComponent } from 'src/app/modal/recipe-elements/add-cuisine/add-cuisine.component';
+import { AddToolsComponent } from 'src/app/modal/recipe-elements/add-tools/add-tools.component';
 
 const dpList: any[] = [
   { name: 'Базовий рецепт', list: 'light' },
@@ -37,7 +40,6 @@ const season: any[] = [
   { name: 'Весна', list: 'spring' },
   { name: 'Літо', list: 'summer' },
   { name: 'Осінь', list: 'Autumn' },
-
 
 ]
 
@@ -53,9 +55,8 @@ export class RecipesComponent {
   public recipes: Array<RecipesResponse> = [];
   public dishes: Array<DishesResponse> = [];
   public categoriesDishes: Array<CategoriesDishesResponse> = [];
-  public ccuisine: Array<СuisineResponse> = [];
+  public cuisine: Array<СuisineResponse> = [];
   public filteredCategories: any[] = [];
-  public cuisine = [];
   public methodCooking: Array<MethodCookinResponse> = [];
   public tools: Array<ToolsResponse> = [];
   public selectDishes = new FormControl('');
@@ -67,17 +68,20 @@ export class RecipesComponent {
   public seleCategoriesDishes: CategoriesDishesResponse[] = [];
   public uploadPercent!: number;
   public formStep = 3;
-  public ingredients = [];
+  public ingredients: any[] = [];
+  public numberServings = 1
+  group: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private recipesService: RecipesService,
     private dishessService: DishesService,
     private categoriesDishesService: CategoriesDishesService,
-    private cuisineDishesService: CuisineService,
+    private cuisineService: CuisineService,
     private methodCookin: MethodCookinService,
     private toolsService: ToolsService,
     public dialog: MatDialog,
+
     private storsge: Storage
 
   ) { };
@@ -87,7 +91,9 @@ export class RecipesComponent {
     this.getDishes()
     this.getCategoriesDishes()
     this.getRecipes();
-    this.getСuisine();
+    this.getCuisine();
+    this.getTools();
+
   }
 
   //Ініціалізація форми
@@ -130,9 +136,6 @@ export class RecipesComponent {
 
   }
 
-  //перевірка валідності
-
-
   //Нова сторынка рецепта
   nextStep(step: string) {
     if (step === 'two') {
@@ -159,8 +162,8 @@ export class RecipesComponent {
   validError() {
     Swal.fire({
       icon: "error",
-      title: "Ой...",
-      text: "Виникла помилка! Заповніть всі обов`язкові поля!",
+      title: "Виникла помилка! ",
+      text: "Заповніть всі обов`язкові поля!",
     });
   }
 
@@ -169,15 +172,9 @@ export class RecipesComponent {
     this.formStep -= 1;
   }
 
-  addIng(action: 'add' | 'edit'): void {
-    const dialogRef = this.dialog.open(IngredientComponent, {
-      panelClass: 'ingModsl',
-      data: { action }
-    })
+  delingr(index: void) {
+
   }
-
-
-
 
   //Отримання списку страв
   getDishes(): void {
@@ -193,12 +190,13 @@ export class RecipesComponent {
     });
   }
 
-  //Отримання списку кухонь
-  getСuisine(): void {
-    this.cuisineDishesService.getAll().subscribe((data) => {
-      this.ccuisine = data as СuisineResponse[];
+  // Отримання даних з сервера
+  getCuisine(): void {
+    this.cuisineService.getAll().subscribe((data) => {
+      this.cuisine = data as СuisineResponse[];
     });
   }
+
 
   //Доодати методи приготування
   getMethodCookin() {
@@ -206,6 +204,7 @@ export class RecipesComponent {
       this.methodCooking = data as MethodCookinResponse[];
     });
   }
+
   //Доодати інструменти
   getTools() {
     this.toolsService.getAll().subscribe((data) => {
@@ -239,7 +238,6 @@ export class RecipesComponent {
     if (selectedCategories) {
       this.filteredCategories = this.categoriesDishes.filter(categories =>
         selectedCategories.includes(categories.dishes.dishesName));
-      console.log(this.filteredCategories);
     } else {
       this.filteredCategories = [];
     }
@@ -272,17 +270,102 @@ export class RecipesComponent {
   }
 
 
-  // Відкриття модального вікна для додавання або редагування адреси
-  addressModal(action: string): void {
-    const dialogRef = this.dialog.open(RecipeElementsComponent, {
-      panelClass: 'recipe_element_dialog',
-      data: { action },
-    });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.getDishes()
-      this.getCategoriesDishes()
-    });
+  // Відкриття модального вікна для додавання або редагування адреси
+  addModal(action: string, object: any): void {
+    if (action === 'dishes') {
+      const dialogRef = this.dialog.open(AddDishesComponent, {
+        panelClass: 'add_dishes',
+        data: { action, object }
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.getDishes();
+      });
+    }
+
+    if (action === 'categoriesDishes') {
+      const dialogRef = this.dialog.open(AddCategoriesDishesComponent, {
+        panelClass: 'сategoriesDishes_modal_dialog',
+        data: { action, object }
+
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.getDishes();
+        this.getCategoriesDishes();
+      });
+    }
+
+    if (action === 'cuisine') {
+      const dialogRef = this.dialog.open(AddCuisineComponent, {
+        panelClass: 'сategoriesDishes_modal_dialog',
+        data: { action, object }
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.getCuisine();
+      });
+    }
+
+    if (action === 'methodCooking') {
+      const dialogRef = this.dialog.open(AddCuisineComponent, {
+        panelClass: 'methodCooking_modal_dialog',
+        data: { action, object }
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.getMethodCookin();
+      });
+    }
+    if (action === 'tools') {
+      const dialogRef = this.dialog.open(AddToolsComponent, {
+        panelClass: 'add_tools',
+        data: { action, object }
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.getTools();
+      });
+    }
+  }
+
+
+  addIng(action: 'add' | 'edit'): void {
+    if (action === 'add') {
+      const dialogRef = this.dialog.open(IngredientComponent, {
+        panelClass: 'ingModsl',
+        data: { action }
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.ingredients = result.ingredients;
+          this.numberServings = result.numberServings;
+          this.getMethodCookin();
+        }
+      });
+
+    } else if (action === 'edit' && this.ingredients.length > 0) {
+      const dialogRef = this.dialog.open(IngredientComponent, {
+        panelClass: 'ingModsl',
+        data: { action, ingredients: this.ingredients, numberServings: this.numberServings }
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.ingredients = result.ingredients;
+          this.numberServings = result.numberServings;
+          this.getMethodCookin();
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Виникла помилка! ",
+        text: "Не введено ні одного інгидієнта!",
+      });
+    }
+
+
   }
 
 
@@ -337,7 +420,6 @@ export class RecipesComponent {
       });
     });
   }
-
 
   valueByControl(control: string): string {
     return this.recipesForm.get(control)?.value;

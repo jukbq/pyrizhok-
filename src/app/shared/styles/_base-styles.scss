@@ -28,10 +28,6 @@ ul {
     padding-left: 0rem;
 }
 
-
-
-
-
 .btn {
     color: var(--clr-white);
     background: var(--clr-red);
@@ -176,4 +172,34 @@ h1,
             }
         }
     }
+}
+
+.ingModsl {
+    width: 90vw;
+    height: 90vh;
+    border-radius: 16px;
+    box-shadow: 0px 0px 20px -1px #595959;
+}
+
+.creat_ingredient_modal,
+.add_dishes,
+.сategoriesDishes_modal_dialog,
+.cuisine_modal_dialog,
+.methodCooking_modal_dialog,
+.productCatgories_modal_dialog,
+.pproducts_modal_dialog,
+.add_tools,
+.add_units {
+    width: 50vw;
+    height: 90vh;
+    border-radius: 16px;
+    box-shadow: 0px 0px 20px -1px #595959;
+}
+
+.btn-close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    border: none;
+    cursor: pointer;
 }

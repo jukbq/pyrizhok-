@@ -1,0 +1,41 @@
+<section>
+
+    <h2>Інструменти</h2>
+
+    <button class="btn" (click)="addModal('add', 0)" type="button">
+        ДОДАТИ CNHFDB
+    </button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Назва</th>
+                <th scope="col">Лінк</th>
+                <th scope="col">Картинка</th>
+                <th scope="col">Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tools of tools; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{tools.toolsName}}</td>
+                <td>{{tools.toolsLink }}</td>
+                <td class="image">
+                    <img [src]="tools.image" />
+                </td>
+                <td class="btn_tr">
+                    <a (click)="addModal('edit',tools)" type="button" title="Редагувати">
+                        <img src="../../../../assets/icons/edit.svg" alt="Редагувати">
+                    </a>
+                    <a (click)="delTools(tools)" type="button" title="Видалити">
+                        <img src="../../../../assets/icons/del.svg" alt="Видалити">
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</section>

@@ -1,6 +1,6 @@
 export interface ToolsRequest {
     toolsName: string;
-    toolsCookinLink: string;
+    toolsLink: string;
     image: string;
 }
 export interface ToolsResponse extends ToolsRequest {

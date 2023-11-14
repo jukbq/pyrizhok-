@@ -229,6 +229,14 @@
              width: 100%;
              padding-top: 8px;
              padding-left: 8px;
+
+             input {
+                 width: 100% !important;
+                 height: 38px !important;
+                 border: var(--bs-border-width) solid var(--bs-border-color);
+                 border-radius: var(--bs-border-radius);
+                 padding-left: 8px;
+             }
          }
 
          .mdc-line-ripple::before {
@@ -258,3 +266,7 @@
 
      }
  }
+
+ /*
+     border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);*/

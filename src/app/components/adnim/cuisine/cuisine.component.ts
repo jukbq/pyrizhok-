@@ -11,6 +11,8 @@ import {
 import { СuisineResponse } from 'src/app/shared/interfaces/cuisine';
 import { CuisineService } from 'src/app/shared/service/cuisine/cuisine.service';
 import { ViewportScroller } from '@angular/common';
+import { AddCuisineComponent } from 'src/app/modal/recipe-elements/add-cuisine/add-cuisine.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cuisine',
@@ -18,34 +20,21 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./cuisine.component.scss']
 })
 export class CuisineComponent {
-  public active_form = false;
   public cuisine: Array<СuisineResponse> = [];
-  public cuisineForm!: FormGroup;
-  public cuisine_edit_status = false;
-  public cuisineID!: number | string;
-  public uploadPercent!: number;
+  delete: any;
+
 
   constructor(
-    private formBuild: FormBuilder,
     private storsgeIcon: Storage,
     private cuisineService: CuisineService,
-    private viewportScroller: ViewportScroller
+    private viewportScroller: ViewportScroller,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
-    this.initCuisineForm();
     this.getCuisine();
   }
 
-
-  // Ініціалізація форми для страв
-  initCuisineForm(): void {
-    this.cuisineForm = this.formBuild.group({
-      cuisineName: [null, Validators.required],
-      cuisineLink: [null, Validators.required],
-      image: [null],
-    });
-  }
 
   // Отримання даних з сервера
   getCuisine(): void {
@@ -55,40 +44,9 @@ export class CuisineComponent {
   }
 
 
-  // Додавання або редагування меню
-  creatCuisine() {
-    if (this.cuisine_edit_status) {
-      this.cuisineService
-        .editCuisine(this.cuisineForm.value, this.cuisineID as string)
-        .then(() => {
-          this.getCuisine();
-        });
-    } else {
-      this.cuisineService.addCuisine(this.cuisineForm.value).then(() => {
-        this.getCuisine();
-      });
-    }
-    this.cuisine_edit_status = false;
-    this.active_form = false;
-    this.cuisineForm.reset();
-    this.viewportScroller.scrollToPosition([0, 0]);
-  }
-
-  // Редагування меню
-  editDishes(cuisine: СuisineResponse) {
-    this.cuisineForm.patchValue({
-      cuisineName: cuisine.cuisineName,
-      cuisineLink: cuisine.cuisineLink,
-      cuisineImages: cuisine.image,
-    });
-    this.active_form = true;
-    this.cuisine_edit_status = true;
-    this.cuisineID = cuisine.id;
-  }
-
 
   // Видалення пункту меню
-  delDishes(index: СuisineResponse) {
+  delCuisine(index: СuisineResponse) {
     const task = ref(this.storsgeIcon, index.image);
     deleteObject(task);
     this.cuisineService.delCuisine(index.id as string).then(() => {
@@ -96,82 +54,22 @@ export class CuisineComponent {
     });
   }
 
-  // Завантаження зображення
-  uploadDishesImage(actionImage: any): void {
-    const file = actionImage.target.files[0];
-    this.loadFIle('cuisine-icon', file.name, file)
-      .then((data) => {
-        if (this.uploadPercent == 100) {
-          this.cuisineForm.patchValue({
-            image: data,
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
 
-  // Завантаження файлу в хмарне сховище
-  async loadFIle(
-    folder: string,
-    name: string,
-    file: File | null
-  ): Promise<string> {
-    const pathIcon = `${folder}/${name}`;
-    let urlIcon = '';
-    if (file) {
-      try {
-        const storageRef = ref(this.storsgeIcon, pathIcon);
-        const task = uploadBytesResumable(storageRef, file);
-        percentage(task).subscribe((data) => {
-          this.uploadPercent = data.progress;
-        });
-        await task;
-        urlIcon = await getDownloadURL(storageRef);
-      } catch (e: any) {
-        console.error(e);
-      }
-    } else {
-      console.log('Wrong file');
-    }
-    return Promise.resolve(urlIcon);
-  }
 
-  // Видалення зображення
-  deleteImage(): void {
-    const task = ref(this.storsgeIcon, this.valueByControlDishes('image'));
-    deleteObject(task).then(() => {
-      console.log('File deleted');
-      this.uploadPercent = 0;
-      this.cuisineForm.patchValue({
-        image: '',
-      });
+  addModal(action: string, object: any): void {
+    const dialogRef = this.dialog.open(AddCuisineComponent, {
+      panelClass: 'cuisine_modal_dialog',
+      data: { action, object }
     });
-  }
 
-  // Отримання значення за назвою поля у формі меню
-  valueByControlDishes(control: string): string {
-    return this.cuisineForm.get(control)?.value;
-  }
-
-
-
-  onCuisineNameInput(event: Event): void {
-    const inputValue = (event.target as HTMLInputElement).value;
-    const transcribedValue = this.transcribeToTranslit(inputValue);
-    this.cuisineForm.patchValue({
-      cuisineLink: transcribedValue
+    dialogRef.afterClosed().subscribe(() => {
+      this.getCuisine();
     });
-  }
 
-  transcribeToTranslit(input: string): string {
-    const transliteration = require('transliteration.cyr');
-    let transliteratedValue = transliteration.transliterate(input);
-    transliteratedValue = transliteratedValue.replace(/\s+/g, '_');
-    return transliteratedValue;
+
 
   }
+
 
 }
 

@@ -13,7 +13,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const MATERIAL = [
   MatSliderModule,
@@ -25,7 +25,8 @@ const MATERIAL = [
   MatButtonModule,
   MatExpansionModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatAutocompleteModule
 ];
 
 @NgModule({

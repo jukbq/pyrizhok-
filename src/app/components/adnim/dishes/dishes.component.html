@@ -2,11 +2,11 @@
 
     <h2>Страви</h2>
 
-    <button (click)="active_form = !active_form" class="btn" data-rel="address" type="button">
-        {{ !active_form? "ДОДАТИ МЕНЮ" : "ВІДМІНИТИ" }}
+    <button class="btn" (click)="addModal('add', 0)" type="button">
+        ДОДАТИ CNHFDB
     </button>
 
-    <table [ngClass]="{ active: active_form }" class="table">
+    <table class="table">
         <thead>
             <tr>
                 <th scope="col">№</th>
@@ -27,58 +27,17 @@
                     <img [src]="dishes.image" />
                 </td>
                 <td class="btn_tr">
-                    <a (click)="editDishes(dishes)" type="button" title="Редагувати">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fedit.svg?alt=media&token=2c3ab95d-c6f0-4f36-9127-626674e9d9ab&_gl=1*96vw8j*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwMjcyLjMuMC4w"
-                            alt="">
+                    <a (click)="addModal('edit',dishes)" type="button" title="Редагувати">
+                        <img src="../../../../assets/icons/edit.svg" alt="Редагувати">
                     </a>
                     <a (click)="delDishes(dishes)" type="button" title="Видалити">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/icon%2Fdel.svg?alt=media&token=5765a105-be2a-4537-b99e-b5f0447c88a4&_gl=1*12xf5iz*_ga*MzkwMTAyNDg5LjE2ODc3NzIwMTI.*_ga_CW55HF8NVT*MTY5NjkyMDIxNS4zMzAuMS4xNjk2OTIwNDI2LjYwLjAuMA.."
-                            alt="">
+                        <img src="../../../../assets/icons/del.svg" alt="Видалити">
                     </a>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <div class="form_conteiner" [ngClass]="{ active: !active_form }">
-        <form [formGroup]="dishesForm" (ngSubmit)="creatDishes()" class="form_category">
-            <div class="input_section">
-                <input formControlName="dishesindex" type="number" name="dishesindex" class="form-control"
-                    placeholder="*Порядок меню" aria-label="Порядок меню" />
-                <input formControlName="dishesName" type="text" name="dishesName" class="form-control"
-                    placeholder="*Назва" aria-label="Назва" (input)="onDishesNameInput($event)" />
-                <input formControlName="dishesLink" type="text" name="dishesLink" class="form-control"
-                    placeholder="*Щлях" aria-label="шлях" />
-            </div>
 
-            <div class="load_file">
-                <input class="form-control form-control-lg" type="file" (change)="uploadDishesImage($event)" />
-            </div>
-
-            <div class="progress_line">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped" role="progressbar"
-                        aria-label="Default striped example" [style.width.%]="uploadPercent" aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                </div>
-            </div>
-
-            <div class="image_block">
-                <td class="image">
-                    <img [src]="valueByControlDishes('image')" />
-                </td>
-            </div>
-
-            <div class="batton_section">
-                <button [disabled]="dishesForm.invalid" type="submit" class="btn">
-                    {{ dishes_edit_status ? "Зберегти" : "Додати" }}
-                </button>
-                <button (click)="deleteImage()" type="button" class="btn">
-                    Видалити
-                </button>
-            </div>
-
-        </form>
-    </div>
 
 </section>

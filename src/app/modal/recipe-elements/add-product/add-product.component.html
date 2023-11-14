@@ -1,0 +1,51 @@
+<div class="form_conteiner">
+    <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
+    <h2>Додати продукти</h2>
+    <form [formGroup]="productsForm" (ngSubmit)="creatProducts()" class="form_category">
+        <div class="input_section">
+
+            <mat-form-field class="select">
+                <mat-label class="mat_label">Оберіть категорії</mat-label>
+                <mat-select formControlName="productsCategory" name="productsCategory" class="form-select">
+                    <mat-option *ngFor="let menu of productsCategories" [value]="menu">
+                        {{menu.productCategoryName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <input formControlName="productsName" type="text" name="productsName" class="form-control"
+                placeholder="*Назва" aria-label="Назва" (input)="onProductNameInput($event)" />
+            <input formControlName="productsLink" type="text" name="productsLink" class="form-control"
+                placeholder="*Щлях" aria-label="Щлях" />
+            <input formControlName="productsCalories" type="number" name="productsCalories" class="form-control"
+                placeholder="*Калорії" aria-label="Калорії" />
+        </div>
+
+        <div class="load_file">
+            <input class="form-control form-control-lg" type="file" (change)="uploadProductsImage($event)" />
+        </div>
+
+        <div class="progress_line">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example"
+                    [style.width.%]="uploadPercent" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <div class="image_block">
+            <td class="image">
+                <img [src]="valueByControlProducts('productsImages')">
+            </td>
+        </div>
+
+        <div class="batton_section">
+            <button [disabled]="productsForm.invalid" type="submit" class="btn">
+                Зберегти
+            </button>
+            <button (click)="deleteImage()" type="submit" class="btn">
+                Видалити
+            </button>
+        </div>
+
+    </form>
+
+</div>

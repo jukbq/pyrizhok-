@@ -1,0 +1,171 @@
+section {
+  width: 80vw;
+  padding: 20px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: auto;
+}
+section::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+section::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--clr-green);
+}
+section .category_menu {
+  width: 50%;
+  display: flex;
+  list-style: none;
+  text-align: center;
+  border: 1px solid #D1D9CE;
+  border-radius: 12px;
+  padding: 0;
+  margin-top: 20px;
+}
+section .category_menu li {
+  width: 33%;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+section .category_menu li p {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1em;
+  color: var(--clr-grey);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+section .category_menu li:hover p {
+  color: var(--clr-green);
+}
+section .category_menu li.active {
+  background-color: var(--clr-red);
+  border-radius: 12px;
+}
+section .category_menu li.active p {
+  color: var(--clr-white);
+}
+section .table .filter {
+  width: 100%;
+  display: flex;
+}
+section .table table {
+  width: 100%;
+  margin-top: 20px;
+}
+section .table table thead {
+  width: 100%;
+}
+section .table table thead tr {
+  border-bottom: var(--clr-grey);
+}
+section .table table tbody tr .image {
+  width: 80px;
+  height: 70px;
+  overflow: hidden;
+}
+section .table table tbody tr .image img {
+  height: 100%;
+}
+section .table table tbody tr .btn_tr {
+  width: 45px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: none;
+}
+section .table table tbody tr .btn_tr a {
+  padding: 5px;
+  overflow: hidden;
+}
+section .table table tbody tr .btn_tr a img {
+  width: 20px;
+  height: 20px;
+}
+section .table.active {
+  display: none;
+}
+section .form_conteiner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+section .form_conteiner.active {
+  display: none;
+}
+section .form_conteiner .form_category {
+  width: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+}
+section .form_conteiner .form_category .input_section {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+section .form_conteiner .form_category .input_section input {
+  width: 90%;
+  margin-top: 20px;
+  height: auto;
+}
+section .form_conteiner .form_category .form-floating,
+section .form_conteiner .form_category .load_file {
+  margin-top: 20px;
+}
+section .form_conteiner .form_category .progress_line {
+  margin-top: 36px;
+  width: 100%;
+}
+section .form_conteiner .form_category .progress_line .progress {
+  width: 100%;
+}
+section .form_conteiner .form_category .image_block {
+  width: 48%;
+  height: auto;
+  position: relative;
+  margin-top: 19px;
+}
+section .form_conteiner .form_category .image_block .image {
+  max-width: 750px;
+  height: 100%;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+section .form_conteiner .form_category .image_block .image img {
+  height: 400px;
+}
+section .form_conteiner .form_category .image_block .btn {
+  width: 175px;
+  height: 52px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+section .form_conteiner .form_category .batton_section {
+  width: 90%;
+  margin-top: 20px;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+section .form_conteiner .form_category .batton_section .btn {
+  width: 40%;
+}/*# sourceMappingURL=product-category.component.css.map */

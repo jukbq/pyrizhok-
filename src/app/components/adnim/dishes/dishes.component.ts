@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   deleteObject,
-  getDownloadURL,
-  percentage,
   ref,
   Storage,
-  uploadBytesResumable,
 } from '@angular/fire/storage';
 
 import { DishesResponse } from 'src/app/shared/interfaces/dishes';
 import { DishesService } from 'src/app/shared/service/dishes/dishes.service';
-import { ViewportScroller } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { AddDishesComponent } from 'src/app/modal/recipe-elements/add-dishes/add-dishes.component';
 
 @Component({
   selector: 'app-dishes',
@@ -19,36 +16,21 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./dishes.component.scss']
 })
 export class DishesComponent {
-  public active_form = false;
   public dishes: Array<DishesResponse> = [];
   public dishes_edit_status = false;
-  public dishesForm!: FormGroup;
-  private dishesID!: number | string;
   public uploadPercent!: number;
 
 
   constructor(
-    private formBuild: FormBuilder,
+    public dialog: MatDialog,
     private storsgeIcon: Storage,
     private dishesService: DishesService,
-    private viewportScroller: ViewportScroller
   ) { }
 
   ngOnInit(): void {
-    this.initDishesForm();
     this.getDishes();
   }
 
-
-  // Ініціалізація форми для страв
-  initDishesForm(): void {
-    this.dishesForm = this.formBuild.group({
-      dishesindex: [null, Validators.required],
-      dishesName: [null, Validators.required],
-      dishesLink: [null, Validators.required],
-      image: [null, Validators.required],
-    });
-  }
 
   // Отримання даних з сервера
   getDishes(): void {
@@ -58,37 +40,6 @@ export class DishesComponent {
   }
 
 
-  // Додавання або редагування меню
-  creatDishes() {
-    if (this.dishes_edit_status) {
-      this.dishesService
-        .editdishes(this.dishesForm.value, this.dishesID as string)
-        .then(() => {
-          this.getDishes();
-        });
-    } else {
-      this.dishesService.addDishes(this.dishesForm.value).then(() => {
-        this.getDishes();
-      });
-    }
-    this.dishes_edit_status = false;
-    this.active_form = false;
-    this.dishesForm.reset();
-    this.viewportScroller.scrollToPosition([0, 0]);
-  }
-
-  // Редагування меню
-  editDishes(dishes: DishesResponse) {
-    this.dishesForm.patchValue({
-      dishesindex: dishes.dishesindex,
-      dishesName: dishes.dishesName,
-      dishesLink: dishes.dishesLink,
-      image: dishes.image,
-    });
-    this.active_form = true;
-    this.dishes_edit_status = true;
-    this.dishesID = dishes.id;
-  }
 
   // Видалення пункту меню
   delDishes(index: DishesResponse) {
@@ -99,78 +50,19 @@ export class DishesComponent {
     });
   }
 
-  // Завантаження зображення для меню
-  uploadDishesImage(actionImage: any): void {
-    const file = actionImage.target.files[0];
-    this.loadFIle('dishes-icon', file.name, file)
-      .then((data) => {
-        if (this.uploadPercent == 100) {
-          this.dishesForm.patchValue({
-            image: data,
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
 
-  // Завантаження файлу в хмарне сховище
-  async loadFIle(
-    folder: string,
-    name: string,
-    file: File | null
-  ): Promise<string> {
-    const pathIcon = `${folder}/${name}`;
-    let urlIcon = '';
-    if (file) {
-      try {
-        const storageRef = ref(this.storsgeIcon, pathIcon);
-        const task = uploadBytesResumable(storageRef, file);
-        percentage(task).subscribe((data) => {
-          this.uploadPercent = data.progress;
-        });
-        await task;
-        urlIcon = await getDownloadURL(storageRef);
-      } catch (e: any) {
-        console.error(e);
-      }
-    } else {
-      console.log('Wrong file');
-    }
-    return Promise.resolve(urlIcon);
-  }
-
-  // Видалення зображення
-  deleteImage(): void {
-    const task = ref(this.storsgeIcon, this.valueByControlDishes('image'));
-    deleteObject(task).then(() => {
-      console.log('File deleted');
-      this.uploadPercent = 0;
-      this.dishesForm.patchValue({
-        image: '',
-      });
+  addModal(action: string, object: any): void {
+    const dialogRef = this.dialog.open(AddDishesComponent, {
+      panelClass: 'add_dishes',
+      data: { action, object }
     });
-  }
 
-  // Отримання значення за назвою поля у формі меню
-  valueByControlDishes(control: string): string {
-    return this.dishesForm.get(control)?.value;
-  }
-
-
-  onDishesNameInput(event: Event): void {
-    const inputValue = (event.target as HTMLInputElement).value;
-    const transcribedValue = this.transcribeToTranslit(inputValue);
-    this.dishesForm.patchValue({
-      dishesLink: transcribedValue
+    dialogRef.afterClosed().subscribe(() => {
+      this.getDishes();
     });
+
+
+
   }
 
-  transcribeToTranslit(input: string): string {
-    const transliteration = require('transliteration.cyr');
-    let transliteratedValue = transliteration.transliterate(input);
-    transliteratedValue = transliteratedValue.replace(/\s+/g, '_');
-    return transliteratedValue;
-  }
 }

@@ -5,7 +5,7 @@ export interface ProductsRequest {
     productsName: string;
     productsLink: string;
     productsCalories: number;
-    image: string;
+    productsImages: string;
 }
 export interface ProductsResponse extends ProductsRequest {
     id: number | string;

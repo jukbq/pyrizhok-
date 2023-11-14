@@ -8,6 +8,9 @@ import { CategoriesDishesComponent } from './categories-dishes/categories-dishes
 import { CuisineComponent } from './cuisine/cuisine.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
+import { MethodCookingComponent } from './method-cooking/method-cooking.component';
+import { ToolsComponent } from './tools/tools.component';
+import { UnitsComponent } from './units/units.component';
 
 
 
@@ -18,7 +21,10 @@ import { ProductCategoryComponent } from './product-category/product-category.co
     CategoriesDishesComponent,
     CuisineComponent,
     ProductsComponent,
-    ProductCategoryComponent
+    ProductCategoryComponent,
+    MethodCookingComponent,
+    ToolsComponent,
+    UnitsComponent
   ],
   imports: [
     CommonModule, AdminRoutingModule, SharedModule

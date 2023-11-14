@@ -1,46 +1,160 @@
-.add_ingredients {
-    width: 70vw;
-    min-height: 600px;
-    padding: 20px;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-
-
-    .ingredient_block {
-        width: 90%;
+    .ingredient_nodal {
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
-        .form_category {
-            width: 100%;
 
-            input {
-                width: 100%;
-                height: 26px;
+        .add_ingridients {
+            width: 90%;
+            height: 90%;
+            padding: 20px;
+            position: relativ;
+            display: flex;
+            justify-content: space-between;
+            overflow: hidden;
+
+            .left_block {
+                width: 30%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 0 16px;
+                border-right: 0.8px solid var(--clr-grey);
+                text-align: center;
+
+
+                input {
+
+                    padding: 0;
+                    border: none;
+                    border-radius: 0px;
+                    margin: 0 auto;
+                    text-align: center;
+                }
+
             }
 
-            .ingredient {
-                width: 100%;
-                height: 50px;
-                list-style: none;
+            .right_block {
+                width: 69%;
+                position: relative;
                 display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                overflow-y: auto;
 
-                li {
 
 
-                    .select,
+                .ingridient_block {
+                    width: 100%;
+                    display: flex;
+                    position: relative;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: flex-start;
+                    margin: 15px 0;
+
+
+                    .delGroup {
+                        position: absolute;
+                        top: 25px;
+                        right: 4px;
+                        border: none;
+                        cursor: pointer;
+
+                        img {
+                            width: 30px;
+                            height: 30px;
+                        }
+                    }
+
                     input {
-                        width: 20%;
+                        width: 60%;
+                        height: 45px;
+                    }
+
+                    .ingidient {
+
+                        list-style: none;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        li {
+                            width: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: left;
+                            position: relative;
+                            margin-top: 20px;
+                            padding-bottom: 6px;
+                            border-bottom: 1px solid gray;
+
+                            .name_product {
+                                display: flex;
+                                justify-content: space-around;
+
+                                .select {
+                                    width: 45%;
+                                }
+                            }
+
+                            .ibg_sel {
+                                width: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+
+                                .input_area {
+                                    width: 28%;
+                                    margin-top: -15px;
+                                    padding-bottom: 15px;
+                                    border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+
+
+                                    input {
+                                        width: 100%;
+                                        height: 38px;
+                                        border: var(--bs-border-width) solid var(--bs-border-color);
+                                        border-radius: var(--bs-border-radius);
+
+                                    }
+                                }
+
+                                .select {
+                                    width: 28%;
+                                }
+
+                                .delIng {
+                                    border: none;
+                                    cursor: pointer;
+
+                                    img {
+                                        width: 30px;
+                                        height: 30px;
+                                    }
+                                }
+                            }
+
+
+                        }
+
+
                     }
 
                     .btn {
-                        margin-top: 20px;
+                        width: 60%;
+                        margin: 0 auto;
                     }
+
+
+
                 }
             }
         }
     }
-}

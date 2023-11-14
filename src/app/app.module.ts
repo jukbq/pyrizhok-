@@ -33,8 +33,15 @@ import { HomeComponent } from './pages/home/home.component';
 import { SignUpComponent } from './modal/sign-up/sign-up.component';
 import { SignInComponent } from './modal/sign-in/sign-in.component';
 import { HeaderService } from './shared/service/header/header.service';
-import { RecipeElementsComponent } from './modal/recipe-elements/recipe-elements.component';
 import { IngredientComponent } from './modal/ingredient/ingredient.component';
+import { AddProductComponent } from './modal/recipe-elements/add-product/add-product.component';
+import { AddCategoriesDishesComponent } from './modal/recipe-elements/add-categories-dishes/add-categories-dishes.component';
+import { AddCuisineComponent } from './modal/recipe-elements/add-cuisine/add-cuisine.component';
+import { AddDishesComponent } from './modal/recipe-elements/add-dishes/add-dishes.component';
+import { AddMethodCookingComponent } from './modal/recipe-elements/add-method-cooking/add-method-cooking.component';
+import { AddProductCatgoriesComponent } from './modal/recipe-elements/add-product-catgories/add-product-catgories.component';
+import { AddToolsComponent } from './modal/recipe-elements/add-tools/add-tools.component';
+import { AddUnitsComponent } from './modal/recipe-elements/add-units/add-units.component';
 
 
 @NgModule({
@@ -45,8 +52,16 @@ import { IngredientComponent } from './modal/ingredient/ingredient.component';
     HomeComponent,
     SignUpComponent,
     SignInComponent,
-    RecipeElementsComponent,
     IngredientComponent,
+    AddProductComponent,
+    AddCategoriesDishesComponent,
+    AddCuisineComponent,
+    AddDishesComponent,
+    AddMethodCookingComponent,
+    AddProductCatgoriesComponent,
+    AddToolsComponent,
+
+    AddUnitsComponent,
 
   ],
   imports: [

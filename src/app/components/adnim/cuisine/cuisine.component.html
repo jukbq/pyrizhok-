@@ -2,11 +2,11 @@
 
     <h2>Кухня</h2>
 
-    <button (click)="active_form = !active_form" class="btn" data-rel="address" type="button">
-        {{ !active_form? "ДОДАТИ МЕНЮ" : "ВІДМІНИТИ" }}
+    <button class="btn" type="button" (click)="addModal('add', 0)">
+        ДОДАТИ СТРАВУ
     </button>
 
-    <table [ngClass]="{ active: active_form }" class="table">
+    <table class="table">
         <thead>
             <tr>
                 <th scope="col">№</th>
@@ -23,47 +23,18 @@
                 <td class="image">
                     <img [src]="cuisine.image" />
                 </td>
+                <td class="btn_tr">
+                    <a (click)="addModal('edit',cuisine)" type="button" title="Редагувати">
+                        <img src="../../../../assets/icons/edit.svg" alt="Редагувати">
+                    </a>
+                    <a (click)="delCuisine(cuisine)" type="button" title="Видалити">
+                        <img src="../../../../assets/icons/del.svg" alt="Видалити">
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <div class="form_conteiner" [ngClass]="{ active: !active_form }">
-        <form [formGroup]="cuisineForm" (ngSubmit)="creatCuisine()" class="form_category">
-            <div class="input_section">
-                <input formControlName="cuisineName" type="text" name="cuisineName" class="form-control"
-                    placeholder="*Назва" aria-label="Назва" (input)="onCuisineNameInput($event)" />
-                <input formControlName="cuisineLink" type="text" name="cuisineLink" class="form-control"
-                    placeholder="*Щлях" aria-label="шлях" />
-            </div>
 
-            <div class="load_file">
-                <input class="form-control form-control-lg" type="file" (change)="uploadDishesImage($event)" />
-            </div>
-
-            <div class="progress_line">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped" role="progressbar"
-                        aria-label="Default striped example" [style.width.%]="uploadPercent" aria-valuemin="0"
-                        aria-valuemax="100"></div>
-                </div>
-            </div>
-
-            <div class="image_block">
-                <td class="image">
-                    <img [src]="valueByControlDishes('image')">
-                </td>
-            </div>
-
-            <div class="batton_section">
-                <button [disabled]="cuisineForm.invalid" type="submit" class="btn">
-                    {{ cuisine_edit_status ? "Зберегти" : "Додати" }}
-                </button>
-                <button (click)="deleteImage()" type="submit" class="btn">
-                    Видалити
-                </button>
-            </div>
-
-        </form>
-    </div>
 
 </section>

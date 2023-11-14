@@ -1,42 +1,75 @@
-<div class="add_ingridients">
-    <div class="ingridient_block" *ngFor="let ingredient of ingredients; let i = index">
+<div class="ingredient_nodal">
+    <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
+    <div class="add_ingridients">
+        <div class="left_block">
+            <h3>Введіть кількість порцій</h3>
+            <input type="number" name="number_servings" [(ngModel)]="numberServings">
+            <br>
+            <button class="btn" (click)="addGroup()">Додати групу інгредієнтів</button>
+            <button class="btn" (click)="creatIng('getProduct')">Створити інгредієнт</button>
+            <button class="btn" (click)="creatUnit('getUnit')">Створити одиницю</button>
+            <button class="btn" (click)="save()">Зберегти</button>
+        </div>
 
-        <form [formGroup]="ingredient.ingForm" (ngSubmit)="addIngredient(i)" class="form_category">
-            <label for="nameIngGroup">Назва групи </label>
-            <input type="text" formControlName="nameIngGroup" name="nameIngGroup" id="nameIngGroup"
-                placeholder="Назва групи інгредієнтів">
-            <ul class="ingidient" *ngFor="let group of ingredient.group; let j = index">
-                <li>
-                    <mat-form-field class="select">
-                        <mat-label class="mat_label">Оберіть категорії</mat-label>
-                        <mat-select [formControl]="toppings" (selectionChange)="onCategorySelectionChange()">
-                            <mat-option *ngFor="let menu of productsCategories" [value]="menu"
-                                formControlName="productsCategory">
-                                {{ menu.productCategoryName }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+        <div class="right_block">
+            <div *ngFor="let ingredient of ingredients; let i = index" class="ingridient_block">
+                <div class="delGroup" (click)="delGroup(i)" aria-label="Видалити групу">
+                    <img src="../../../../assets/icons/del.svg" alt="Видалит групу">
+                </div>
+                <label for="nameIngGroup">Назва групи </label>
+                <input type="text" [(ngModel)]="ingredient.name" name="nameIngGroup"
+                    placeholder="Назва групи інгредієнтів">
+                <ul class="ingidient">
+                    <li *ngFor="let group of ingredient.group; let j = index">
+                        <div class="name_product">
+                            <mat-form-field class="select">
+                                <mat-label class="mat_label">Оберіть категорії</mat-label>
+                                <mat-select [formControl]="toppings" multiple
+                                    (selectionChange)="onCategorySelectionChange()" class="form-select">
+                                    <mat-option *ngFor="let category of productsCategories"
+                                        [value]="category.productCategoryLink">
+                                        {{ category.productCategoryName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
 
-                    <mat-form-field class="select">
-                        <mat-label class="mat_label">Назва продукту</mat-label>
-                        <mat-select formControlName="ingredients" name="ingredients" class="form-select">
-                            <mat-option *ngFor="let menu of filteredProducts" [value]="menu">
-                                {{menu.productsName}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                            <!-- Додано mat-autocomplete для вибору продукту -->
+                            <mat-form-field class="select">
+                                <input matInput placeholder="Назва продукту" [(ngModel)]="group.selectedProduct"
+                                    [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of getFilteredProducts(group)"
+                                        [value]="option.productsName">
+                                        {{ option.productsName }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="ibg_sel">
+                            <div class="input_area">
+                                <input type="number" [(ngModel)]="group.amount" placeholder="Введіть кількість">
+                            </div>
+                            <mat-form-field class="select">
+                                <input matInput placeholder="Одиниці виміру" [(ngModel)]="group.unitsMeasure"
+                                    [matAutocomplete]="unitAuto">
+                                <mat-autocomplete #unitAuto="matAutocomplete">
+                                    <mat-option *ngFor="let unit of getFilteredUnits()" [value]="unit.unitName">
+                                        {{ unit.unitName }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <div class="input_area">
+                                <input type="text" [(ngModel)]="group.notes" placeholder="Коментар">
+                            </div>
 
-                    <input formControlName="amountProdukt" type="number" name="amountProdukt"
-                        placeholder="Введіть кліькість">
-                    <input formControlName="unitsMeasure" type="text" name="unitsMeasure"
-                        placeholder="Введіть одиницю виміру">
-                    <input formArrayName="notes" type="text" name="notes" placeholder="Коментар">
-                </li>
-
-            </ul>
-            <button [disabled]="ingForm.invalid" class="btn" type="submit">Додати інгредієнт</button>
-        </form>
+                            <div class="delIng" (click)="delIng(i, j)" aria-label="Видалити ігридієнт">
+                                <img src="../../../../assets/icons/del.svg" alt="Видалит інгидієнт">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <button class="btn" (click)="addIngredient(i)">Додати інгредієнт</button>
+            </div>
+        </div>
     </div>
-
-
 </div>
-<button (click)="addGroup()" class="btn">Додати групу інгредієнтів</button>

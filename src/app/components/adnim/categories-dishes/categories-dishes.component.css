@@ -1,0 +1,52 @@
+section {
+  width: 80vw;
+  padding: 20px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: auto;
+}
+section::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+section::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--clr-green);
+}
+section table {
+  width: 100%;
+  margin-top: 20px;
+}
+section table thead {
+  width: 100%;
+}
+section table thead tr {
+  border-bottom: var(--clr-grey);
+}
+section table.active {
+  display: none;
+}
+section table tbody tr .image {
+  width: 80px;
+  height: 70px;
+  overflow: hidden;
+}
+section table tbody tr .image img {
+  height: 100%;
+}
+section table tbody tr .btn_tr {
+  width: 45px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: none;
+}
+section table tbody tr .btn_tr a {
+  padding: 5px;
+  overflow: hidden;
+}
+section table tbody tr .btn_tr a img {
+  width: 20px;
+  height: 20px;
+}/*# sourceMappingURL=categories-dishes.component.css.map */

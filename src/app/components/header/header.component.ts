@@ -147,7 +147,6 @@ export class HeaderComponent {
     let sighIn = this.dialog.open(SignInComponent, {
       panelClass: 'sigh_maoa_dialog',
     });
-    console.log(sighIn);
 
     sighIn.afterClosed().subscribe(() => {
       this.changeUserUrl();

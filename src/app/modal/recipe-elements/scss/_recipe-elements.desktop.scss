@@ -1,5 +1,4 @@
 .form_conteiner {
-    width: 560px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -10,6 +9,7 @@
     background: var(--clr-white);
     border-radius: 12px;
     padding: 40px;
+
 
 
     .btn-close {
@@ -49,6 +49,7 @@
             align-items: center;
             margin-bottom: 30px;
 
+            .select,
             input {
                 width: 90%;
                 margin-top: 20px;

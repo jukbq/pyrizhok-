@@ -7,6 +7,9 @@ import { CategoriesDishesComponent } from './categories-dishes/categories-dishes
 import { CuisineComponent } from './cuisine/cuisine.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
+import { MethodCookingComponent } from './method-cooking/method-cooking.component';
+import { ToolsComponent } from './tools/tools.component';
+import { UnitsComponent } from './units/units.component';
 
 
 const routes: Routes = [
@@ -20,6 +23,9 @@ const routes: Routes = [
       { path: 'products', component: ProductsComponent },
       { path: 'recipes', component: RecipesComponent },
       { path: 'productCategory', component: ProductCategoryComponent },
+      { path: 'methodCooking', component: MethodCookingComponent },
+      { path: 'tools', component: ToolsComponent },
+      { path: 'units', component: UnitsComponent },
 
 
       { path: '', pathMatch: 'full', redirectTo: 'action' },

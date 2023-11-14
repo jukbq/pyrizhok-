@@ -47,8 +47,9 @@
         <form [formGroup]="recipesForm" (ngSubmit)="creatRecipe()" class="form_recipes">
 
             <div *ngIf="formStep === 1" class="input_section">
-                <h2>Оберіть меню та категорію</h2>
+                <h2>Оберіть пункти рецепта</h2>
 
+                <!--Страви-->
                 <div class="input_block">
                     <h4>Страви</h4>
                     <div class="input dishes">
@@ -61,12 +62,13 @@
                             </mat-select>
                         </mat-form-field>
                         <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('dishes')">
+                        <button type="button" class="btn btn-primary" (click)="addModal('dishes', 0)">
                             <i class="bi bi-plus"></i> Додати
                         </button>
                     </div>
                 </div>
 
+                <!--Категорії страв-->
                 <div class="input_block">
                     <h4>Категорії</h4>
                     <div class="input categoriesDishes">
@@ -78,13 +80,14 @@
                             </mat-select>
                         </mat-form-field>
                         <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('categoriesDishes')">
+                        <button type="button" class="btn btn-primary" (click)="addModal('categoriesDishes', 0)">
                             <i class="bi bi-plus"></i> Додати
                         </button>
 
                     </div>
                 </div>
 
+                <!--Ключі рецептів-->
                 <div class="input_block">
                     <h4>Ключі рецептів</h4>
                     <div class="input recipeKeys">
@@ -99,25 +102,27 @@
                     </div>
                 </div>
 
+                <!--Кухні-->
                 <div class="input_block">
                     <h4>Кухні</h4>
                     <div class="input cuisine">
                         <mat-form-field class="select">
                             <mat-label class="mat_label">Оберіть кухню</mat-label>
                             <mat-select formControlName="cuisine" name="cuisine" class="form-select">
-                                <mat-option *ngFor="let cuisine of ccuisine" [value]="cuisine">
+                                <mat-option *ngFor="let cuisine of cuisine" [value]="cuisine">
                                     {{cuisine.cuisineName}}</mat-option>
                             </mat-select>
                         </mat-form-field>
 
                         <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('cuisine')">
+                        <button type="button" class="btn btn-primary" (click)="addModal('cuisine', 0)">
                             <i class="bi bi-plus"></i> Додати
                         </button>
 
                     </div>
                 </div>
 
+                <!--Методм приготування-->
                 <div class="input_block">
                     <h4>Методм приготування</h4>
                     <div class="input methodCooking">
@@ -130,13 +135,14 @@
                             </mat-select>
                         </mat-form-field>
                         <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('methodCooking')">
+                        <button type="button" class="btn btn-primary" (click)="addModal('methodCooking', 0)">
                             <i class="bi bi-plus"></i> Додати
                         </button>
 
                     </div>
                 </div>
 
+                <!--Інструменти-->
                 <div class="input_block">
                     <h4>Інструменти</h4>
                     <div class="input tools">
@@ -148,7 +154,7 @@
                             </mat-select>
                         </mat-form-field>
                         <p>або</p>
-                        <button type="button" class="btn btn-primary" (click)="addressModal('tools')">
+                        <button type="button" class="btn btn-primary" (click)="addModal('tools', 0)">
                             <i class="bi bi-plus"></i> Додати
                         </button>
 
@@ -187,9 +193,9 @@
                     <button type="button" class="btn next" (click)="nextStep('two')">
                         Далі
                     </button>
-
                 </div>
             </div>
+
 
             <div *ngIf="formStep === 2" class="input_section">
                 <h2>Основні дані рецепта</h2>
@@ -277,23 +283,52 @@
                 </div>
             </div>
 
-            <div *ngIf="formStep === 3" class="input_section">
+            <div *ngIf="formStep === 3" class="input_section ingredients">
                 <h2>Інгридієнти</h2>
-                <div class="input_block">
-                    <h4>Кількість порцій</h4>
-                    <div class="input numberServings">
-                        <input formControlName="numberServings" type="number" name="numberServings" class="form-control"
-                            placeholder="*Введіь кількість порцій">
-                    </div>
+                <h3>Кількість порці - {{numberServings}}</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">№</th>
+                            <th scope="col">Назва</th>
+                            <th scope="col">Кількість</th>
+                            <th scope="col">Міра</th>
+                            <th scope="col">Коментар</th>
+                            <th scope="col">Зображення</th>
 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container class="group_block" *ngFor="let products of ingredients; let i = index">
+                            <tr class="group_name">
+                                <td colspan="7">
+                                    {{ products.name }}
+                                </td>
+                            </tr>
+                            <ng-container *ngFor="let group of products.group; let j = index" class="ing_block">
+                                <tr class="ing_line">
+                                    <td>{{ j + 1 }}</td>
+                                    <td>{{ group.selectedProduct ? group.selectedProduct.productsName : '' }}</td>
+                                    <td>{{ group.amount }}</td>
+                                    <td>{{ group.unitsMeasure }}</td>
+                                    <td>{{ group.notes }}</td>
+                                    <td class="image">
+                                        <img *ngIf="group.selectedProduct"
+                                            [src]="group.selectedProduct.productsImages" />
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
 
+                <div class="batton_block">
                     <button type="button" class="btn" (click)="addIng('add')">
                         Додати інгриідієнти
                     </button>
-
-
-
-
+                    <button type="button" class="btn" (click)="addIng('edit')">
+                        Редагувати списиок
+                    </button>
                 </div>
 
 

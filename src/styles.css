@@ -1,0 +1,399 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "Mont Blanc";
+  src: url("https://fonts.cdnfonts.com/css/mont-blanc") format("truetype");
+}
+body {
+  padding: 0 7vw;
+}
+body .custom-font {
+  margin: 0;
+  font-family: "Mont Blanc", sans-serif;
+}
+
+:root {
+  --clr-green: #009246;
+  --clr-red: #d22730;
+  --clr-mint: #f5faf2;
+  --clr-white: #fff;
+  --clr-black: #212721;
+  --clr-grey: #636662;
+  --transition: all .3s linear;
+}
+
+ul {
+  padding-left: 0rem;
+}
+
+.btn {
+  color: var(--clr-white);
+  background: var(--clr-red);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: none;
+  margin-top: 25px;
+  transition: 0.35s;
+}
+.btn:not(.order-btn) i {
+  display: inline-block;
+  flex-shrink: 0;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 2px solid var(--clr-white);
+  margin-left: 15px;
+}
+.btn:not(.order-btn) i:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 6px;
+  height: 6px;
+  margin-left: -1px;
+  border-right: 2px solid var(--clr-white);
+  border-bottom: 2px solid var(--clr-white);
+}
+.btn:hover {
+  background: var(--clr-green);
+  color: var(--clr-white);
+}
+
+.accordion-item .mat-expansion-indicator {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--clr-black);
+  border-radius: 100%;
+  transition: var(--transition);
+}
+.accordion-item .mat-expansion-indicator::after {
+  position: absolute;
+  padding: 0px !important;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -1px;
+  border-right: 2px solid var(--clr-black);
+  border-bottom: 2px solid var(--clr-black);
+  transform: translate(-50%, -50%) rotate(45deg) !important;
+  transition: var(--transition);
+}
+.accordion-item:hover .mat-expansion-indicator {
+  border: 2px solid var(--clr-green);
+}
+.accordion-item:hover .mat-expansion-indicator::after {
+  border-right: 2px solid var(--clr-green);
+  border-bottom: 2px solid var(--clr-green);
+}
+
+h1,
+.h2_title {
+  display: inline-block;
+  position: relative;
+  font-size: 40px;
+  line-height: 1.2em;
+  font-weight: 600;
+  color: var(--clr-black);
+  margin-top: 50px;
+}
+h1::before,
+.h2_title::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: -50px;
+  width: 64px;
+  height: 54px;
+  background: url(https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/decor%2Ftitle-decor.svg?alt=media&token=4f1d068e-62ba-4382-bd06-fa329a6710f5);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.swiper-slide .slick-dots {
+  position: relative;
+  width: 3%;
+  display: flex;
+  justify-content: space-between;
+  bottom: 0;
+  margin: 0 auto;
+}
+.swiper-slide .slick-dots .slick-active {
+  background: var(--clr-red);
+}
+.swiper-slide .slick-dots .slick-active:hover {
+  border: 1px solid var(--clr-red);
+}
+.swiper-slide .slick-dots li {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid #d1d9ce;
+}
+.swiper-slide .slick-dots li button::before {
+  content: none;
+}
+.swiper-slide .slick-dots li:hover {
+  background: var(--clr-green);
+}
+
+.ingModal {
+  width: 90vw;
+  height: 90vh;
+  border-radius: 16px;
+  box-shadow: 0px 0px 20px -1px #595959;
+}
+
+.creat_ingredient_modal,
+.add_dishes,
+.сategoriesDishes_modal_dialog,
+.cuisine_modal_dialog {
+  width: 50vw;
+  height: 90vh;
+  border-radius: 16px;
+  box-shadow: 0px 0px 20px -1px #595959;
+}
+
+.btn-close {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  padding: 0px 15px;
+  position: relative;
+  font-size: 16px;
+  height: 54px;
+  line-height: 54px;
+  background: var(--clr-white);
+  border: 1px solid var(--clr-grey);
+  border-radius: 12px;
+  text-overflow: ellipsis;
+  transition: var(--transition);
+}
+input.input-error,
+textarea.input-error {
+  border-color: var(--clr-red);
+  box-shadow: none;
+}
+input.valid,
+textarea.valid {
+  border-color: var(--clr-grey);
+}
+
+textarea:focus,
+input:focus {
+  border-color: var(--clr-green);
+  box-shadow: none;
+  outline: none;
+}
+textarea:focus.input-error,
+input:focus.input-error {
+  border-color: var(--clr-red);
+}
+textarea:focus.valid,
+input:focus.valid {
+  border-color: var(--clr-green);
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input[type=date] {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/final-project-393613.appspot.com/o/decor%2Fcalendar.svg?alt=media&token=492938e7-56c6-471e-80c4-90d0e324d92b");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 25px;
+}
+
+.checkbox-entry {
+  display: inline-block;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  min-width: 30px;
+  min-height: 20px;
+}
+.checkbox-entry input,
+.checkbox-entry textarea,
+.checkbox-entry select {
+  display: none;
+  border-radius: 0;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.checkbox-entry span {
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.25em;
+  padding-left: 30px;
+  display: block;
+  color: #5c5752;
+  transition: var(--transition);
+  margin-bottom: 8px;
+}
+.checkbox-entry span:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #d1d9ce;
+  border-radius: 2px;
+  transition: var(--transition);
+}
+.checkbox-entry span:after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  width: 6px;
+  height: 10px;
+  border-right: 2px solid var(--clr-red);
+  border-bottom: 2px solid var(--clr-red);
+  z-index: 1;
+  transform: scale(0) rotate(45deg);
+  backface-visibility: hidden;
+  transition: var(--transition);
+}
+.checkbox-entry input:checked + span::after {
+  transform: scale(1) rotate(45deg);
+}
+
+.radio_box {
+  margin-bottom: 16px;
+}
+.radio_box label {
+  margin-right: 20px;
+}
+.radio_box label input {
+  display: none;
+  border-radius: 0;
+  background: none;
+  border: none;
+  margin: 0;
+  width: 100%;
+  padding: 0;
+}
+.radio_box label span {
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.25em;
+  padding-left: 30px;
+  display: block;
+  color: #5c5752;
+  transition: var(--transition);
+}
+.radio_box label span:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #d1d9ce;
+  border-radius: 100%;
+  transition: var(--transition);
+}
+.radio_box label span:after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border: none;
+  z-index: 1;
+  transform: scale(0) rotate(45deg);
+  backface-visibility: hidden;
+  transition: var(--transition);
+  background: var(--clr-red);
+  border-radius: 100%;
+}
+.radio_box label input:checked + span::after {
+  transform: scale(1) rotate(45deg);
+}
+
+select {
+  width: 100%;
+  padding: 14px 40px 14px 20px;
+  position: relative;
+  margin-bottom: 16px;
+  font-size: 16px;
+  height: 54px;
+  line-height: 54px;
+  background: var(--clr-white);
+  border: 1px solid var(--clr-grey);
+  border-radius: 12px;
+  text-overflow: ellipsis;
+  transition: var(--transition);
+  font-size: 16px;
+  line-height: 1;
+  color: var(--clr-black);
+}
+
+.select_user_menu {
+  background: none;
+  text-align: center;
+}
+.select_user_menu.active {
+  color: var(--clr-red);
+}
+
+.select .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent;
+  padding: 0;
+}
+.select .mdc-text-field--filled:not(.mdc-text-field--disabled) .mat-mdc-form-field-focus-overlay {
+  background-color: transparent;
+}
+.select .mdc-text-field--filled:not(.mdc-text-field--disabled) .mat-mdc-form-field-infix {
+  width: 100%;
+  padding-top: 8px;
+  padding-left: 8px;
+}
+.select .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: rgba(99, 102, 98, 0.3490196078);
+}
+.select .mat_label {
+  margin-left: 16px;
+}
+.select .form-select {
+  --bs-form-select-bg-img: none;
+}
+.select .form-select .mat-mdc-select-trigger .mat-mdc-select-arrow {
+  top: 10px;
+}
+.select .form-select:focus {
+  border-color: #8eecb6;
+  outline: 0;
+  box-shadow: none;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}/*# sourceMappingURL=styles.css.map */

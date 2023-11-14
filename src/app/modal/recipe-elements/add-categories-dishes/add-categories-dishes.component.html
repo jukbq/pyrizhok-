@@ -1,0 +1,48 @@
+<div class="form_conteiner">
+    <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
+
+    <div class="title">Додати категорію</div>
+    <form [formGroup]="categoriesDishesForm" (ngSubmit)="creatCategories()" class="form_category">
+        <div class="input_section">
+            <select formControlName="dishes" name="dishes" class="form-select">
+                <option [ngValue]="menu" *ngFor="let menu of dishes">
+                    {{ menu.dishesName }}
+                </option>
+            </select>
+
+            <input formControlName="categoryIndex" type="number" name="categoryIndex" class="form-control"
+                placeholder="*Порядок категорії" aria-label="Порядок категорії" />
+            <input formControlName="categoryName" type="text" name="categoryName" class="form-control"
+                placeholder="*Назва" aria-label="Назва" (input)="onCategoriesNameInput($event)">
+            <input formControlName="categoryLink" type="text" name="categoryLink" class="form-control"
+                placeholder="*Щлях" aria-label="шлях" />
+        </div>
+
+        <div class="load_file">
+            <input class="form-control form-control-lg" type="file" (change)="uploadDishesImage($event)" />
+        </div>
+
+        <div class="progress_line">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example"
+                    [style.width.%]="uploadPercent" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+
+        <div class="image_block">
+            <td class="image">
+                <img [src]="valueByControlDishes('image')">
+            </td>
+        </div>
+
+        <div class="batton_section">
+            <button [disabled]="categoriesDishesForm.invalid" type="submit" class="btn">
+                Зберегти
+            </button>
+            <button (click)="deleteImage()" type="submit" class="btn">
+                Видалити
+            </button>
+        </div>
+
+    </form>
+</div>
