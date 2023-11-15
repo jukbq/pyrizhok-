@@ -69,6 +69,7 @@ export class RecipesComponent {
   public uploadPercent!: number;
   public formStep = 3;
   public ingredients: any[] = [];
+  public instructions: any[] = [];
   public numberServings = 1
   group: any;
 
@@ -93,6 +94,7 @@ export class RecipesComponent {
     this.getRecipes();
     this.getCuisine();
     this.getTools();
+
 
   }
 
@@ -120,11 +122,8 @@ export class RecipesComponent {
 
       //Сторінка 3
       numberServings: [1],
-      quantityIngredients: [null, Validators.required],
-      amountProdukt: [null, Validators.required],
-      unitsMeasure: [null, Validators.required],
       ingredients: [null, Validators.required],
-      notes: [null],
+
 
 
       //Сторінка 4
@@ -150,12 +149,30 @@ export class RecipesComponent {
         this.validError();
       }
     } else if (step === 'three') {
-      if (this.recipesForm.get('recipeTitle')?.value &&
+      if (this.recipesForm.get('ingredients')?.value &&
         this.recipesForm.get('descriptionRecipe')?.value) {
         this.formStep += 1;
       } else {
         this.validError();
       }
+    } else if (step === 'four') {
+      if (this.recipesForm.get('ingredients')?.value) {
+        this.formStep += 1;
+      } else {
+        this.validError();
+      }
+    } else if (step === 'four') {
+      if (this.instructions.length > 0) {
+        this.recipesForm.patchValue({
+          steps: this.instructions
+        })
+      }
+      if (this.recipesForm.get('instructions')?.value) {
+        this.formStep += 1;
+      } else {
+        this.validError();
+      }
+
     }
   }
   //Помилка валыдації
@@ -341,6 +358,10 @@ export class RecipesComponent {
         if (result) {
           this.ingredients = result.ingredients;
           this.numberServings = result.numberServings;
+          this.recipesForm.patchValue({
+            numberServings: this.numberServings,
+            ingredients: this.ingredients,
+          })
           this.getMethodCookin();
         }
       });
@@ -385,6 +406,7 @@ export class RecipesComponent {
       });
   }
 
+
   async loadFIle(
     folder: string,
     name: string,
@@ -412,7 +434,6 @@ export class RecipesComponent {
 
   deleteImage(): void {
     const task = ref(this.storsge, this.valueByControl('mainImage'));
-    console.log(task);
     deleteObject(task).then(() => {
       this.uploadPercent = 0;
       this.recipesForm.patchValue({
@@ -423,6 +444,79 @@ export class RecipesComponent {
 
   valueByControl(control: string): string {
     return this.recipesForm.get(control)?.value;
+  }
+
+
+
+  //Кроки рецепта
+  addInstructionStep(): void {
+    const newInstructionStep = {
+      title: '',
+      name: '',
+      description: '',
+      image: ''
+    }
+    this.instructions.push(newInstructionStep);
+    /*    this.recipesForm.patchValue({
+         steps: this.instructions
+       }) */
+
+
+  }
+
+  stepUpload(event: any, index: number): void {
+    const file = event.target.files[0];
+    this.steploadFile('recipe-step-images', file.name, file)
+      .then((data) => {
+        if (this.uploadPercent == 100) {
+          this.instructions[index].image = data;
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+
+  async steploadFile(
+    folder: string,
+    name: string,
+    file: File | null
+  ): Promise<string> {
+    const path = `${folder}/${name}`;
+    let url = '';
+    if (file) {
+      try {
+        const storageRef = ref(this.storsge, path);
+        const task = uploadBytesResumable(storageRef, file);
+        percentage(task).subscribe((data) => {
+          this.uploadPercent = data.progress;
+        });
+        await task;
+        url = await getDownloadURL(storageRef);
+      } catch (e: any) {
+        console.error(e);
+      }
+    } else {
+      console.log('Wrong file');
+    }
+    return Promise.resolve(url);
+  }
+
+
+
+  deleteStepImage(index: number): void {
+    const imageUrl = this.instructions[index].image;
+    if (imageUrl) {
+      const storageRef = ref(this.storsge, imageUrl);
+      deleteObject(storageRef)
+        .then(() => {
+          this.instructions[index].image = ''; // Очистка URL зображення
+        })
+        .catch((error) => {
+          console.error('Помилка видалення: ', error);
+        });
+    }
   }
 
 

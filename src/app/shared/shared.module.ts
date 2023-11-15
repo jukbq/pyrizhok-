@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
 
 const MATERIAL = [
   MatSliderModule,
@@ -26,7 +27,8 @@ const MATERIAL = [
   MatExpansionModule,
   MatSelectModule,
   MatSnackBarModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatMenuModule
 ];
 
 @NgModule({
@@ -43,6 +45,7 @@ const MATERIAL = [
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
+
   ],
   exports: [
     CommonModule,

@@ -21,16 +21,18 @@ section {
         text-align: center;
         padding: 0;
         margin-top: 20px;
-        transform: skew(26deg, 0deg);
+        z-index: 2;
 
 
-        li {
+        .head_li,
+        .exit {
             width: 20%;
             height: 3em;
+            position: relative;
             display: flex;
             align-items: flex-end;
+            background-color: rgb(255, 255, 255);
             justify-content: center;
-
             transform: skew(26deg, 0deg);
             transition: var(--transition);
 
@@ -59,6 +61,10 @@ section {
                 .text p {
                     color: var(--clr-green);
                 }
+
+                .submenu {
+                    display: flex;
+                }
             }
 
 
@@ -77,16 +83,86 @@ section {
 
             }
 
+            .submenu {
+                width: 110%;
+                position: absolute;
+                display: none;
+                flex-direction: column;
+                padding: 10px;
+                top: 39px;
+                left: -81px;
+                transform: skew(-26deg, 0deg);
+
+
+
+                .sub_li {
+                    width: 100%;
+                    height: 2.5em;
+                    position: relative;
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: center;
+                    transform: none !important;
+                    transition: var(--transition);
+                    background-color: rgba(253, 253, 253, 0.989);
+
+                    .submenu_text {
+                        width: 100%;
+                        height: 2.5em;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid #D1D9CE;
+                        cursor: pointer;
+
+                        p {
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 1em;
+                            color: var(--clr-grey);
+                            letter-spacing: 0.05em;
+                            text-transform: uppercase;
+                            /*   transform: skew(-43deg, 0deg); */
+
+                        }
+                    }
+
+                    &.active {
+                        .submenu_text {
+                            height: 3em;
+                            background-color: var(--clr-red);
+
+
+                            p {
+                                color: var(--clr-white);
+                            }
+                        }
+
+
+                    }
+                }
+
+                /*   &.active {
+
+                    display: flex;
+                } */
+            }
+
+
+
 
         }
 
 
     }
+
+    .admin_category {
+        width: 100%;
+        z-index: 1;
+    }
+
 }
 
-.aadmin_category {
-    width: 100%;
-}
 
 @media (max-width: 1028px) {
     section {

@@ -1,24 +1,37 @@
 <section>
-
     <div class="text-center">
         <h1>Кабінет адміністратора</h1>
     </div>
     <ul class="admin_menu">
-        <li [routerLink]="[ item.link ]" routerLinkActive="active" *ngFor="let item of list"
-            (click)="onSelectItem(item)" [class.active]="item == activeItem">
-            <div class="text">
-                <p class="nav-link">{{item.name}}</p>
-            </div>
-
-        </li>
-        <li>
+        <ng-container *ngFor="let menuItem of list; let i = index">
+            <li class="head_li" [ngClass]="{ 'active': i === activeItem }" (click)="onSelectItem(i)">
+                <div *ngIf="menuItem.link !== '#'" [routerLink]="[menuItem.link]" class="text">
+                    <p class="nav-link">{{menuItem.name}}</p>
+                </div>
+                <div *ngIf="menuItem.link === '#'" class="text">
+                    <p class="nav-link">{{menuItem.name}}</p>
+                </div>
+                <ng-container *ngIf="menuItem.subItems">
+                    <ul class="submenu">
+                        <li class="sub_li" *ngFor="let subItem of menuItem.subItems; let j = index"
+                            [ngClass]="{ 'active':  j === activeSubItem }" [routerLink]="[subItem.link]"
+                            (click)="onSelectSubItem(subItem.link,j)">
+                            <div class="submenu_text">
+                                <p class="nav-link">{{subItem.name}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </ng-container>
+            </li>
+        </ng-container>
+        <li class="exit">
             <div class="text">
                 <p (click)="logout()">ВИЙТИ</p>
             </div>
         </li>
     </ul>
-    <div class="aadmin_category">
-        <router-outlet></router-outlet>
-    </div>
 
+    <div class="admin_category">
+        <router-outlet class="dmin_block"></router-outlet>
+    </div>
 </section>

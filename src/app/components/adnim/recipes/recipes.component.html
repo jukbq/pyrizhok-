@@ -282,59 +282,154 @@
 
                 </div>
             </div>
+        </form>
 
-            <div *ngIf="formStep === 3" class="input_section ingredients">
-                <h2>Інгридієнти</h2>
-                <h3>Кількість порці - {{numberServings}}</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">№</th>
-                            <th scope="col">Назва</th>
-                            <th scope="col">Кількість</th>
-                            <th scope="col">Міра</th>
-                            <th scope="col">Коментар</th>
-                            <th scope="col">Зображення</th>
 
+        <div *ngIf="formStep === 3" class="input_section ingredients">
+            <h2>Інгридієнти</h2>
+            <h3>Кількість порці - {{numberServings}}</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Назва</th>
+                        <th scope="col">Кількість</th>
+                        <th scope="col">Міра</th>
+                        <th scope="col">Коментар</th>
+                        <th scope="col">Зображення</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container class="group_block" *ngFor="let products of ingredients; let i = index">
+                        <tr class="group_name">
+                            <td colspan="7">
+                                {{ products.name }}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container class="group_block" *ngFor="let products of ingredients; let i = index">
-                            <tr class="group_name">
-                                <td colspan="7">
-                                    {{ products.name }}
+                        <ng-container *ngFor="let group of products.group; let j = index" class="ing_block">
+                            <tr class="ing_line">
+                                <td>{{ j + 1 }}</td>
+                                <td>{{ group.selectedProduct ? group.selectedProduct.productsName : '' }}</td>
+                                <td>{{ group.amount }}</td>
+                                <td>{{ group.unitsMeasure }}</td>
+                                <td>{{ group.notes }}</td>
+                                <td class="image">
+                                    <img *ngIf="group.selectedProduct" [src]="group.selectedProduct.productsImages" />
                                 </td>
                             </tr>
-                            <ng-container *ngFor="let group of products.group; let j = index" class="ing_block">
-                                <tr class="ing_line">
-                                    <td>{{ j + 1 }}</td>
-                                    <td>{{ group.selectedProduct ? group.selectedProduct.productsName : '' }}</td>
-                                    <td>{{ group.amount }}</td>
-                                    <td>{{ group.unitsMeasure }}</td>
-                                    <td>{{ group.notes }}</td>
-                                    <td class="image">
-                                        <img *ngIf="group.selectedProduct"
-                                            [src]="group.selectedProduct.productsImages" />
-                                    </td>
-                                </tr>
-                            </ng-container>
                         </ng-container>
-                    </tbody>
-                </table>
+                    </ng-container>
+                </tbody>
+            </table>
 
-                <div class="batton_block">
-                    <button type="button" class="btn" (click)="addIng('add')">
-                        Додати інгриідієнти
-                    </button>
-                    <button type="button" class="btn" (click)="addIng('edit')">
-                        Редагувати списиок
-                    </button>
+            <div class="batton_block">
+                <button type="button" class="btn" (click)="addIng('add')">
+                    Додати інгриідієнти
+                </button>
+                <button type="button" class="btn" (click)="addIng('edit')">
+                    Редагувати списиок
+                </button>
+            </div>
+
+
+            <div class="batton_bloxk allstep">
+                <button type="button" class="btn back" (click)="back()">
+                    Назад
+                </button>
+
+                <button type="button" class="btn next" (click)="nextStep('four')">
+                    Далі
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div *ngIf="formStep === 4" class="input_section steps">
+            <h2>Інструкції</h2>
+            <div class="cooking_steps">
+                <ul class="step_list">
+                    <li *ngFor="let step of instructions; let i = index">
+                        <input class="step_title" type="text" placeholder="Введіть тут заголовок розділу інструкцій"
+                            [(ngModel)]="step.title">
+                        <div class="step_body">
+                            <div class="step_image">
+                                <h4>Додати зображення</h4>
+                                <div class="input load_image">
+                                    <div class="load_file">
+                                        <input class="form-control form-control-lg" type="file"
+                                            (change)="stepUpload($event, i)" />
+                                    </div>
+
+                                    <div class="progress_line">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped" role="progressbar"
+                                                aria-label="Default striped example" [style.width.%]="uploadPercent"
+                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="image_block">
+
+                                        <img *ngIf="step.image" [src]="step.image" alt="Зображення кроку рецепту">
+
+
+                                    </div>
+
+                                    <div (click)="deleteStepImage(i)" type="button">
+                                        <img src="../../../../assets/icons/del.svg" alt="Видалити"> Видалити
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="step_description">
+                                <input class="name_instruction" type="text" placeholder="Назва інструкції"
+                                    [(ngModel)]="step.name">
+                                <textarea class="description_instructions" name="" id="" cols="30" rows="10"
+                                    [(ngModel)]="step.description"></textarea>
+                            </div>
+                        </div>
+
+
+                    </li>
+
+
+                </ul>
+                <div class="btn_block">
+                    <button (click)="addInstructionStep()" class="btn" type="button">Додати крок</button>
+                </div>
+            </div>
+
+            <div class="batton_bloxk allstep">
+                <button type="button" class="btn back" (click)="back()">
+                    Назад
+                </button>
+
+                <button type="button" class="btn next" (click)="nextStep('five')">
+                    Далі
+                </button>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="formStep === 5" class="input_section steps">
+            <h2>Попередній перегляд</h2>
+
+            <div class="preview">
+                <div class="header">
+                    <div class="img">
+                        <img [src]="recipesForm.get('mainImage')?.value" alt="">
+                    </div>
                 </div>
 
 
             </div>
 
-        </form>
+
+        </div>
     </div>
 
 </section>

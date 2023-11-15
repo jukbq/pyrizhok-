@@ -1,38 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-const LIST: any[] = [
-  { name: 'Страви', link: 'dishes' },
-  { name: 'Категорії', link: 'categories' },
-  { name: 'Кухні', link: 'cuisine' },
-  { name: 'Методи приготування', link: 'methodCooking' },
-  { name: 'Категорії продуктів', link: 'productCategory' },
-  { name: 'Продукти', link: 'products' },
-  { name: 'Одиниці виміру', link: 'units' },
-  { name: 'Інструменти', link: 'tools' },
+interface MenuItem {
+  name: string;
+  link: string;
+  subItems?: MenuItem[];
+}
+
+const LIST: MenuItem[] = [
+  {
+    name: 'Данні рецепта', link: '#', subItems: [
+      { name: 'Страви', link: 'dishes' },
+      { name: 'Категорії', link: 'categories' },
+      { name: 'Кухні', link: 'cuisine' },
+      { name: 'Методи приготування', link: 'methodCooking' },
+      { name: 'Категорії продуктів', link: 'productCategory' },
+      { name: 'Продукти', link: 'products' },
+      { name: 'Одиниці виміру', link: 'units' },
+      { name: 'Інструменти', link: 'tools' },
+    ]
+  },
   { name: 'Рецепти', link: 'recipes' },
 ];
-
-
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent {
-  public list: any[] = LIST;
-  public activeItem: any;
+export class AdminComponent implements OnInit {
+  public list: MenuItem[] = LIST;
+  public activeItem: number | undefined;
+  public activeSubItem: number | undefined;
 
   constructor(private router: Router) { }
 
-  onSelectItem(item: string): void {
-    this.activeItem = item;
+  ngOnInit(): void {
+    this.activeItem = 0;
+    this.activeSubItem = 0;
   }
 
-  logout() {
+  onSelectItem(i: number): void {
+    this.activeItem = i;
+  }
+
+  onSelectSubItem(link: any, j: number): void {
+    this.activeSubItem = j;
+  }
+  logout(): void {
     this.router.navigate(['/']);
-    localStorage.removeItem('curentUser');
+    localStorage.removeItem('currentUser');
     window.location.href = '/';
   }
 }
