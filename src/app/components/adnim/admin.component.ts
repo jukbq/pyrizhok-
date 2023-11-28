@@ -8,6 +8,8 @@ interface MenuItem {
 }
 
 const LIST: MenuItem[] = [
+  { name: 'Рецепти', link: 'recipes' },
+  { name: 'Короткі рецепти', link: 'short-recipes' },
   {
     name: 'Данні рецепта', link: '#', subItems: [
       { name: 'Страви', link: 'dishes' },
@@ -20,7 +22,7 @@ const LIST: MenuItem[] = [
       { name: 'Інструменти', link: 'tools' },
     ]
   },
-  { name: 'Рецепти', link: 'recipes' },
+
 ];
 
 @Component({
@@ -49,7 +51,7 @@ export class AdminComponent implements OnInit {
   }
   logout(): void {
     this.router.navigate(['/']);
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('curentUser');
     window.location.href = '/';
   }
 }

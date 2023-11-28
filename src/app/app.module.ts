@@ -42,6 +42,7 @@ import { AddMethodCookingComponent } from './modal/recipe-elements/add-method-co
 import { AddProductCatgoriesComponent } from './modal/recipe-elements/add-product-catgories/add-product-catgories.component';
 import { AddToolsComponent } from './modal/recipe-elements/add-tools/add-tools.component';
 import { AddUnitsComponent } from './modal/recipe-elements/add-units/add-units.component';
+import { DishesService } from './shared/service/dishes/dishes.service';
 
 
 @NgModule({
@@ -60,7 +61,6 @@ import { AddUnitsComponent } from './modal/recipe-elements/add-units/add-units.c
     AddMethodCookingComponent,
     AddProductCatgoriesComponent,
     AddToolsComponent,
-
     AddUnitsComponent,
 
   ],
@@ -84,7 +84,7 @@ import { AddUnitsComponent } from './modal/recipe-elements/add-units/add-units.c
     SlickCarouselModule,
     SharedModule,
   ],
-  providers: [ScreenTrackingService, UserTrackingService, HeaderService],
+  providers: [ScreenTrackingService, UserTrackingService, HeaderService, DishesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

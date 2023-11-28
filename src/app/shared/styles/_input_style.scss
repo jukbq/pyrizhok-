@@ -22,6 +22,12 @@
      }
  }
 
+ textarea {
+     line-height: 22px;
+     padding: 10px;
+
+ }
+
  textarea:focus,
  input:focus {
      border-color: var(--clr-green);

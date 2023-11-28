@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddProductComponent } from './add-product.component';
+import { ProductCategoryService } from 'src/app/shared/service/productCategory/product-category.service';
 
 describe('AddProductComponent', () => {
   let component: AddProductComponent;
@@ -8,7 +9,8 @@ describe('AddProductComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddProductComponent]
+      declarations: [AddProductComponent],
+      providers: [ProductCategoryService]
     });
     fixture = TestBed.createComponent(AddProductComponent);
     component = fixture.componentInstance;

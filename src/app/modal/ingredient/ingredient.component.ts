@@ -24,8 +24,9 @@ export class IngredientComponent implements OnInit {
   public units: any[] = [];
   public filteredProducts: any[] = [];
   public toppings = new FormControl('');
+  productControl = new FormControl();
   public numberServings = 1;
-  public group: any = {};
+  public group: any = [];
 
   constructor(
     private formBuild: FormBuilder,
@@ -80,10 +81,23 @@ export class IngredientComponent implements OnInit {
       this.filteredProducts = this.products.filter(product =>
         selectedCategories.includes(product.productsCategory.productCategoryLink)
       );
+
     } else {
       this.filteredProducts = this.products;
     }
   }
+
+  onProductInputChange(i: number, j: number) {
+    const selectProduct = this.productControl.value;
+
+    // Перевіряємо, чи вибраний продукт існує та додаємо його у масив ingredients
+    this.ingredients[i].group[j].selectedProduct = selectProduct;
+
+    console.log(selectProduct);
+    console.log(this.ingredients[i].group[j]);
+  }
+
+
 
   addGroup(): void {
     this.ingredients.push({ name: '', group: [] });
@@ -91,13 +105,14 @@ export class IngredientComponent implements OnInit {
 
   addIngredient(index: number): void {
     const newIngredient = {
-      selectedProduct: null,
+      selectedProduct: {},
       amount: 0,
       unitsMeasure: '',
       notes: ''
     };
-
     this.ingredients[index].group.push(newIngredient);
+    console.log(this.ingredients);
+
   }
 
   // Отримання одинці з сервера

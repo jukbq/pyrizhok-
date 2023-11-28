@@ -1,0 +1,23 @@
+<section>
+
+    <button (click)="recipes_form = !recipes_form; resetForm()" class="btn" data-rel="address" type="button">
+        {{ !recipes_form ? "ДОДАТИ РЕЦЕПТ" : "ВІДМІНИТИ" }}
+    </button>
+
+
+    <div class="short_recipe_list">
+        <ul>
+            <li>
+
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="form_conteiner" [ngClass]="{ active: !recipes_form }">
+
+
+    </div>
+
+
+</section>

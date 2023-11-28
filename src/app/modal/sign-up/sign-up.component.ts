@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { SignInComponent } from "../sign-in/sign-in.component";
+import { LocalStorageService } from "src/app/shared/service/local-storage/local-storage.service";
 
 
 @Component({
@@ -23,7 +24,9 @@ export class SignUpComponent {
     private router: Router,
     private afs: Firestore,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<SignUpComponent>
+    public dialogRef: MatDialogRef<SignUpComponent>,
+    private localStorsge: LocalStorageService
+
   ) { }
 
   ngOnInit(): void {
@@ -77,7 +80,8 @@ export class SignUpComponent {
       role: 'USER',
     };
     await setDoc(doc(this.afs, 'users', userReg.user.uid), user);
-    localStorage.setItem('curentUser', JSON.stringify(user));
+    this.localStorsge.saveData('curentUser', user);
+
   }
 
 

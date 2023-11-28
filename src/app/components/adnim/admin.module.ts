@@ -11,6 +11,7 @@ import { ProductCategoryComponent } from './product-category/product-category.co
 import { MethodCookingComponent } from './method-cooking/method-cooking.component';
 import { ToolsComponent } from './tools/tools.component';
 import { UnitsComponent } from './units/units.component';
+import { ShortRecipeComponent } from './short-recipe/short-recipe.component';
 
 
 
@@ -24,7 +25,8 @@ import { UnitsComponent } from './units/units.component';
     ProductCategoryComponent,
     MethodCookingComponent,
     ToolsComponent,
-    UnitsComponent
+    UnitsComponent,
+    ShortRecipeComponent
   ],
   imports: [
     CommonModule, AdminRoutingModule, SharedModule

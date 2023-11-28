@@ -35,14 +35,12 @@
 
                             <!-- Додано mat-autocomplete для вибору продукту -->
                             <mat-form-field class="select">
-                                <input matInput placeholder="Назва продукту" [(ngModel)]="group.selectedProduct"
-                                    [matAutocomplete]="auto">
-                                <mat-autocomplete #auto="matAutocomplete">
-                                    <mat-option *ngFor="let option of getFilteredProducts(group)"
-                                        [value]="option.productsName">
+                                <mat-select [formControl]="productControl"
+                                    (selectionChange)="onProductInputChange(i, j)" class="form-select">
+                                    <mat-option *ngFor="let option of filteredProducts" [value]="option">
                                         {{ option.productsName }}
                                     </mat-option>
-                                </mat-autocomplete>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="ibg_sel">

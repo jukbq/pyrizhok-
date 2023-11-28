@@ -46,15 +46,15 @@ section {
                 cursor: pointer;
 
                 p {
-                    font-weight: 600;
-                    font-size: 14px;
-                    line-height: 1em;
-                    color: var(--clr-grey);
-                    letter-spacing: 0.05em;
-                    text-transform: uppercase;
-                    transform: skew(-43deg, 0deg);
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 1em;
+        color: var(--clr-grey);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        transform: skew(-43deg, 0deg);
 
-                }
+    }
             }
 
             &:hover {

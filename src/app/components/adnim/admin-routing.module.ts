@@ -10,6 +10,7 @@ import { ProductCategoryComponent } from './product-category/product-category.co
 import { MethodCookingComponent } from './method-cooking/method-cooking.component';
 import { ToolsComponent } from './tools/tools.component';
 import { UnitsComponent } from './units/units.component';
+import { ShortRecipeComponent } from './short-recipe/short-recipe.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'methodCooking', component: MethodCookingComponent },
       { path: 'tools', component: ToolsComponent },
       { path: 'units', component: UnitsComponent },
+      { path: 'short-recipes', component: ShortRecipeComponent },
 
 
       { path: '', pathMatch: 'full', redirectTo: 'action' },

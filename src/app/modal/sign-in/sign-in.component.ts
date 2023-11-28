@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { doc } from 'firebase/firestore';
 import { ROLE } from 'src/app/shared/guard/role.constant';
 import { SignUpComponent } from '../sign-up/sign-up.component';
+import { LocalStorageService } from 'src/app/shared/service/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -33,7 +34,8 @@ export class SignInComponent {
     private auth: Auth,
     private afs: Firestore,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<SignInComponent>
+    public dialogRef: MatDialogRef<SignInComponent>,
+    private localStorsge: LocalStorageService
   ) { }
   ngOnInit(): void {
     this.logFormInit();
@@ -74,7 +76,7 @@ export class SignInComponent {
     ).subscribe((user) => {
       this.user = user;
       const curentUser = { ...user, uid: userCredential.user.uid };
-      localStorage.setItem('curentUser', JSON.stringify(curentUser));
+      this.localStorsge.saveData('curentUser', curentUser);
       this.actuve();
     });
   }

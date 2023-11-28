@@ -1,11 +1,26 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
+import { DishesService } from './shared/service/dishes/dishes.service';
+import { DishesResponse } from './shared/interfaces/dishes';
+import { Observable, of } from 'rxjs';
+import { DishesServiceFake } from './shared/service/dishes/dishes.service.fake';
+import { FavoritesService } from './shared/service/favorites/favorites.service';
+import { FavoritesServiceFake } from './shared/service/favorites/favorites.service.fake';
+import { MatDialogModule } from '@angular/material/dialog';
+
+
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
+    imports: [RouterTestingModule, MatDialogModule],
+    declarations: [AppComponent, HeaderComponent],
+    providers: [
+      { provide: DishesService, useClass: DishesServiceFake },
+      { provide: FavoritesService, useClass: FavoritesServiceFake }
+    ]
+
   }));
 
   it('should create the app', () => {
@@ -20,10 +35,5 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('pyrizhok');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('pyrizhok app is running!');
-  });
+
 });
