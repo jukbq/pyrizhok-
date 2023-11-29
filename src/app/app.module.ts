@@ -44,7 +44,6 @@ import { AddToolsComponent } from './modal/recipe-elements/add-tools/add-tools.c
 import { AddUnitsComponent } from './modal/recipe-elements/add-units/add-units.component';
 import { DishesService } from './shared/service/dishes/dishes.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +61,7 @@ import { DishesService } from './shared/service/dishes/dishes.service';
     AddProductCatgoriesComponent,
     AddToolsComponent,
     AddUnitsComponent,
+
 
   ],
   imports: [

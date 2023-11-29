@@ -1,0 +1,318 @@
+section {
+    width: 80vw;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background: var(--clr-green);
+
+    }
+
+    .recipe-list {
+        width: 100%;
+
+        .short_recipe_list {
+            width: 100%;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+
+
+            .recipe {
+                width: 32%;
+                height: 400px;
+                overflow: hidden;
+                outline: 5px double var(--clr-grey);
+                outline-offset: 0px;
+                border-radius: 15px 0px 15px 0px;
+
+                .recipe_image {
+                    width: 100%;
+                    height: 75%;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: 0.8s;
+
+                        &:hover {
+                            transform: scale(1.3) rotate(10deg);
+
+                        }
+                    }
+                }
+            }
+        }
+
+        &.active {
+            display: none;
+        }
+    }
+
+    .form_conteiner {
+        width: 100%;
+
+        &.active {
+            display: none;
+        }
+
+        .form_recipes {
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+
+            h2 {
+                width: 100%;
+                padding: 15px 0;
+            }
+
+            .input_block {
+                width: 46%;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                border-bottom: 0.8px solid var(--clr-grey);
+
+                .input {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border-radius: 16px;
+
+                    .select {
+                        width: 50%;
+                    }
+
+                    button {
+                        margin-top: -15px;
+                    }
+                }
+
+                .recipeKeys,
+                .difficultyPreparation,
+                .bestSeason,
+                .keywords {
+                    .select {
+                        width: 100%;
+                    }
+
+                    textarea {
+                        width: 100%;
+
+                    }
+                }
+            }
+
+            .descriptionRecipe,
+            .mainImage {
+                width: 100%;
+
+                .input textarea {
+                    width: 100%;
+                    height: 100px;
+                }
+
+                .load_image {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+
+
+
+        }
+
+    }
+
+
+    .ingredients {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+
+            thead {
+                width: 100%;
+
+                tr {
+                    border-bottom: var(--clr-grey);
+                }
+
+            }
+
+            tbody {
+                width: 100%;
+
+                .group_name {
+                    width: 100%;
+                    text-align: center;
+                    margin-top: 16px;
+                    font-size: 20px;
+                    border-top: 0.5px solid var(--clr-grey);
+                    border-bottom: 0.5px solid var(--clr-grey);
+                }
+
+                .ing_line {
+                    .image {
+                        width: 80px;
+                        height: 70px;
+                        overflow: hidden;
+
+                        img {
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+
+            .btn_tr {
+                width: 45px;
+                display: flex;
+                flex-direction: column;
+                border-bottom: none;
+
+                a {
+                    padding: 5px;
+                    overflow: hidden;
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            }
+        }
+
+        .batton_block {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+
+
+        .steps {
+            width: 100%;
+
+            h2 {
+                width: 100%;
+                padding: 15px 0;
+            }
+
+            .cooking_steps,
+            .steps_preview {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+
+                .step_list {
+                    width: 100%;
+                    height: auto;
+                    list-style: none;
+
+                    .step_title {
+                        width: 80%;
+
+                    }
+
+                    .step_body {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-top: 20px;
+
+                        .step_image {
+                            width: 40%;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: flex-start;
+                            padding: 10px;
+
+                            .load_image {
+                                width: 100%;
+                                padding: 10px;
+                                border-right: 0.8px solid var(--clr-grey);
+
+                                .progress_line {
+                                    padding: 15px 5px;
+                                }
+
+                                .image_block {
+                                    width: 80%;
+                                    height: 200px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    overflow: hidden;
+
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                        }
+
+                        .step_description {
+                            width: 60%;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: flex-start;
+                            padding: 10px;
+
+                            .name_instruction {
+                                width: 80%;
+                                margin-bottom: 16px;
+                            }
+
+                            .description_instructions {
+                                width: 100%;
+                                height: 300px;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+
+    }
+}

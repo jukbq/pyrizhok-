@@ -11,6 +11,7 @@ import { startWith, map } from 'rxjs/operators';
 import { AddUnitsComponent } from '../recipe-elements/add-units/add-units.component';
 import { UnitsService } from 'src/app/shared/service/units/units.service';
 import { UnitResponse } from 'src/app/shared/interfaces/units';
+import { AddProductCatgoriesComponent } from '../recipe-elements/add-product-catgories/add-product-catgories.component';
 
 @Component({
   selector: 'app-ingredient',
@@ -141,26 +142,44 @@ export class IngredientComponent implements OnInit {
     });
   }
 
-  creatUnit(action: string): void {
-    const dialogRef = this.dialog.open(AddUnitsComponent, {
-      panelClass: 'add_units',
-      data: { action },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      this.getUnits();
-    });
-  }
   creatIng(action: string): void {
-    const dialogRef = this.dialog.open(AddProductComponent, {
-      panelClass: 'creat_ingredient_modal',
-      data: { action },
-    });
+    //Створити категорію продукта
+    if (action === 'getCategory') {
+      const dialogRef = this.dialog.open(AddProductCatgoriesComponent, {
+        panelClass: 'productCatgories_modal_dialog',
+        data: { action: 'add' }
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      this.getProductCategories();
-      this.getProducts();
-    });
+      dialogRef.afterClosed().subscribe((result) => {
+        this.getProductCategories();
+        this.getProducts();
+      });
+    }
+
+    //Створити продукт
+    if (action === 'getProduct') {
+      const dialogRef = this.dialog.open(AddProductComponent, {
+        panelClass: 'creat_ingredient_modal',
+        data: { action: 'add' },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        this.getProductCategories();
+        this.getProducts();
+      });
+    }
+
+    //Створити одиницю виміру
+    if (action === 'getUnit') {
+      const dialogRef = this.dialog.open(AddUnitsComponent, {
+        panelClass: 'add_units',
+        data: { action: 'add' },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        this.getUnits();
+      });
+    }
   }
 
   // Додайте метод для фільтрації продуктів

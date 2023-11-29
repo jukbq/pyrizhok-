@@ -5,18 +5,292 @@
     </button>
 
 
-    <div class="short_recipe_list">
-        <ul>
-            <li>
-
+    <div class="recipe-list" [ngClass]="{ active: recipes_form }">
+        <ul class="short_recipe_list">
+            <li class="recipe" *ngFor="let recipe of recipes; let i = index">
+                <div class="recipe_image">
+                    <img src="{{recipe.mainImage}}" alt="">
+                </div>
+                <div class="recipe_titel">
+                    <h2>{{recipe.recipeTitle}}</h2>
+                </div>
             </li>
         </ul>
     </div>
 
 
     <div class="form_conteiner" [ngClass]="{ active: !recipes_form }">
+        <form [formGroup]="recipesForm" (ngSubmit)="creatRecipe()" class="form_recipes">
+
+            <h2>Основні дані рецепта</h2>
+
+            <!--Страви-->
+            <div class="input_block">
+                <h4>*Оберіть вид страви</h4>
+                <div class="input dishes">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">*Оберіть вид страви</mat-label>
+                        <mat-select formControlName="dishes" name="dishes" class="form-select"
+                            (selectionChange)="onDishesSelection()">
+                            <mat-option *ngFor="let dishes of dishesList" [value]="dishes">
+                                {{dishes.dishesName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addModal('dishes', 0)">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+                </div>
+            </div>
+
+            <!--Категорії страв-->
+            <div class="input_block">
+                <h4>*КатегоріЯ страви</h4>
+                <div class="input categoriesDishes">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">*Оберіть категоріЮ страви</mat-label>
+                        <mat-select formControlName="categoriesDishes" name="categoriesDishes" class="form-select">
+                            <mat-option *ngFor="let category of filteredCategories" [value]="category">
+                                {{category.categoryName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addModal('categoriesDishes', 0)">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+
+                </div>
+            </div>
+
+            <!--Ключі рецептів-->
+            <div class="input_block">
+                <h4>*Ключі рецептів</h4>
+                <div class="input recipeKeys">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">*Оберіть категорії ключів</mat-label>
+                        <mat-select formControlName="recipeKeys" name="recipeKeys" class="form-select" multiple>
+                            <mat-option *ngFor="let recipeKeys of filteredCategories"
+                                [value]="recipeKeys.categoryName ">
+                                {{recipeKeys.categoryName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!--Кухні-->
+            <div class="input_block">
+                <h4>*Країна походження страви</h4>
+                <div class="input cuisine">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">*Оберіть кухню</mat-label>
+                        <mat-select formControlName="cuisine" name="cuisine" class="form-select">
+                            <mat-option *ngFor="let cuisine of cuisineList" [value]="cuisine">
+                                {{cuisine.cuisineName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addModal('cuisine', 0)">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+
+                </div>
+            </div>
+
+            <!--Методм приготування-->
+            <div class="input_block">
+                <h4>*Методм приготування</h4>
+                <div class="input methodCooking">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">*Оберіть методи</mat-label>
+                        <mat-select formControlName="methodCooking" name="methodCooking" class="form-select" multiple>
+                            <mat-option *ngFor="let methodCooking of methodCookingList"
+                                [value]="methodCooking.methodCookinName">
+                                {{methodCooking.methodCookinName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addModal('methodCooking', 0)">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+
+                </div>
+            </div>
+
+            <!--Інструменти-->
+            <div class="input_block">
+                <h4>*Інструменти</h4>
+                <div class="input tools">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">*Оберіть інструменти</mat-label>
+                        <mat-select formControlName="tools" name="tools" class="form-select" multiple>
+                            <mat-option *ngFor="let tools of toolsList" [value]="tools.toolsName">
+                                {{tools.toolsName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <p>або</p>
+                    <button type="button" class="btn btn-primary" (click)="addModal('tools', 0)">
+                        <i class="bi bi-plus"></i> Додати
+                    </button>
+
+                </div>
+            </div>
+
+            <!--Важкість приготування-->
+            <div class="input_block">
+                <h4>*Рівень важкості</h4>
+                <div class="input difficultyPreparation">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">*Оберіть важкість приготування</mat-label>
+                        <mat-select formControlName="difficultyPreparation" name="difficultyPreparation"
+                            class="form-select">
+                            <mat-option *ngFor="let difficultyPreparation of difficultyPreparationList"
+                                [value]="difficultyPreparation">
+                                {{difficultyPreparation.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!--Найкращий сезон-->
+            <div class="input_block">
+                <h4>*Сезон</h4>
+                <div class="input bestSeason">
+                    <mat-form-field class="select">
+                        <mat-label class="mat_label">*Оберіть сезон</mat-label>
+                        <mat-select formControlName="bestSeason" name="bestSeason" class="form-select" multiple>
+                            <mat-option *ngFor="let bestSeason of bestSeasonList" [value]="bestSeason">
+                                {{bestSeason.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!--Назва рецепта-->
+            <div class="input_block">
+                <h4>Назва рецепта</h4>
+                <div class="input recipeTitle">
+                    <input formControlName="recipeTitle" type="text" name="recipeTitle" class="form-control"
+                        placeholder="*Введіь назву рецепта">
+                </div>
+            </div>
+
+            <!--Опис рецептаа-->
+            <div class="input_block descriptionRecipe">
+                <h4>Опис рецепта</h4>
+                <div class="input ">
+                    <textarea formControlName="descriptionRecipe" name="descriptionRecipe" iclass="form-control"
+                        placeholder="*Введіь опис рецепта"></textarea>
+
+                </div>
+            </div>
+
+            <!--Головне зображення-->
+            <div class="input_block mainImage">
+                <h4>Головне зображення</h4>
+                <div class="input load_image">
+                    <div class="load_file">
+                        <input class="form-control form-control-lg" type="file" (change)="upload($event)" />
+                    </div>
+
+                    <div class="progress_line">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar"
+                                aria-label="Default striped example" [style.width.%]="uploadPercent" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
+                    </div>
+
+                    <div class="image_block">
+                        <td class="image">
+                            <img [src]="valueByControl('mainImage')" />
+                        </td>
+
+                    </div>
+
+                    <button (click)="deleteImage()" type="button" class="btn se">
+                        Видалити фото
+                    </button>
 
 
+                </div>
+
+
+            </div>
+
+            <!--Фокусна ключова фраза-->
+            <div class="input_block focusKeyword">
+                <h4>Фокусна ключова фраза</h4>
+                <div class="input ">
+                    <input formControlName="focusKeyword" type="text" name="focusKeyword" class="form-control"
+                        placeholder="*Введіь фокусну ключову фразу">
+                </div>
+            </div>
+
+            <!--Ключові Слова-->
+            <div class="input_block">
+                <h4>Ключові Слова</h4>
+                <div class="input keywords">
+                    <textarea formControlName="keywords" name="keywords" iclass="form-control"
+                        placeholder="*Введіь ключові слова"></textarea>
+                </div>
+            </div>
+        </form>
+
+        <!--Інгридієнти-->
+        <div class="input_section ingredients">
+            <h2>Інгридієнти</h2>
+            <h3>Кількість порці - {{numberServings}}</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Назва</th>
+                        <th scope="col">Кількість</th>
+                        <th scope="col">Міра</th>
+                        <th scope="col">Коментар</th>
+                        <th scope="col">Зображення</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container class="group_block" *ngFor="let products of ingredients; let i = index">
+                        <tr class="group_name">
+                            <td colspan="7">
+                                {{ products.name }}
+                            </td>
+                        </tr>
+                        <ng-container *ngFor="let group of products.group; let j = index" class="ing_block">
+                            <tr class="ing_line">
+                                <td>{{ j + 1 }}</td>
+                                <td>{{ group.selectedProduct ? group.selectedProduct.productsName : '' }}</td>
+                                <td>{{ group.amount }}</td>
+                                <td>{{ group.unitsMeasure }}</td>
+                                <td>{{ group.notes }}</td>
+                                <td class="image">
+                                    <img [src]="group.selectedProduct.productsImages" />
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+
+            <div class="batton_block">
+                <button type="button" class="btn" (click)="addIng('add')">
+                    Додати інгриідієнти
+                </button>
+                <button type="button" class="btn" (click)="addIng('edit')">
+                    Редагувати списиок
+                </button>
+            </div>
+
+
+        </div>
+
+        <button type="button" class="btn next" (click)="creatRecipe()">
+            Створити рецепт
+        </button>
     </div>
 
 
