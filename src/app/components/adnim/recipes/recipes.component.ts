@@ -160,7 +160,7 @@ export class RecipesComponent {
       tools: [null],
       difficultyPreparation: [null, Validators.required],
       bestSeason: [null, Validators.required],
-
+      rating: [0],
 
       //Сторінка 2
       recipeTitle: [null, Validators.required],
@@ -587,6 +587,7 @@ export class RecipesComponent {
         tools: [this.steps[0].tools],
         difficultyPreparation: [this.steps[0].difficultyPreparation],
         bestSeason: [this.steps[0].bestSeason],
+        rating: [0],
 
         recipeTitle: [this.steps[1].recipeTitle],
         recipeSubtitles: [this.steps[1].recipeSubtitles],

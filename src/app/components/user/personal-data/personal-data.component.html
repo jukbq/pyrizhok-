@@ -1,0 +1,38 @@
+<form [formGroup]="userForm" (ngSubmit)="editUserData()" class="form-content">
+    <div class="image">
+        <div class="image_block">
+            <div class="img_box">
+                <img src="{{user.imageUser}}" alt="">
+            </div>
+            <input #fileInput type="file" style="display: none;" (change)="uploadUserImage($event)" accept="image/*" />
+            <button class="overlay btn" type="button" (click)="fileInput.click()">Змінити зображення</button>
+        </div>
+    </div>
+
+    <div class="info_block">
+
+
+        <h2>Ваш enail: {{user.email}}</h2>
+
+        <label for="login">Логін:</label>
+        <input formControlName="login" id="" login name="login" type="text" class="form-control">
+
+        <label for="firstname">Ваше ім`я:</label>
+        <input formControlName="firstname" id="firstname" name="firstname" type="text" class="form-control">
+
+        <label for="lastname">Ваше прізвище:</label>
+        <input formControlName="lastname" id="lastname" name="lastname" type="text" class="form-control">
+
+        <label for="birthdate">Дата народження:</label>
+        <input formControlName="birthdate" id="" birthdate name="birthdate" type="date" class="form-control birthdate"
+            placeholder="Дата народження">
+        <p>Якщо це поле не буде заповнено, то ви не зможете отримувати додаткові бонуси до Дня Вашого народження</p>
+
+
+    </div>
+
+    <button class="save_change btn " type="submit" [disabled]="!isFormChanged()">
+        <span>Зберегти зміни</span>
+        <i></i>
+    </button>
+</form>

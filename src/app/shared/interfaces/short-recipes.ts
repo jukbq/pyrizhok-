@@ -4,6 +4,11 @@ import { DishesResponse } from "./dishes";
 import { ProductsRequest } from "./products";
 import { MethodCooking } from "./recipes";
 
+export interface DifficultyPreparation {
+    list: string;
+    linamest: string;
+}
+
 export interface ShortRecipeRequest {
     dishes: DishesResponse;
     categoriesDishes: CategoriesDishesResponse;
@@ -12,7 +17,7 @@ export interface ShortRecipeRequest {
     autor: string;
     methodCooking: MethodCooking[];
     tools: string[];
-    difficultyPreparation: string;
+    difficultyPreparation: DifficultyPreparation;
     bestSeason: string;
     recipeTitle: string;
     descriptionRecipe: string;
@@ -21,6 +26,7 @@ export interface ShortRecipeRequest {
     keywords: string;
     numberServings: number;
     ingredients: ProductsRequest;
+    rating: number
 }
 
 export interface ShortRecipesResponse extends ShortRecipeRequest {

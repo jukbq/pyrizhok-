@@ -37,7 +37,7 @@ header .container .header-top .header-links li a {
   text-decoration: none;
 }
 header .container .header-top .header-links li a:hover {
-  color: var(--clr-green);
+  color: var(--clr-two);
 }
 header .container .header-top .header-links .reviews a {
   cursor: pointer;
@@ -45,12 +45,12 @@ header .container .header-top .header-links .reviews a {
   align-items: center;
   padding: 3px 12px;
   border-radius: 12px;
-  background: var(--clr-green);
+  background: var(--clr-two);
   transition: var(--transition);
   color: var(--clr-white);
 }
 header .container .header-top .header-links .reviews a:hover {
-  background: var(--clr-red);
+  background: var(--clr-one);
   color: var(--clr-white);
 }
 header .container .header-bottom {
@@ -115,14 +115,14 @@ header .container .header-bottom .menu-list ul li a::before {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--clr-green);
+  background: var(--clr-two);
   width: 0;
   height: 3px;
   border-radius: 3px 3px 0 0;
   transition: var(--transition);
 }
 header .container .header-bottom .menu-list ul li a:hover {
-  color: var(--clr-green);
+  color: var(--clr-two);
 }
 header .container .header-bottom .menu-list ul li a:hover::before {
   width: 100%;
@@ -133,7 +133,7 @@ header .container .header-bottom .menu-list ul li a img {
   margin-bottom: 7px;
 }
 header .container .header-bottom .menu-list ul li.active a {
-  color: var(--clr-green);
+  color: var(--clr-two);
 }
 header .container .header-bottom .menu-list ul li.active a::before {
   width: 100%;
@@ -184,7 +184,7 @@ header .container .header-bottom .user-c-wrapper .user-fav i::before {
   width: 24px;
   height: 24px;
   border-radius: 100%;
-  background: var(--clr-red);
+  background: var(--clr-one);
 }
 header .container .header-bottom .user-c-wrapper .user-fav .user_tooltip {
   position: absolute;
@@ -240,11 +240,11 @@ header .container .header-bottom .user-c-wrapper .user-cabinet button {
   line-height: 1em;
   border-radius: 12px;
   color: var(--clr-white);
-  background: var(--clr-red);
+  background: var(--clr-one);
   transition: var(--transition);
 }
 header .container .header-bottom .user-c-wrapper .user-cabinet button:hover {
-  background: var(--clr-green);
+  background: var(--clr-two);
 }
 header .container .header-bottom .user-c-wrapper .user-cabinet button svg {
   height: 20px;

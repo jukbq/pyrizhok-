@@ -36,22 +36,27 @@ export class FavoritesService {
     this.loadFavorites();
   }
 
-  // Видалити товар із списку улюблених
   async removeFromFavorites(userId: string, productId: string): Promise<void> {
     const favoritesCollection = collection(this.afs, 'favorites');
+
     const q = query(
       favoritesCollection,
       where('userId', '==', userId),
       where('productId', '==', productId)
     );
+
     const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
-      (doc.ref);
+    querySnapshot.forEach(async (doc) => {
+      // Видалення кожного знайденого документа
+      await deleteDoc(doc.ref);
     });
+
+    // Після видалення обновіть потрібні дані або викличте метод для перезавантаження списку улюблених
     this.loadFavorites();
     return Promise.resolve();
   }
+
 
   // Отримати список улюблених товарів для користувача
   getFavoritesByUser(userId: string): Observable<any[]> {

@@ -1,0 +1,22 @@
+<section class="personal_office">
+    <h1>Особистий кабінет</h1>
+    <div class="user_menu">
+        <div class="menu_item" *ngFor="let menuItem of list" [ngClass]="{ 'active': menuItem.link === activeItem }"
+            (click)="onSelectItem(menuItem.link)">
+            <button>
+                <span>{{menuItem.name}}</span>
+            </button>
+        </div>
+        <div class="menu_item">
+            <button class="exit" (click)="logout()">
+                <span>ВИЙТИ</span>
+            </button>
+
+        </div>
+    </div>
+
+    <div class="user_category">
+        <router-outlet class="user_block"></router-outlet>
+    </div>
+
+</section>

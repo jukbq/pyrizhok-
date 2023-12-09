@@ -1,6 +1,7 @@
 <form [formGroup]="sighUoForn" (ngSubmit)="userRegister()" class="modal-content">
     <div type="button" class="btn-close" (click)="close()" aria-label="Закрити"></div>
-    <h3 class="modal-title">Вхід в кабінет</h3>
+    <h1 class="modal-title">Реєстрація</h1>
+
     <div class="modal-body">
         <div class="user_name">
             <input formControlName="firstname" name="firstname" type="text" class="form-control"
@@ -40,5 +41,29 @@
     </button>
     <div class="popup-links-wrapper justify-content-center">
         <div>Вже зареєстровані? <a class="open-popup" (click)="sighInMaoal()">Увійти</a></div>
+    </div>
+
+    <div class="social_auth">
+        <button (click)="signInWithGoogle()" class="social_auth_btn">
+            <span class="button-decor"></span>
+            <div class="button-content">
+                <div class="button__icon">
+                    <img src="../../../assets/icons/social/google.svg" alt="">
+                </div>
+                <span class="button__text">Google</span>
+            </div>
+        </button>
+
+        <button (click)="signInWithFacebook()" class="social_auth_btn">
+            <span class="button-decor"></span>
+            <div class="button-content">
+                <div class="button__icon">
+                    <img src="../../../assets/icons/social/facebook-auth.svg" alt="">
+                </div>
+                <span class="button__text">Facebook</span>
+            </div>
+        </button>
+
+
     </div>
 </form>

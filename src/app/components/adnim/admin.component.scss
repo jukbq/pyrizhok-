@@ -59,7 +59,7 @@ section {
 
             &:hover {
                 .text p {
-                    color: var(--clr-green);
+                    color: var(--clr-two);
                 }
 
                 .submenu {
@@ -72,7 +72,7 @@ section {
             &.active {
                 .text {
                     height: 3em;
-                    background-color: var(--clr-red);
+                    background-color: var(--clr-one);
 
 
                     p {
@@ -130,7 +130,7 @@ section {
                     &.active {
                         .submenu_text {
                             height: 3em;
-                            background-color: var(--clr-red);
+                            background-color: var(--clr-one);
 
 
                             p {

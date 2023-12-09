@@ -12,9 +12,9 @@ body .custom-font {
 }
 
 :root {
-  --clr-green: #009246;
-  --clr-red: #d22730;
-  --clr-mint: #f5faf2;
+  --clr-one: #009246;
+   --clr-two #d22730;
+  --clr-three: #f5faf2;
   --clr-white: #fff;
   --clr-black: #212721;
   --clr-grey: #636662;
@@ -27,7 +27,7 @@ ul {
 
 .btn {
   color: var(--clr-white);
-  background: var(--clr-red);
+  background: var(--clr-one);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -59,7 +59,7 @@ ul {
   border-bottom: 2px solid var(--clr-white);
 }
 .btn:hover {
-  background: var(--clr-green);
+  background: var(--clr-two);
   color: var(--clr-white);
 }
 
@@ -85,11 +85,11 @@ ul {
   transition: var(--transition);
 }
 .accordion-item:hover .mat-expansion-indicator {
-  border: 2px solid var(--clr-green);
+  border: 2px solid var(--clr-two);
 }
 .accordion-item:hover .mat-expansion-indicator::after {
-  border-right: 2px solid var(--clr-green);
-  border-bottom: 2px solid var(--clr-green);
+  border-right: 2px solid var(--clr-two);
+  border-bottom: 2px solid var(--clr-two);
 }
 
 h1,
@@ -125,10 +125,10 @@ h1::before,
   margin: 0 auto;
 }
 .swiper-slide .slick-dots .slick-active {
-  background: var(--clr-red);
+  background: var(--clr-one);
 }
 .swiper-slide .slick-dots .slick-active:hover {
-  border: 1px solid var(--clr-red);
+  border: 1px solid var(--clr-one);
 }
 .swiper-slide .slick-dots li {
   width: 8px;
@@ -141,7 +141,7 @@ h1::before,
   content: none;
 }
 .swiper-slide .slick-dots li:hover {
-  background: var(--clr-green);
+  background: var(--clr-two);
 }
 
 .ingModal {
@@ -184,7 +184,7 @@ textarea {
 }
 input.input-error,
 textarea.input-error {
-  border-color: var(--clr-red);
+  border-color: var(--clr-one);
   box-shadow: none;
 }
 input.valid,
@@ -194,17 +194,17 @@ textarea.valid {
 
 textarea:focus,
 input:focus {
-  border-color: var(--clr-green);
+  border-color: var(--clr-two);
   box-shadow: none;
   outline: none;
 }
 textarea:focus.input-error,
 input:focus.input-error {
-  border-color: var(--clr-red);
+  border-color: var(--clr-one);
 }
 textarea:focus.valid,
 input:focus.valid {
-  border-color: var(--clr-green);
+  border-color: var(--clr-two);
 }
 
 input[type=date]::-webkit-calendar-picker-indicator {
@@ -266,8 +266,8 @@ input[type=date] {
   top: 4px;
   width: 6px;
   height: 10px;
-  border-right: 2px solid var(--clr-red);
-  border-bottom: 2px solid var(--clr-red);
+  border-right: 2px solid var(--clr-one);
+  border-bottom: 2px solid var(--clr-one);
   z-index: 1;
   transform: scale(0) rotate(45deg);
   backface-visibility: hidden;
@@ -325,7 +325,7 @@ input[type=date] {
   transform: scale(0) rotate(45deg);
   backface-visibility: hidden;
   transition: var(--transition);
-  background: var(--clr-red);
+  background: var(--clr-one);
   border-radius: 100%;
 }
 .radio_box label input:checked + span::after {
@@ -355,7 +355,7 @@ select {
   text-align: center;
 }
 .select_user_menu.active {
-  color: var(--clr-red);
+  color: var(--clr-one);
 }
 
 .select .mdc-text-field--filled:not(.mdc-text-field--disabled) {

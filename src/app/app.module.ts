@@ -43,6 +43,9 @@ import { AddProductCatgoriesComponent } from './modal/recipe-elements/add-produc
 import { AddToolsComponent } from './modal/recipe-elements/add-tools/add-tools.component';
 import { AddUnitsComponent } from './modal/recipe-elements/add-units/add-units.component';
 import { DishesService } from './shared/service/dishes/dishes.service';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -61,9 +64,9 @@ import { DishesService } from './shared/service/dishes/dishes.service';
     AddProductCatgoriesComponent,
     AddToolsComponent,
     AddUnitsComponent,
-
-
+    UserComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -83,6 +86,9 @@ import { DishesService } from './shared/service/dishes/dishes.service';
     MatSliderModule,
     SlickCarouselModule,
     SharedModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+
   ],
   providers: [ScreenTrackingService, UserTrackingService, HeaderService, DishesService],
   bootstrap: [AppComponent]

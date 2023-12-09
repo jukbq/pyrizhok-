@@ -13,7 +13,7 @@ section::-webkit-scrollbar {
 }
 section::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background: var(--clr-green);
+  background: var(--clr-two);
 }
 section .category_menu {
   width: 50%;
@@ -45,10 +45,10 @@ section .category_menu li p {
   margin-bottom: 0;
 }
 section .category_menu li:hover p {
-  color: var(--clr-green);
+  color: var(--clr-two);
 }
 section .category_menu li.active {
-  background-color: var(--clr-red);
+  background-color: var(--clr-one);
   border-radius: 12px;
 }
 section .category_menu li.active p {

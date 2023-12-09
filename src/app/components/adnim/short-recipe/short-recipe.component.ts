@@ -29,6 +29,7 @@ import {
 } from '@angular/fire/storage';
 import { IngredientComponent } from 'src/app/modal/ingredient/ingredient.component';
 import Swal from 'sweetalert2';
+import { FavoritesService } from 'src/app/shared/service/favorites/favorites.service';
 
 const dpList: any[] = [
   { name: 'Базовий рецепт', list: 'light' },
@@ -71,6 +72,13 @@ export class ShortRecipeComponent {
   public edit_status = false;
   private recipeID!: number | string;
 
+  public isHoveredLight: boolean = false;
+  public isHoveredMedium: boolean = false;
+  public isHoveredHard: boolean = false;
+  public uid!: string;
+  public favoriteProducts: string[] = [];
+  public shareMenu = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private shortRecipesService: ShortRecipeService,
@@ -82,11 +90,25 @@ export class ShortRecipeComponent {
     public dialog: MatDialog,
     private storsge: Storage,
     private recipesService: ShortRecipeService,
-    private localStorge: LocalStorageService
+    private localStorge: LocalStorageService,
+    private favoritesService: FavoritesService,
   ) { };
 
   ngOnInit(): void {
     this.customer = this.localStorge.getData('curentUser');
+    if (this.customer && this.customer.uid) {
+      this.uid = this.customer.uid;
+    }
+    if (this.uid) {
+      this.favoritesService
+        .getFavoritesByUser(this.uid)
+        .subscribe((favorites) => {
+          this.favoriteProducts = favorites.map(
+            (favorite) => favorite.productId
+          );
+        });
+    }
+
     this.initRecipeForm()
     this.getDishes();
     this.getCategoriesDishes();
@@ -94,6 +116,8 @@ export class ShortRecipeComponent {
     this.getCuisine();
     this.getMethodCookin();
     this.getTools();
+
+
   }
 
 
@@ -116,6 +140,7 @@ export class ShortRecipeComponent {
       keywords: [null],
       numberServings: [1],
       ingredients: [null, Validators.required],
+      rating: 0
 
 
     });
@@ -353,9 +378,45 @@ export class ShortRecipeComponent {
     return this.recipesForm.get(control)?.value;
   }
 
-  creatImage() {
-
+  // Перевірка, чи є товар у списку улюблених користувача
+  isFavorite(product: any): boolean {
+    return this.favoriteProducts.includes(product.id);
   }
+
+
+
+  //додати в обране
+  addFavorites(poduct: any): void {
+    const productId = poduct.id;
+
+    if (this.isFavorite(poduct)) {
+      console.log(poduct);
+
+      // Якщо товар вже є у списку улюблених, видаляємо його
+      this.favoritesService
+        .removeFromFavorites(this.uid, productId)
+        .then(() => {
+          this.favoriteProducts = this.favoriteProducts.filter(
+            (favProductId) => favProductId !== productId
+          );
+        });
+    } else {
+      // Якщо товар не є у списку улюблених, додаємо його
+      this.favoritesService.addToFavorites(this.uid, productId).then(() => {
+        this.favoriteProducts.push(productId);
+      });
+    }
+  }
+
+
+
+  shareMenuActive() {
+    this.shareMenu = true;
+  }
+  onMouseLeave() {
+    this.shareMenu = false;
+  }
+
 
 
   creatRecipe() {

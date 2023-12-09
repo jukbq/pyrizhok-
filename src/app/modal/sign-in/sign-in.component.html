@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="modal-content">
+<form [formGroup]="loginForm" class="modal-content" (ngSubmit)="loginUser()">
     <div class="btn-close" (click)="close()" aria-label="Закрити"></div>
 
     <div class="title">Вхід</div>
@@ -17,9 +17,39 @@
             <span>Увійти</span>
             <i></i>
         </button>
+
         <div class="popup-links-wrapper">
             <a class="open-popup" data-rel="2">Забули пароль?</a>
             <div>Ще не зареєстровані? <a class="open-popup" (click)="sighUpMaoal()">Зареєструватися</a></div>
         </div>
     </div>
+
+
+    <div class="social_auth">
+        <button (click)="signInWithGoogle()" class="social_auth_btn">
+            <span class="button-decor"></span>
+            <div class="button-content">
+                <div class="button__icon">
+                    <img src="../../../assets/icons/social/google.svg" alt="">
+                </div>
+                <span class="button__text">Google</span>
+            </div>
+        </button>
+
+
+
+        <button (click)="signInWithFacebook()" class="social_auth_btn">
+            <span class="button-decor"></span>
+            <div class="button-content">
+                <div class="button__icon">
+                    <img src="../../../assets/icons/social/facebook-auth.svg" alt="">
+                </div>
+                <span class="button__text">Facebook</span>
+            </div>
+        </button>
+
+
+
+    </div>
+
 </form>

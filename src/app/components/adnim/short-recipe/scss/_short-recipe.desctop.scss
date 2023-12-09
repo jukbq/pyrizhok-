@@ -15,7 +15,7 @@ section {
 
     &::-webkit-scrollbar-thumb {
         border-radius: 4px;
-        background: var(--clr-green);
+        background: var(--clr-two);
 
     }
 
@@ -33,32 +33,243 @@ section {
 
             .recipe {
                 width: 32%;
-                height: 400px;
+                height: 500px;
                 overflow: hidden;
+
                 outline: 5px double var(--clr-grey);
                 outline-offset: 0px;
                 border-radius: 15px 0px 15px 0px;
+                transition: all .7s;
+                background-image: linear-gradient(163deg, #0066ff 0%, #ccff00 100%);
+                box-shadow: 11px 11px 7px #dbdbdb,
+                    -11px -11px 7px #ffffff;
 
-                .recipe_image {
+                &:hover {
+                    box-shadow: non;
+                    border: 0.8px solid var(--clr-grey);
+                    outline: none;
+                    outline-offset: 0px;
+                }
+
+                .recipe_block {
                     width: 100%;
-                    height: 75%;
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    height: 100%;
+                    position: relative;
+                    background-color: var(--clr-white);
+                    transition: all .7s;
+
+                    &:hover {
+                        transform: scale(0.98);
+                        border-radius: 15px 0px 15px 0px;
 
 
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        transition: 0.8s;
+                        .recipe_image {
+                            border-top-left-radius: 16px;
 
-                        &:hover {
-                            transform: scale(1.3) rotate(10deg);
+                            img {
+                                transform: scale(1.3) rotate(10deg);
+                            }
+                        }
 
+                        .recipe_titel a {
+                            color: var(--clr-two);
                         }
                     }
+
+                    .recipe_image {
+                        width: 100%;
+                        height: 60%;
+                        overflow: hidden;
+
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            transition: 0.8s;
+                        }
+                    }
+
+                    .recipe_titel {
+                        width: 100%;
+                        height: 20%;
+                        border-top: 0.8px solid var(--clr-grey);
+
+                        a {
+                            width: 100%;
+                            height: 100%;
+                            text-decoration: none;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 26px;
+                            color: var(--clr-grey);
+                            transition: 0.8s;
+                        }
+                    }
+
+                    .function_block {
+                        width: 100%;
+                        height: 20%;
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        border-top: 0.8px solid var(--clr-grey);
+
+
+                        .hard_line,
+                        .recipe_rating,
+                        .recipe_selected,
+                        .resipe_share {
+                            width: 24%;
+                            height: 90%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 5px;
+                            border-right: 0.8px solid var(--clr-grey);
+
+
+                            .level {
+                                width: 100%;
+                                height: 100%;
+                                position: relative;
+                                overflow: visible;
+
+
+                                &::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 80%;
+                                    height: 80%;
+
+                                }
+
+                                &:after {
+                                    content: '';
+                                    position: absolute;
+                                    width: 100%;
+                                    height: 100%;
+                                    top: 0;
+                                    left: 0;
+                                    background-position: center;
+                                    background-size: contain;
+                                    background-repeat: no-repeat;
+
+                                }
+                            }
+
+                            .light {
+                                &::before {
+                                    background: radial-gradient(circle at center, rgb(56, 206, 2) 0%, rgba(56, 206, 2, 0.206) 50%, rgba(56, 206, 2, 0)100%);
+                                }
+
+                                &:after {
+                                    background-image: url(../.././../../../assets/icons/hard-levels/easy.svg);
+                                }
+
+                            }
+
+                            .midl {
+                                background-color: yellow;
+
+                                &:after {
+                                    background-image: url(../.././../../../assets/icons/hard-levels/midl.svg);
+                                }
+                            }
+
+                            .hard {
+                                background-color: red;
+
+                                &:after {
+                                    background-image: url(../.././../../../assets/icons/hard-levels/hard.svg);
+                                }
+
+                            }
+
+                            .image {
+                                width: 100%;
+                                height: 100%;
+                                position: relative;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                overflow: hidden;
+                                cursor: pointer;
+
+                                img {
+                                    max-width: 60%;
+                                    max-height: 60%;
+                                    width: auto;
+                                    height: auto;
+                                    margin: auto;
+                                    display: block;
+                                }
+
+                                .number_rating {
+                                    position: absolute;
+                                    line-height: 0px;
+                                    letter-spacing: 0em;
+                                    margin: 0 0px;
+                                }
+                            }
+                        }
+
+                        .resipe_share {
+                            border: none;
+                            position: relative;
+                        }
+
+                        .share_menu {
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            left: 0;
+                            bottom: -150px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-evenly;
+                            background-color: var(--clr-white);
+                            z-index: 1;
+                            transition: 0.8s;
+
+                            .image {
+                                width: 24%;
+                                height: 90%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                padding: 8px;
+                                overflow: hidden;
+                                border-right: 0.8px solid var(--clr-grey);
+
+
+
+                                img {
+                                    max-width: 60%;
+                                    max-height: 60%;
+                                    width: auto;
+                                    height: auto;
+                                    margin: auto;
+                                    display: block;
+                                }
+                            }
+
+                            .insta {
+                                border: none;
+                            }
+
+                            &.active {
+                                bottom: 0;
+                            }
+                        }
+                    }
+
+
+
                 }
             }
         }

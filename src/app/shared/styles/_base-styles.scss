@@ -6,7 +6,7 @@
 
 
 body {
-    padding: 0 7vw;
+    padding: 10vh 7vw 0 7vw;
 
     .custom-font {
         margin: 0;
@@ -15,12 +15,14 @@ body {
 }
 
 :root {
-    --clr-green: #009246;
-    --clr-red: #d22730;
-    --clr-mint: #f5faf2;
+    --clr-one: #058240;
+    --clr-two: #00ad54;
+    --clr-three: #FAB036;
+    --clr-four: #FDD48A;
+    --clr-five: #513C2F;
+    --clr-grey: #636662;
     --clr-white: #fff;
     --clr-black: #212721;
-    --clr-grey: #636662;
     --transition: all .3s linear;
 }
 
@@ -30,7 +32,7 @@ ul {
 
 .btn {
     color: var(--clr-white);
-    background: var(--clr-red);
+    background: var(--clr-one);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +50,7 @@ ul {
         border-radius: 100%;
         border: 2px solid var(--clr-white);
         margin-left: 15px;
- 
+
 
         &:before {
             content: '';
@@ -65,7 +67,7 @@ ul {
     }
 
     &:hover {
-        background: var(--clr-green);
+        background: var(--clr-two);
         color: var(--clr-white);
     }
 
@@ -101,11 +103,11 @@ ul {
 
     &:hover {
         .mat-expansion-indicator {
-            border: 2px solid var(--clr-green);
+            border: 2px solid var(--clr-two);
 
             &::after {
-                border-right: 2px solid var(--clr-green);
-                border-bottom: 2px solid var(--clr-green);
+                border-right: 2px solid var(--clr-two);
+                border-bottom: 2px solid var(--clr-two);
             }
         }
     }
@@ -148,10 +150,10 @@ h1,
         margin: 0 auto;
 
         .slick-active {
-            background: var(--clr-red);
+            background: var(--clr-one);
 
             &:hover {
-                border: 1px solid var(--clr-red);
+                border: 1px solid var(--clr-one);
 
             }
         }
@@ -168,7 +170,7 @@ h1,
             }
 
             &:hover {
-                background: var(--clr-green);
+                background: var(--clr-two);
 
             }
         }

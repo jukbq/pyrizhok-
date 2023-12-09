@@ -8,12 +8,72 @@
     <div class="recipe-list" [ngClass]="{ active: recipes_form }">
         <ul class="short_recipe_list">
             <li class="recipe" *ngFor="let recipe of recipes; let i = index">
-                <div class="recipe_image">
-                    <img src="{{recipe.mainImage}}" alt="">
+                <div class="recipe_block">
+                    <div class="recipe_image">
+
+                        <a href="http://">
+                            <img src="{{recipe.mainImage}}" alt="">
+                        </a>
+                    </div>
+                    <div class="recipe_titel">
+                        <a href="">
+                            {{recipe.recipeTitle}}
+                        </a>
+                    </div>
+                    <div class="function_block">
+
+                        <div class="hard_line">
+                            <div class="light level" *ngIf="recipe.difficultyPreparation.list === 'light'"></div>
+                            <div class="midl level" *ngIf="recipe.difficultyPreparation.list === 'medium'"></div>
+                            <div class="hard level" *ngIf="recipe.difficultyPreparation.list === 'hard'"></div>
+                        </div>
+
+                        <div class="recipe_rating">
+                            <div class="image">
+                                <img src="../../../../assets/icons/star-rating.svg" alt="" srcset="">
+                                <h3 class="number_rating">{{recipe.rating}}</h3>
+                            </div>
+                        </div>
+
+                        <div class="recipe_selected">
+
+                            <div (click)="addFavorites(recipe)" class="image">
+                                <img *ngIf="!isFavorite(recipe)" src="../../../../assets/icons/not-selected.svg" alt=""
+                                    srcset="">
+                                <img *ngIf="isFavorite(recipe)" src="../../../../assets/icons/selected.svg" alt=""
+                                    srcset="">
+                            </div>
+
+                        </div>
+
+                        <div class="resipe_share" (click)="shareMenuActive()">
+                            <div class="image">
+                                <img src="../../../../assets/icons/share.svg" alt="" srcset="">
+                            </div>
+
+                        </div>
+                        <div class="share_menu" [ngClass]="{ active: shareMenu }" (mouseleave)="onMouseLeave()">
+                            <div class="image">
+                                <img src="../../../../assets/icons/social/viber.svg" alt="">
+                            </div>
+                            <div class="image">
+                                <img src="../../../../assets/icons/social/telegram.svg" alt="">
+                            </div>
+                            <div class="image">
+                                <img src="../../../../assets/icons/social/facebook.svg" alt="">
+                            </div>
+                            <div class="image insta">
+                                <img src="../../../../assets/icons/social/instagram.svg" alt="">
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
                 </div>
-                <div class="recipe_titel">
-                    <h2>{{recipe.recipeTitle}}</h2>
-                </div>
+
             </li>
         </ul>
     </div>

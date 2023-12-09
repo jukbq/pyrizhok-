@@ -13,7 +13,7 @@ textarea {
 }
 input.input-error,
 textarea.input-error {
-  border-color: var(--clr-red);
+  border-color: var(--clr-one);
   box-shadow: none;
 }
 input.valid,
@@ -23,17 +23,17 @@ textarea.valid {
 
 textarea:focus,
 input:focus {
-  border-color: var(--clr-green);
+  border-color: var(--clr-two);
   box-shadow: none;
   outline: none;
 }
 textarea:focus.input-error,
 input:focus.input-error {
-  border-color: var(--clr-red);
+  border-color: var(--clr-one);
 }
 textarea:focus.valid,
 input:focus.valid {
-  border-color: var(--clr-green);
+  border-color: var(--clr-two);
 }
 
 input[type=date]::-webkit-calendar-picker-indicator {
@@ -95,8 +95,8 @@ input[type=date] {
   top: 4px;
   width: 6px;
   height: 10px;
-  border-right: 2px solid var(--clr-red);
-  border-bottom: 2px solid var(--clr-red);
+  border-right: 2px solid var(--clr-one);
+  border-bottom: 2px solid var(--clr-one);
   z-index: 1;
   transform: scale(0) rotate(45deg);
   backface-visibility: hidden;
@@ -154,7 +154,7 @@ input[type=date] {
   transform: scale(0) rotate(45deg);
   backface-visibility: hidden;
   transition: var(--transition);
-  background: var(--clr-red);
+  background: var(--clr-one);
   border-radius: 100%;
 }
 .radio_box label input:checked + span::after {
@@ -184,7 +184,7 @@ select {
   text-align: center;
 }
 .select_user_menu.active {
-  color: var(--clr-red);
+  color: var(--clr-one);
 }
 
 .select .mdc-text-field--filled:not(.mdc-text-field--disabled) {
@@ -232,7 +232,7 @@ section::-webkit-scrollbar {
 }
 section::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background: var(--clr-green);
+  background: var(--clr-two);
 }
 section .table .filter {
   width: 100%;

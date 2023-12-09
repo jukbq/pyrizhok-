@@ -1,0 +1,95 @@
+.personal_office {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 11vh;
+
+    h1 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .user_menu {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+
+
+        .menu_item {
+            width: 20%;
+            height: 50px;
+
+            button {
+                width: 100%;
+                height: 100%;
+                background: var(--clr-two);
+                border: none;
+                border-top: 0.5px solid var(--clr-grey);
+                border-bottom: 0.5px solid var(--clr-grey);
+                border-left: 0.5px solid var(--clr-grey);
+                display: inline-block;
+                font-weight: 600;
+                text-transform: uppercase;
+                cursor: pointer;
+                transform: skew(-21deg);
+
+                span {
+                    display: inline-block;
+                    transform: skew(21deg);
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 100%;
+                    left: 0;
+                    background: var(--clr-one);
+                    opacity: 0;
+                    z-index: -1;
+                    transition: all 0.5s;
+                }
+
+                &:hover {
+                    color: #fff;
+
+                    &::before {
+                        left: 0;
+                        right: 0;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            &.active {
+                button {
+                    color: #fff;
+
+                    &::before {
+                        left: 0;
+                        right: 0;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .exit {
+                border-right: 0.5px solid var(--clr-grey);
+            }
+        }
+
+
+    }
+
+    .user_category {
+        width: 100%;
+
+    }
+}

@@ -16,6 +16,10 @@ export interface MethodCooking {
     methodCookingName: string;
 }
 
+export interface DifficultyPreparation {
+    list: string;
+    linamest: string;
+}
 
 export interface RecipesRequest {
     //Сторінка 1
@@ -26,7 +30,7 @@ export interface RecipesRequest {
     autor: string;
     methodCooking: MethodCooking[];
     tools: string[];
-    difficultyPreparation: string;
+    difficultyPreparation: DifficultyPreparation[];
     bestSeason: string;
 
     //Сторінка 2

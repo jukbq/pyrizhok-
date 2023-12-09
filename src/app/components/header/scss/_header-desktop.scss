@@ -38,7 +38,7 @@ header {
                     text-decoration: none;
 
                     &:hover {
-                        color: var(--clr-green);
+                        color: var(--clr-two);
                     }
                 }
 
@@ -48,12 +48,12 @@ header {
                     align-items: center;
                     padding: 3px 12px;
                     border-radius: 12px;
-                    background: var(--clr-green);
+                    background: var(--clr-two);
                     transition: var(--transition);
                     color: var(--clr-white);
 
                     &:hover {
-                        background: var(--clr-red);
+                        background: var(--clr-one);
                         color: var(--clr-white);
                     }
                 }
@@ -69,7 +69,7 @@ header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--clr-mint);
+            background: var(--clr-one);
             border-radius: 16px;
             transition: var(--transition);
 
@@ -125,7 +125,7 @@ header {
                                 bottom: 0;
                                 left: 50%;
                                 transform: translateX(-50%);
-                                background: var(--clr-green);
+                                background: var(--clr-two);
                                 width: 0;
                                 height: 3px;
                                 border-radius: 3px 3px 0 0;
@@ -134,7 +134,7 @@ header {
 
 
                             &:hover {
-                                color: var((--clr-green));
+                                color: var(--clr-two);
 
                                 &::before {
                                     width: 100%;
@@ -149,7 +149,7 @@ header {
                         }
 
                         &.active a {
-                            color: var((--clr-green));
+                            color: var((--clr-two));
 
                             &::before {
                                 width: 100%;
@@ -206,7 +206,7 @@ header {
                             width: 24px;
                             height: 24px;
                             border-radius: 100%;
-                            background: var(--clr-red);
+                            background: var(--clr-one);
                         }
                     }
 
@@ -269,11 +269,11 @@ header {
                         line-height: 1em;
                         border-radius: 12px;
                         color: var(--clr-white);
-                        background: var(--clr-red);
+                        background: var(--clr-one);
                         transition: var(--transition);
 
                         &:hover {
-                            background: var(--clr-green);
+                            background: var(--clr-two);
                         }
 
                         svg {

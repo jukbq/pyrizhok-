@@ -10,9 +10,10 @@
      border-radius: 12px;
      text-overflow: ellipsis;
      transition: var(--transition);
+     box-shadow: 10px 10px 20px rgba(0, 0, 0, .05);
 
      &.input-error {
-         border-color: var(--clr-red);
+         border-color: var(--clr-one);
          box-shadow: none;
 
      }
@@ -30,17 +31,17 @@
 
  textarea:focus,
  input:focus {
-     border-color: var(--clr-green);
+     border-color: var(--clr-two);
      box-shadow: none;
      outline: none;
 
      &.input-error {
-         border-color: var(--clr-red);
+         border-color: var(--clr-one);
 
      }
 
      &.valid {
-         border-color: var(--clr-green);
+         border-color: var(--clr-two);
 
      }
 
@@ -110,8 +111,8 @@
              top: 4px;
              width: 6px;
              height: 10px;
-             border-right: 2px solid var(--clr-red);
-             border-bottom: 2px solid var(--clr-red);
+             border-right: 2px solid var(--clr-one);
+             border-bottom: 2px solid var(--clr-one);
              z-index: 1;
              transform: scale(0) rotate(45deg);
              backface-visibility: hidden;
@@ -178,7 +179,7 @@
                  transform: scale(0) rotate(45deg);
                  backface-visibility: hidden;
                  transition: var(--transition);
-                 background: var(--clr-red);
+                 background: var(--clr-one);
                  border-radius: 100%;
              }
 
@@ -218,7 +219,7 @@
      text-align: center;
 
      &.active {
-         color: var(--clr-red);
+         color: var(--clr-one);
      }
  }
 
